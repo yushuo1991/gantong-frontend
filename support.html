@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家长支持 - 感觉统合训练中心</title>
+    
+    <!-- 预加载字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS动画库 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* === 基础样式（与其他页面保持一致） === */
+        :root {
+            --primary-color: #db5f7c;
+            --primary-light: #fe8b95;
+            --primary-dark: #c74665;
+            --secondary-color: #342f82;
+            --secondary-light: #6862bb;
+            --accent-color: #ecda1d;
+            --accent-light: #ffbe50;
+            --success-color: #4ed0e8;
+            --warning-color: #ffbe50;
+            --error-color: #db5f7c;
+            
+            --text-primary: #2d2438;
+            --text-secondary: #5a4d6b;
+            --text-light: #8b7a94;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #faf9fb;
+            --bg-accent: #f8f6fa;
+            
+            --border-color: #e8e4eb;
+            --border-light: #f0ecf3;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(52, 47, 130, 0.08);
+            --shadow-md: 0 4px 6px -1px rgba(52, 47, 130, 0.12), 0 2px 4px -1px rgba(219, 95, 124, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(52, 47, 130, 0.15), 0 4px 6px -2px rgba(219, 95, 124, 0.10);
+            --shadow-xl: 0 20px 25px -5px rgba(52, 47, 130, 0.18), 0 10px 10px -5px rgba(219, 95, 124, 0.12);
+            
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-2xl: 1.5rem;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6; color: var(--text-primary); background-color: var(--bg-secondary); overflow-x: hidden;
+        }
+
+        /* === 导航栏样式 === */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease;
+        }
+        .navbar.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: var(--shadow-lg); }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex;
+            align-items: center; justify-content: space-between; height: 80px;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius-xl); display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 24px;
+        }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+        .logo-subtitle { font-size: 0.875rem; color: var(--text-secondary); font-weight: 500; }
+        .logo-image { height: 60px; width: auto; max-width: 250px; object-fit: contain; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav-link {
+            text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: 0.95rem;
+            transition: all 0.3s ease; padding: 0.75rem 1rem; border-radius: var(--border-radius-lg);
+        }
+        .nav-link:hover { color: var(--primary-color); background-color: var(--bg-accent); }
+        .nav-link.active { color: var(--primary-color); background-color: var(--bg-accent); }
+        .mobile-menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--text-primary); cursor: pointer; }
+
+        /* === 主要内容区域 === */
+        .main-content { padding-top: 120px; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        /* === 页面标题区域 === */
+        .page-header {
+            text-align: center; padding: 4rem 0;
+            background: linear-gradient(135deg, 
+                rgba(236, 72, 153, 0.05) 0%, 
+                rgba(219, 39, 119, 0.03) 50%,
+                rgba(190, 24, 93, 0.05) 100%);
+            margin-bottom: 4rem; border-radius: var(--border-radius-2xl);
+        }
+        .page-title {
+            font-size: 3rem; font-weight: 800;
+            background: linear-gradient(135deg, #EC4899, #DB2777);
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .page-subtitle { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        /* === 支持服务网格 === */
+        .support-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 2rem; 
+            margin-bottom: 4rem; 
+        }
+
+        .support-card {
+            background: var(--bg-primary); border-radius: var(--border-radius-2xl);
+            padding: 2.5rem; box-shadow: var(--shadow-lg); border: 1px solid var(--border-light);
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .support-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.05), transparent);
+            transition: left 0.5s;
+        }
+        .support-card:hover::before { left: 100%; }
+        .support-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); }
+
+        .support-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .support-icon {
+            width: 70px; height: 70px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.75rem; color: white;
+        }
+        .support-title { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); }
+        .support-description { color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.7; }
+
+        .support-features { list-style: none; margin-bottom: 2rem; }
+        .support-features li {
+            display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;
+            padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--border-radius-lg);
+            transition: all 0.3s ease;
+        }
+        .support-features li:hover { background: var(--bg-accent); transform: translateX(4px); }
+        .support-features i { color: #EC4899; flex-shrink: 0; }
+
+        .support-action { margin-top: auto; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 1rem 2rem; border-radius: var(--border-radius-xl); font-weight: 600;
+            text-decoration: none; border: none; cursor: pointer; font-size: 1rem;
+            transition: all 0.3s ease; width: 100%; justify-content: center;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #EC4899, #DB2777);
+            color: white; box-shadow: var(--shadow-lg);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-xl); }
+
+        /* === 常见问题区域 === */
+        .faq-section { margin: 4rem 0; }
+        .section-title {
+            font-size: 2.5rem; font-weight: 700; text-align: center;
+            color: var(--text-primary); margin-bottom: 3rem;
+        }
+
+        .faq-grid { display: grid; gap: 1.5rem; }
+        .faq-item {
+            background: var(--bg-primary); border-radius: var(--border-radius-xl);
+            border: 1px solid var(--border-light); overflow: hidden; transition: all 0.3s ease;
+        }
+        .faq-item:hover { box-shadow: var(--shadow-md); }
+
+        .faq-question {
+            padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; background: var(--bg-secondary); font-weight: 600;
+            color: var(--text-primary); transition: all 0.3s ease;
+        }
+        .faq-question:hover { background: var(--bg-accent); }
+        .faq-question i { color: #EC4899; transition: transform 0.3s ease; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            background: var(--bg-primary);
+        }
+        .faq-item.active .faq-answer { max-height: 500px; }
+        .faq-answer-content { padding: 0 2rem 2rem 2rem; color: var(--text-secondary); line-height: 1.7; }
+
+        /* === 联系方式区域 === */
+        .contact-section {
+            background: linear-gradient(135deg, #EC4899, #DB2777);
+            color: white; padding: 4rem 2rem; border-radius: var(--border-radius-2xl);
+            text-align: center; margin: 4rem 0;
+        }
+        .contact-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .contact-subtitle { font-size: 1.25rem; opacity: 0.9; margin-bottom: 3rem; }
+
+        .contact-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem; max-width: 800px; margin: 0 auto;
+        }
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1); padding: 2rem;
+            border-radius: var(--border-radius-xl); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .contact-icon {
+            width: 60px; height: 60px; margin: 0 auto 1rem;
+            background: rgba(255, 255, 255, 0.2); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+        .contact-label { font-weight: 600; margin-bottom: 0.5rem; }
+        .contact-value { opacity: 0.9; }
+
+        /* === 资源下载区域 === */
+        .resources-section { margin: 4rem 0; }
+        .resources-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .resource-card {
+            background: var(--bg-primary); border-radius: var(--border-radius-xl);
+            padding: 2rem; box-shadow: var(--shadow-md); border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+        .resource-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+        .resource-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .resource-icon {
+            width: 50px; height: 50px; border-radius: var(--border-radius-lg);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; color: white;
+            background: linear-gradient(135deg, #10B981, #059669);
+        }
+        .resource-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); }
+        .resource-description { color: var(--text-secondary); margin-bottom: 1.5rem; }
+        .resource-size { color: var(--text-light); font-size: 0.875rem; margin-bottom: 1.5rem; }
+
+        /* === 响应式设计 === */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-toggle { display: block; }
+            .page-title { font-size: 2rem; }
+            .support-grid, .resources-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .page-header, .support-card, .contact-section { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.njch.com.cn/images/logo1.png" alt="南京市儿童医院" class="logo-image">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="assessment.html" class="nav-link">智能测评</a></li>
+                <li><a href="training.html" class="nav-link">训练指南</a></li>
+                <li><a href="knowledge.html" class="nav-link">专业知识</a></li>
+                <li><a href="support.html" class="nav-link active">家长支持</a></li>
+            </ul>
+            <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题区域 -->
+            <div class="page-header" data-aos="fade-up">
+                <h1 class="page-title">家长支持平台</h1>
+                <p class="page-subtitle">专业团队全程陪伴，为您提供全方位的指导和支持</p>
+            </div>
+
+            <!-- 支持服务网格 -->
+            <div class="support-grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="support-card">
+                    <div class="support-header">
+                        <div class="support-icon" style="background: linear-gradient(135deg, #EC4899, #DB2777);">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3 class="support-title">专家在线咨询</h3>
+                    </div>
+                    <p class="support-description">
+                        与资深感统治疗师一对一交流，获得个性化的专业建议和指导方案。
+                    </p>
+                    <ul class="support-features">
+                        <li><i class="fas fa-check"></i><span>24小时内专业回复</span></li>
+                        <li><i class="fas fa-check"></i><span>个性化训练建议</span></li>
+                        <li><i class="fas fa-check"></i><span>疑难问题解答</span></li>
+                        <li><i class="fas fa-check"></i><span>定期跟踪指导</span></li>
+                    </ul>
+                    <div class="support-action">
+                        <a href="consultation.html" class="btn btn-primary">
+                            <i class="fas fa-comments"></i>
+                            立即咨询
+                        </a>
+                    </div>
+                </div>
+
+                <div class="support-card">
+                    <div class="support-header">
+                        <div class="support-icon" style="background: linear-gradient(135deg, #10B981, #059669);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="support-title">家长社区</h3>
+                    </div>
+                    <p class="support-description">
+                        加入家长互助社区，分享经验、交流心得，与其他家长一起陪伴孩子成长。
+                    </p>
+                    <ul class="support-features">
+                        <li><i class="fas fa-check"></i><span>经验分享交流</span></li>
+                        <li><i class="fas fa-check"></i><span>同龄家长互助</span></li>
+                        <li><i class="fas fa-check"></i><span>专家定期分享</span></li>
+                        <li><i class="fas fa-check"></i><span>线下活动组织</span></li>
+                    </ul>
+                    <div class="support-action">
+                        <a href="community.html" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i>
+                            加入社区
+                        </a>
+                    </div>
+                </div>
+
+                <div class="support-card">
+                    <div class="support-header">
+                        <div class="support-icon" style="background: linear-gradient(135deg, #F59E0B, #F97316);">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="support-title">家长课堂</h3>
+                    </div>
+                    <p class="support-description">
+                        定期举办线上线下家长课堂，系统学习感统知识和家庭训练技巧。
+                    </p>
+                    <ul class="support-features">
+                        <li><i class="fas fa-check"></i><span>系统课程学习</span></li>
+                        <li><i class="fas fa-check"></i><span>实操技能培训</span></li>
+                        <li><i class="fas fa-check"></i><span>专家面对面指导</span></li>
+                        <li><i class="fas fa-check"></i><span>学习证书认证</span></li>
+                    </ul>
+                    <div class="support-action">
+                        <a href="courses.html" class="btn btn-primary">
+                            <i class="fas fa-calendar-alt"></i>
+                            查看课程
+                        </a>
+                    </div>
+                </div>
+
+                <div class="support-card">
+                    <div class="support-header">
+                        <div class="support-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3 class="support-title">电话热线</h3>
+                    </div>
+                    <p class="support-description">
+                        提供专业的电话咨询服务，遇到紧急情况或重要问题时可以直接通话沟通。
+                    </p>
+                    <ul class="support-features">
+                        <li><i class="fas fa-check"></i><span>工作日9:00-17:00</span></li>
+                        <li><i class="fas fa-check"></i><span>紧急情况优先处理</span></li>
+                        <li><i class="fas fa-check"></i><span>专业治疗师接听</span></li>
+                        <li><i class="fas fa-check"></i><span>免费咨询服务</span></li>
+                    </ul>
+                    <div class="support-action">
+                        <a href="tel:025-83117500" class="btn btn-primary">
+                            <i class="fas fa-phone"></i>
+                            拨打热线
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 常见问题区域 -->
+            <section class="faq-section" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="section-title">常见问题解答</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>感觉统合失调的孩子智力有问题吗？</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                感觉统合失调与智力水平没有直接关系。许多感统失调的孩子智力完全正常，甚至很聪明。
+                                感统失调主要影响的是大脑处理感觉信息的能力，进而影响学习效率和行为表现，
+                                但这并不意味着孩子的智力有问题。通过适当的感统训练，孩子的各项能力都能得到显著改善。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>感统训练什么时候开始最合适？</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                感统训练越早开始效果越好。0-7岁是感觉统合发展的黄金期，特别是0-3岁是最关键的时期。
+                                这个阶段大脑的可塑性最强，通过适当的感统刺激和训练，能够有效促进神经系统的发育。
+                                即使超过了黄金期，8-12岁的孩子通过系统训练仍然能够获得良好的改善效果。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>家庭训练能替代专业治疗吗？</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                家庭训练是专业治疗的重要补充，但不能完全替代。专业治疗师能够提供准确的评估、
+                                个性化的训练方案和专业的指导。家庭训练的优势在于频率高、环境自然，
+                                能够将训练融入日常生活。最佳效果是专业治疗与家庭训练相结合，
+                                在治疗师的指导下进行系统的家庭训练。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>感统训练需要多长时间才能看到效果？</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                感统训练的效果因人而异，通常需要3-6个月才能看到明显改善。轻度问题可能在1-3个月内就有改善，
+                                中重度问题可能需要6个月到1年的时间。训练效果还与孩子的年龄、问题的严重程度、
+                                训练的频率和质量等因素有关。重要的是要坚持训练，保持耐心，
+                                在专业指导下循序渐进地进行。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>如何判断孩子的感统训练是否有效？</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                可以从多个方面观察训练效果：1）行为表现：注意力更集中，情绪更稳定，配合度提高；
+                                2）运动能力：平衡性、协调性、精细动作等有改善；3）学习表现：专注时间延长，
+                                学习效率提高；4）社交能力：与人互动更自然，自信心增强；5）日常生活：
+                                自理能力提升，对感觉刺激的反应更适当。建议定期进行评估，
+                                记录孩子的进步情况。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 资源下载区域 -->
+            <section class="resources-section" data-aos="fade-up" data-aos-delay="300">
+                <h2 class="section-title">资源下载</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h3 class="resource-title">感统训练手册</h3>
+                        </div>
+                        <p class="resource-description">
+                            详细的家庭感统训练指导手册，包含各年龄段的训练方法和注意事项。
+                        </p>
+                        <p class="resource-size">文件大小：2.5MB | PDF格式</p>
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="downloadResource('感统训练手册.pdf')">
+                            <i class="fas fa-download"></i>
+                            立即下载
+                        </a>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 class="resource-title">训练视频教程</h3>
+                        </div>
+                        <p class="resource-description">
+                            专业治疗师示范的感统训练视频，让您直观学习正确的训练方法。
+                        </p>
+                        <p class="resource-size">时长：45分钟 | MP4格式</p>
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="watchVideo('感统训练视频教程')">
+                            <i class="fas fa-play"></i>
+                            在线观看
+                        </a>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="resource-title">观察记录表</h3>
+                        </div>
+                        <p class="resource-description">
+                            标准化的儿童行为观察记录表，帮助您系统记录孩子的表现变化。
+                        </p>
+                        <p class="resource-size">文件大小：1.2MB | Excel格式</p>
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="downloadResource('观察记录表.xlsx')">
+                            <i class="fas fa-download"></i>
+                            立即下载
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 联系方式区域 -->
+            <section class="contact-section" data-aos="fade-up" data-aos-delay="400">
+                <h2 class="contact-title">联系我们</h2>
+                <p class="contact-subtitle">专业团队随时为您提供帮助和支持</p>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-label">咨询热线</div>
+                        <div class="contact-value">025-83117500</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-label">邮箱地址</div>
+                        <div class="contact-value">sensory@njch.com.cn</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-label">医院地址</div>
+                        <div class="contact-value">南京市鼓楼区中山路100号</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-label">服务时间</div>
+                        <div class="contact-value">周一至周五 8:00-17:30</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 初始化AOS动画
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: true, offset: 100 });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // FAQ折叠功能
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', function() {
+                // 关闭其他打开的FAQ
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                // 切换当前FAQ
+                item.classList.toggle('active');
+            });
+        });
+
+        // 移动端菜单切换
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 支持卡片增强效果
+        document.querySelectorAll('.support-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-12px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+        });
+
+        // 资源下载功能
+        function downloadResource(filename) {
+            // 模拟下载过程
+            const btn = event.target.closest('.btn');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 准备下载...';
+            btn.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                alert(`${filename} 下载完成！文件已保存到您的下载文件夹。`);
+                btn.innerHTML = originalText;
+                btn.style.pointerEvents = 'auto';
+            }, 2000);
+        }
+
+        // 视频观看功能
+        function watchVideo(videoTitle) {
+            alert(`正在打开"${videoTitle}"视频播放页面...`);
+            // 这里可以跳转到视频播放页面或打开模态窗口
+        }
+    </script>
+</body>
+</html> 

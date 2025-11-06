@@ -1,0 +1,4340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>训练指南 - 感觉统合训练中心</title>
+    
+    <!-- 预加载字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS动画库 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* === 全局基础样式 === */
+        :root {
+            --primary-color: #db5f7c;
+            --primary-light: #fe8b95;
+            --primary-dark: #c74665;
+            --secondary-color: #342f82;
+            --secondary-light: #6862bb;
+            --accent-color: #ecda1d;
+            --accent-light: #ffbe50;
+            --success-color: #4ed0e8;
+            --warning-color: #ffbe50;
+            --error-color: #db5f7c;
+            
+            --text-primary: #2d2438;
+            --text-secondary: #5a4d6b;
+            --text-light: #8b7a94;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #faf9fb;
+            --bg-accent: #f8f6fa;
+            
+            --border-color: #e8e4eb;
+            --border-light: #f0ecf3;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(52, 47, 130, 0.08);
+            --shadow-md: 0 4px 6px -1px rgba(52, 47, 130, 0.12), 0 2px 4px -1px rgba(219, 95, 124, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(52, 47, 130, 0.15), 0 4px 6px -2px rgba(219, 95, 124, 0.10);
+            --shadow-xl: 0 20px 25px -5px rgba(52, 47, 130, 0.18), 0 10px 10px -5px rgba(219, 95, 124, 0.12);
+            
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-2xl: 1.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+            overflow-x: hidden;
+        }
+
+        /* === 导航栏样式 === */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .logo-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            max-width: 250px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius-lg);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            background-color: var(--bg-accent);
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+            background-color: var(--bg-accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* === 主要内容区域 === */
+        .main-content {
+            padding-top: 120px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* === 页面标题区域 === */
+        .page-header {
+            text-align: center; padding: 4rem 0;
+            background: linear-gradient(135deg, 
+                rgba(78, 208, 232, 0.08) 0%, 
+                rgba(236, 218, 29, 0.06) 25%,
+                rgba(219, 95, 124, 0.05) 50%,
+                rgba(52, 47, 130, 0.07) 75%,
+                rgba(255, 190, 80, 0.06) 100%);
+            margin-bottom: 4rem; border-radius: var(--border-radius-2xl);
+            position: relative; overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(78, 208, 232, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 218, 29, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(219, 95, 124, 0.10) 0%, transparent 50%);
+            z-index: 1;
+        }
+        .page-title {
+            font-size: 3rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--success-color), var(--accent-color), var(--primary-color));
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem; position: relative; z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* === 训练分类导航 === */
+        .training-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 1rem 2rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border-radius: var(--border-radius-xl);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-button:hover {
+            border-color: var(--success-color);
+            color: var(--success-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, var(--success-color), #22C55E);
+            color: white;
+            border-color: var(--success-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* === 训练内容区域 === */
+        .training-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .training-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === 训练卡片 === */
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .training-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-2xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .training-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), transparent);
+            transition: left 0.5s;
+        }
+
+        .training-card:hover::before {
+            left: 100%;
+        }
+
+        .training-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .training-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .training-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .training-icon.tactile {
+            background: linear-gradient(135deg, #F59E0B, #F97316);
+        }
+
+        .training-icon.vestibular {
+            background: linear-gradient(135deg, #10B981, #059669);
+        }
+
+        .training-icon.proprioception {
+            background: linear-gradient(135deg, #6366F1, #4F46E5);
+        }
+
+        .training-icon.visual {
+            background: linear-gradient(135deg, #EC4899, #DB2777);
+        }
+
+        .training-icon.auditory {
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+        }
+
+        .training-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .training-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .training-activities {
+            list-style: none;
+        }
+
+        .training-activities li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-lg);
+            transition: all 0.3s ease;
+        }
+
+        .training-activities li:hover {
+            background: var(--bg-accent);
+            transform: translateX(4px);
+        }
+
+        .training-activities i {
+            color: var(--success-color);
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        .training-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: var(--border-radius-sm);
+            padding: 0.25rem;
+            margin: -0.25rem;
+        }
+
+        .training-item:hover {
+            background-color: var(--bg-accent);
+            color: var(--primary-color);
+            transform: translateX(2px);
+        }
+
+        /* === 训练详情弹出框 === */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-2xl);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .modal-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--success-color), #22C55E);
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--bg-accent);
+            color: var(--primary-color);
+        }
+
+        .modal-body {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .training-detail-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .training-detail-section h4 {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .training-steps {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .training-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-lg);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .step-number {
+            background: var(--success-color);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .safety-alert {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .safety-alert h5 {
+            color: #DC2626;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .benefit-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .benefit-box h5 {
+            color: var(--success-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* === 安全提醒区域 === */
+        .safety-notice {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border: 2px solid var(--warning-color);
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .safety-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 1rem;
+        }
+
+        .safety-list {
+            list-style: none;
+            color: #92400E;
+        }
+
+        .safety-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .safety-list i {
+            color: var(--warning-color);
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        /* === 年龄分组 === */
+        .age-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .age-tab {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border-radius: var(--border-radius-lg);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .age-tab:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .age-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* === 年龄训练内容 === */
+        .age-training-content {
+            display: none;
+        }
+
+        .age-training-content.active {
+            display: block;
+        }
+
+        /* === 响应式设计 === */
+        @media (max-width: 1024px) {
+            .container { padding: 0 1.5rem; }
+            .training-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .nav-button { padding: 0.875rem 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1rem; }
+            .main-content { padding-top: 100px; }
+            
+            /* 导航菜单 */
+            .nav-links { display: none; }
+            .mobile-menu-toggle { display: block; }
+            
+            /* 页面头部 */
+            .page-header { padding: 2rem 0; }
+            .page-title { font-size: 2rem; line-height: 1.2; }
+            .page-subtitle { font-size: 1rem; }
+
+            /* 训练导航 */
+            .training-nav {
+                flex-direction: column; align-items: center; gap: 0.75rem;
+            }
+            .nav-button {
+                width: 100%; max-width: 280px; justify-content: center;
+                padding: 0.875rem 1rem;
+            }
+
+            /* 年龄标签 */
+            .age-tabs {
+                flex-direction: column; align-items: center; gap: 0.5rem;
+            }
+            .age-tab {
+                width: 100%; max-width: 200px; text-align: center;
+                padding: 0.75rem 1rem;
+            }
+
+            /* 训练卡片网格 */
+            .training-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .training-card { padding: 1.5rem; }
+            .training-header { flex-direction: column; text-align: center; gap: 1rem; }
+            .training-icon { margin: 0 auto; }
+            .training-title { font-size: 1.25rem; }
+            
+            /* 训练活动列表 */
+            .training-activities li {
+                padding: 0.75rem; margin-bottom: 0.75rem;
+                border-radius: 8px;
+            }
+            .training-item { font-size: 0.9rem; }
+
+            /* 安全提示 */
+            .safety-notice { padding: 1.5rem; }
+            .safety-content { gap: 1rem; }
+
+            /* 弹窗适配 */
+            .modal-content {
+                width: 90%; max-width: none; margin: 2rem auto;
+                max-height: 85vh; overflow-y: auto;
+            }
+            .modal-header { padding: 1rem; }
+            .modal-body { padding: 1rem; }
+            .training-detail-section { margin-bottom: 1.5rem; }
+            .training-detail-section h4 { font-size: 1.1rem; }
+            .step-number { width: 24px; height: 24px; font-size: 0.8rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 0.75rem; }
+            .page-title { font-size: 1.75rem; }
+            
+            /* 导航按钮 */
+            .nav-button { 
+                padding: 0.75rem; font-size: 0.9rem;
+                max-width: 100%;
+            }
+            .nav-button i { margin-right: 0.5rem; }
+            
+            /* 年龄标签 */
+            .age-tab { 
+                padding: 0.625rem 0.875rem; font-size: 0.9rem;
+                max-width: 100%;
+            }
+            
+            /* 训练卡片 */
+            .training-card { padding: 1rem; }
+            .training-icon { width: 45px; height: 45px; font-size: 1.2rem; }
+            .training-title { font-size: 1.1rem; }
+            .training-description { font-size: 0.9rem; }
+            
+            /* 训练活动 */
+            .training-activities li { padding: 0.625rem; }
+            .training-item { font-size: 0.85rem; line-height: 1.4; }
+            
+            /* 安全提示 */
+            .safety-notice { padding: 1rem; }
+            .safety-title { font-size: 1.1rem; }
+            .safety-content { flex-direction: column; gap: 0.75rem; }
+            .safety-item { padding: 0.75rem; font-size: 0.85rem; }
+            
+            /* 弹窗 */
+            .modal-content {
+                width: 95%; margin: 1rem auto;
+                max-height: 90vh;
+            }
+            .modal-header { padding: 0.875rem; }
+            .modal-title { font-size: 1.2rem; }
+            .modal-body { padding: 0.875rem; }
+            .training-detail-section h4 { font-size: 1rem; }
+            .training-steps li { padding: 0.5rem; font-size: 0.85rem; }
+            .step-number { width: 22px; height: 22px; font-size: 0.75rem; }
+            .benefit-box, .safety-alert { padding: 0.875rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.njch.com.cn/images/logo1.png" alt="南京市儿童医院" class="logo-image">
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="assessment.html" class="nav-link">智能测评</a></li>
+                <li><a href="training.html" class="nav-link active">训练指南</a></li>
+                <li><a href="knowledge.html" class="nav-link">专业知识</a></li>
+                <li><a href="support.html" class="nav-link">家长支持</a></li>
+            </ul>
+            
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题区域 -->
+            <div class="page-header" data-aos="fade-up">
+                <h1 class="page-title">家庭训练指南</h1>
+                <p class="page-subtitle">
+                    专业的感觉统合训练方案，让您在家中就能为孩子提供有效的感统训练
+                </p>
+            </div>
+
+            <!-- 训练分类导航 -->
+            <div class="training-nav" data-aos="fade-up" data-aos-delay="100">
+                <button class="nav-button active" data-category="age">
+                    <i class="fas fa-users"></i>
+                    按年龄分组
+                </button>
+                <button class="nav-button" data-category="system">
+                    <i class="fas fa-brain"></i>
+                    按感觉系统
+                </button>
+                <button class="nav-button" data-category="problem">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    按问题类型
+                </button>
+            </div>
+
+            <!-- 按年龄分组的训练内容 -->
+            <div class="training-content active" id="age-content" data-aos="fade-up" data-aos-delay="200">
+                <div class="age-tabs">
+                    <button class="age-tab active" data-age="0-3">0-3岁</button>
+                    <button class="age-tab" data-age="3-6">3-6岁</button>
+                    <button class="age-tab" data-age="6+">6岁以上</button>
+                </div>
+
+                <!-- 0-3岁训练内容 -->
+                <div class="age-training-content active" id="age-0-3">
+                    <div class="training-grid">
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon tactile">
+                                    <i class="fas fa-hand-paper"></i>
+                                </div>
+                                <h3 class="training-title">触觉训练</h3>
+                            </div>
+                            <p class="training-description">
+                                通过各种材质和温度的刺激，帮助宝宝建立良好的触觉基础
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="温水泡手">温水泡手：用温水让宝宝玩水，感受水的温度和流动</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="材质探索">材质探索：提供毛巾、丝绸、绒毛玩具等不同材质</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="抚触按摩">抚触按摩：每日进行全身温柔的抚触按摩</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="沙土游戏">沙土游戏：在安全的沙池中让宝宝抓取沙土</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon vestibular">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <h3 class="training-title">前庭觉训练</h3>
+                            </div>
+                            <p class="training-description">
+                                温和的摇摆和平衡训练，促进前庭觉发展
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="轻柔摇摆">轻柔摇摆：在摇篮或秋千中进行轻柔摇摆</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="抱姿变化">抱姿变化：经常改变抱宝宝的姿势和方向</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="爬行练习">爬行练习：鼓励宝宝多爬行，提供爬行通道</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="平衡游戏">平衡游戏：在安全垫上进行简单的平衡活动</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon proprioception">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <h3 class="training-title">本体觉训练</h3>
+                            </div>
+                            <p class="training-description">
+                                通过推拉活动建立身体意识和力量感知
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="推球游戏">推球游戏：让宝宝推动大型软球</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="拉拽玩具">拉拽玩具：提供可以拉动的玩具车等</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="攀爬活动">攀爬活动：在软垫上进行安全的攀爬</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="重力游戏">重力游戏：使用重量适中的玩具进行游戏</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon visual">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3 class="training-title">视觉训练</h3>
+                            </div>
+                            <p class="training-description">
+                                发展视觉注意力和追视能力
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="追视游戏">追视游戏：用鲜艳玩具吸引宝宝视线跟随</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="颜色认知">颜色认知：接触不同颜色的物品和图片</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="镜子游戏">镜子游戏：在镜子前进行各种表情和动作</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="图书阅读">图书阅读：看颜色鲜艳的图画书</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3-6岁训练内容 -->
+                <div class="age-training-content" id="age-3-6">
+                    <div class="training-grid">
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon tactile">
+                                    <i class="fas fa-hand-paper"></i>
+                                </div>
+                                <h3 class="training-title">精细触觉训练</h3>
+                            </div>
+                            <p class="training-description">
+                                发展精细触觉辨别能力和触觉防御正常化
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="沙盘游戏">沙盘游戏：在沙盘中寻找隐藏的小物件</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="粘土制作">粘土制作：用橡皮泥或粘土进行创作</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="触觉袋">触觉袋：在不看的情况下摸袋子里的物品</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span class="training-item" data-detail="刷身游戏">刷身游戏：用软毛刷轻刷身体各部位</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon vestibular">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <h3 class="training-title">前庭觉强化训练</h3>
+                            </div>
+                            <p class="training-description">
+                                增强平衡能力和空间定向感
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>平衡木行走：在地面平衡木上行走</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>旋转游戏：适度的旋转椅或转盘活动</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>秋千摇摆：各种方向的秋千摇摆</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>单脚站立：练习单脚站立保持平衡</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon proprioception">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <h3 class="training-title">本体觉协调训练</h3>
+                            </div>
+                            <p class="training-description">
+                                发展身体协调性和力量控制能力
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>跳跃游戏：双脚跳、单脚跳、跳绳等</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>推重物：推装满书的小车或重箱子</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>拉力训练：拔河、拉橡皮筋等活动</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>动作模仿：模仿各种动物的动作</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon visual">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3 class="training-title">视觉认知训练</h3>
+                            </div>
+                            <p class="training-description">
+                                提升视觉注意力和视觉认知能力
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>拼图游戏：从简单到复杂的拼图练习</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>找不同：在图片中找出不同之处</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>迷宫游戏：用笔走迷宫路径</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>配对游戏：各种形状、颜色的配对</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon auditory">
+                                    <i class="fas fa-headphones"></i>
+                                </div>
+                                <h3 class="training-title">听觉训练</h3>
+                            </div>
+                            <p class="training-description">
+                                发展听觉注意力和音乐节奏感
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>音乐律动：跟随音乐做各种动作</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>声音辨别：识别不同乐器的声音</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>故事复述：听故事后进行简单复述</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>节拍游戏：用手拍或跺脚跟节拍</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6岁以上训练内容 -->
+                <div class="age-training-content" id="age-6+">
+                    <div class="training-grid">
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon tactile">
+                                    <i class="fas fa-hand-paper"></i>
+                                </div>
+                                <h3 class="training-title">精细动作训练</h3>
+                            </div>
+                            <p class="training-description">
+                                发展手部精细动作和触觉敏感度
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>书写练习：正确握笔姿势和笔画练习</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>手工制作：剪纸、折纸、串珠等活动</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>乐器演奏：学习键盘、吉他等乐器</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>触觉图形：在背上画图形让孩子猜测</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon vestibular">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <h3 class="training-title">前庭觉强化训练</h3>
+                            </div>
+                            <p class="training-description">
+                                提升前庭觉处理能力，改善平衡和空间定向
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>旋转训练：使用旋转椅进行适度旋转</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>平衡挑战：复杂的平衡木训练</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>倒立练习：靠墙倒立或倒挂练习</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>方向感训练：闭眼转圈后指出方向</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon proprioception">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <h3 class="training-title">本体觉强化训练</h3>
+                            </div>
+                            <p class="training-description">
+                                增强身体意识和运动计划能力
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>重工作：搬运重物、推拉训练</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>运动计划：复杂动作序列的模仿</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>力量控制：轻重不同的触摸练习</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>姿势控制：各种姿势的保持训练</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon visual">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3 class="training-title">视觉认知强化训练</h3>
+                            </div>
+                            <p class="training-description">
+                                提升视觉运动整合和学习相关技能
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>视觉追踪：跟踪移动物体的练习</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>抄写练习：从黑板抄写到本子上</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>空间感知：三维空间的认知训练</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>连线游戏：各种连线和描画练习</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon auditory">
+                                    <i class="fas fa-headphones"></i>
+                                </div>
+                                <h3 class="training-title">听觉认知训练</h3>
+                            </div>
+                            <p class="training-description">
+                                发展听觉注意力和学习相关听觉技能
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>听觉辨别：细微声音差异的识别</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>听觉记忆：复杂指令的记忆和执行</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>声音定位：判断声音来源的方向</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>背景噪音：在噪音环境中集中注意</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon proprioception">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <h3 class="training-title">运动计划训练</h3>
+                            </div>
+                            <p class="training-description">
+                                提升运动计划和执行能力，改善协调性
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>动作模仿：模仿复杂的动作序列</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>障碍训练：设置障碍物进行穿越</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>手工制作：需要精细动作的手工活动</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>专注训练：延长专注于一项活动的时间</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3-6岁训练内容 -->
+                <div class="age-training-content" id="age-3-6">
+                    <div class="training-grid">
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon tactile">
+                                    <i class="fas fa-hand-paper"></i>
+                                </div>
+                                <h3 class="training-title">精细触觉训练</h3>
+                            </div>
+                            <p class="training-description">
+                                进一步提升触觉辨别能力，为学习活动做好准备
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>盲盒游戏：闭眼摸索盒子里的物品并猜测</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>粘土创作：用彩泥、橡皮泥进行创意制作</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>沙画制作：在沙盘上用手指画画</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>织物分类：按照材质和纹理分类不同织物</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon vestibular">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <h3 class="training-title">平衡协调训练</h3>
+                            </div>
+                            <p class="training-description">
+                                通过各种平衡和协调活动，提升运动控制能力
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>单脚站立：逐步延长单脚站立时间</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>平衡木走路：在低矮的平衡木上行走</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>旋转椅游戏：在旋转椅上控制旋转速度</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>跳跃练习：各种形式的跳跃动作</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon visual">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3 class="training-title">视觉训练</h3>
+                            </div>
+                            <p class="training-description">
+                                提升视觉注意力、追踪能力和视觉辨别能力
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>找不同游戏：在图片中找出差异</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>追踪练习：眼睛跟随移动的物体</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>拼图游戏：从简单到复杂的拼图</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>迷宫游戏：用眼睛或手指走迷宫</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6岁以上训练内容 -->
+                <div class="age-training-content" id="age-6+">
+                    <div class="training-grid">
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon auditory">
+                                    <i class="fas fa-headphones"></i>
+                                </div>
+                                <h3 class="training-title">听觉注意力训练</h3>
+                            </div>
+                            <p class="training-description">
+                                提升听觉专注力和听觉理解能力，支持学习活动
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>声音辨别：识别不同的环境声音</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>节奏拍打：跟随音乐节拍拍手</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>听话复述：听完故事后复述内容</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>音乐游戏：通过音乐进行各种互动</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon proprioception">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <h3 class="training-title">运动计划训练</h3>
+                            </div>
+                            <p class="training-description">
+                                提升运动计划和执行能力，改善协调性
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>动作模仿：模仿复杂的动作序列</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>障碍训练：设置障碍物进行穿越</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>手工制作：需要精细动作的手工活动</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>体感游戏：使用体感设备进行运动</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-header">
+                                <div class="training-icon visual">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3 class="training-title">学习相关技能</h3>
+                            </div>
+                            <p class="training-description">
+                                针对学习需要的视觉运动整合和注意力训练
+                            </p>
+                            <ul class="training-activities">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>抄写练习：从黑板抄写到本子上</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>连线游戏：各种连线和描画练习</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>专注训练：延长专注于一项活动的时间</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>书写准备：握笔姿势和书写前技能</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 按感觉系统分类的训练内容 -->
+            <div class="training-content" id="system-content">
+                <div class="training-grid">
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon tactile">
+                                <i class="fas fa-hand-paper"></i>
+                            </div>
+                            <h3 class="training-title">触觉系统训练</h3>
+                        </div>
+                        <p class="training-description">
+                            改善触觉敏感性和触觉辨别能力
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="触觉刷">触觉刷：用软毛刷进行皮肤刺激</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="材质探索">材质探索：接触不同质地的材料</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="沙土游戏">沙土游戏：在沙盘中进行寻宝游戏</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="温度训练">温度训练：感受不同温度的物品</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="抚触按摩">抚触按摩：全身性的抚触活动</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon vestibular">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h3 class="training-title">前庭觉系统训练</h3>
+                        </div>
+                        <p class="training-description">
+                            提升平衡能力和空间定向感
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="摇摆训练">摇摆训练：各种方向的摇摆活动</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="旋转游戏">旋转游戏：适度的旋转刺激</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="平衡练习">平衡练习：平衡木、独木桥行走</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="倒立训练">倒立训练：各种倒立姿势练习</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="滑行活动">滑行活动：滑梯、滑板等活动</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon proprioception">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3 class="training-title">本体觉系统训练</h3>
+                        </div>
+                        <p class="training-description">
+                            增强身体意识和力量控制
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="重工作">重工作：推拉重物的活动</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="关节挤压">关节挤压：适度的关节压力刺激</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="攀爬训练">攀爬训练：攀岩墙、绳索攀爬</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="跳跃运动">跳跃运动：蹦床、跳绳等活动</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="力量对抗">力量对抗：拔河、推手等游戏</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon visual">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3 class="training-title">视觉系统训练</h3>
+                        </div>
+                        <p class="training-description">
+                            提升视觉注意力和认知能力
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="视觉追踪">视觉追踪：跟踪移动目标</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="视觉搜寻">视觉搜寻：在复杂背景中找目标</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="图形配对">图形配对：各种形状、颜色配对</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="空间感知">空间感知：立体图形认知</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="视觉记忆">视觉记忆：图案记忆练习</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon auditory">
+                                <i class="fas fa-headphones"></i>
+                            </div>
+                            <h3 class="training-title">听觉系统训练</h3>
+                        </div>
+                        <p class="training-description">
+                            改善听觉注意力和辨别能力
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="音乐律动">音乐律动：跟随音乐做动作</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="声音辨别">声音辨别：识别不同的声音</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="听觉记忆">听觉记忆：记住声音序列</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>节奏训练：打拍子、踏步等</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>语言理解：复杂指令的理解</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon" style="background: linear-gradient(135deg, #EC4899, #BE185D);">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3 class="training-title">味觉系统训练</h3>
+                        </div>
+                        <p class="training-description">
+                            发展味觉敏感性和进食技能
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="味觉探索">味觉探索：品尝不同口味的食物</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="食物质地">食物质地：体验不同质地的食物</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="口腔运动">口腔运动：口腔肌肉训练</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="温度感知">温度感知：感受食物温度变化</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="进食技能">进食技能：使用餐具的练习</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon" style="background: linear-gradient(135deg, #DC2626, #B91C1C);">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <h3 class="training-title">内脏觉系统训练</h3>
+                        </div>
+                        <p class="training-description">
+                            培养身体内部感觉的觉察和自我调节能力
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="饥饿感知">饥饿感知：识别饥饿和饱腹感</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="如厕训练">如厕训练：感知排泄需求</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="疲劳识别">疲劳识别：认识身体疲劳信号</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="呼吸感知">呼吸感知：关注呼吸节律</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span class="training-item" data-detail="心跳感知">心跳感知：感受心跳变化</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 按问题类型分类的训练内容 -->
+            <div class="training-content" id="problem-content">
+                <div class="training-grid">
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon tactile">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3 class="training-title">注意力不集中</h3>
+                        </div>
+                        <p class="training-description">
+                            针对注意力缺陷的专项训练
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>专注游戏：拼图、积木等静态活动</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>听觉专注：听故事、复述内容</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>视觉专注：找不同、迷宫游戏</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>重工作：推拉重物集中注意力</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>呼吸训练：腹式呼吸放松训练</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon vestibular">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <h3 class="training-title">多动冲动</h3>
+                        </div>
+                        <p class="training-description">
+                            帮助多动儿童获得感觉满足和自我控制
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>重工作：消耗过剩精力的活动</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>深压活动：提供深度压力刺激</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>规律运动：建立运动常规</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>放松训练：学习自我调节技巧</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>结构化活动：明确的开始和结束</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon proprioception">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h3 class="training-title">协调性差</h3>
+                        </div>
+                        <p class="training-description">
+                            改善运动协调和动作计划能力
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>动作分解：将复杂动作分步练习</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>节拍训练：跟随节奏做动作</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>双边协调：左右手协调活动</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>平衡训练：各种平衡姿势练习</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>精细动作：手指灵活性训练</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon visual">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <h3 class="training-title">社交困难</h3>
+                        </div>
+                        <p class="training-description">
+                            通过感统训练提升社交参与能力
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>团体游戏：多人参与的感统活动</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>轮流游戏：学习等待和分享</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>合作活动：需要配合的团体任务</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>情绪调节：识别和表达情绪</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>社交游戏：角色扮演类活动</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon auditory">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <h3 class="training-title">学习困难</h3>
+                        </div>
+                        <p class="training-description">
+                            为学习技能建立感觉基础
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>视觉追踪：改善阅读相关技能</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>精细动作：改善书写能力</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>听觉训练：提升语言理解</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>姿势控制：改善坐姿和专注</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>感觉整合：多感觉通道协调</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="training-card">
+                        <div class="training-header">
+                            <div class="training-icon vestibular">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="training-title">情绪调节困难</h3>
+                        </div>
+                        <p class="training-description">
+                            通过感觉输入帮助情绪稳定
+                        </p>
+                        <ul class="training-activities">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>深压活动：提供安全感和镇静</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>摇摆运动：节律性的镇静活动</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>重工作：释放紧张情绪</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>呼吸训练：学习自我调节</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>感觉角落：创建安全的休息空间</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 安全提醒 -->
+            <div class="safety-notice" data-aos="fade-up" data-aos-delay="300">
+                <div class="safety-title">
+                    <i class="fas fa-shield-alt"></i>
+                    安全注意事项
+                </div>
+                <ul class="safety-list">
+                    <li>
+                        <i class="fas fa-exclamation-circle"></i>
+                        所有训练活动都应在家长监护下进行，确保孩子的安全
+                    </li>
+                    <li>
+                        <i class="fas fa-exclamation-circle"></i>
+                        训练强度要适中，避免过度疲劳，观察孩子的反应及时调整
+                    </li>
+                    <li>
+                        <i class="fas fa-exclamation-circle"></i>
+                        如果孩子表现出明显抗拒或不适，应立即停止并寻求专业指导
+                    </li>
+                    <li>
+                        <i class="fas fa-exclamation-circle"></i>
+                        器材要定期检查，确保无破损，活动空间要安全无障碍
+                    </li>
+                    <li>
+                        <i class="fas fa-exclamation-circle"></i>
+                        保持训练的趣味性，让孩子在快乐中接受训练
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- 训练详情弹出框 -->
+    <div class="modal-overlay" id="trainingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <span id="modalTitle">训练详情</span>
+                </div>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 动态内容将在这里显示 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 初始化AOS动画
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 训练分类导航
+        const navButtons = document.querySelectorAll('.nav-button');
+        const trainingContents = document.querySelectorAll('.training-content');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // 更新导航按钮状态
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 显示对应内容
+                trainingContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === category + '-content') {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // 年龄标签切换
+        const ageTabs = document.querySelectorAll('.age-tab');
+        const ageContents = document.querySelectorAll('.age-training-content');
+
+        ageTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const age = this.dataset.age;
+                
+                // 更新标签状态
+                ageTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 显示对应年龄内容
+                ageContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === 'age-' + age) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // 移动端菜单切换
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 训练卡片悬浮效果增强
+        document.querySelectorAll('.training-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-12px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+        });
+
+        // 训练详情数据
+        const trainingDetails = {
+            '触觉刷': {
+                title: '触觉刷训练',
+                description: '通过软毛刷进行皮肤刺激，提升触觉敏感度和减少触觉防御反应。',
+                materials: ['软毛刷（不同硬度）', '毛巾', '润肤霜'],
+                steps: [
+                    '选择适当硬度的软毛刷，确保刷毛干净柔软',
+                    '让孩子放松，坐在舒适的位置',
+                    '从手臂开始，以轻柔的压力进行刷刺激',
+                    '按照从远端到近端的顺序（手→臂→肩）',
+                    '每个部位刷10-15次，注意观察孩子反应',
+                    '完成后用毛巾轻拍皮肤，涂抹润肤霜'
+                ],
+                benefits: [
+                    '降低触觉敏感性',
+                    '提升触觉辨别能力',
+                    '改善触觉防御反应',
+                    '增强身体意识'
+                ],
+                safety: [
+                    '刷子要定期清洁消毒',
+                    '压力要适中，避免过度刺激',
+                    '如孩子明显抗拒应立即停止',
+                    '每次训练5-10分钟即可'
+                ],
+                frequency: '每日1-2次，每次5-10分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '材质探索': {
+                title: '材质探索训练',
+                description: '通过接触不同质地的材料，丰富触觉经验，提升触觉辨别能力。',
+                materials: ['各种材质样本（丝绸、毛绒、砂纸、海绵等）', '触觉盒', '眼罩'],
+                steps: [
+                    '准备多种不同质地的材料样本',
+                    '让孩子先用眼睛观察各种材质',
+                    '引导孩子用手触摸，描述感受',
+                    '蒙上眼睛进行盲摸辨别游戏',
+                    '让孩子描述不同材质的特点',
+                    '进行材质配对游戏'
+                ],
+                benefits: [
+                    '丰富触觉经验库',
+                    '提升触觉辨别精度',
+                    '发展语言描述能力',
+                    '增强记忆和认知能力'
+                ],
+                safety: [
+                    '材料要安全无毒，边缘光滑',
+                    '定期更换和清洁材料',
+                    '避免过于粗糙或尖锐的材质',
+                    '注意孩子的过敏反应'
+                ],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '摇摆训练': {
+                title: '前庭觉摇摆训练',
+                description: '通过各种方向的摇摆活动，刺激前庭系统，提升平衡能力和空间定向感。',
+                materials: ['秋千', '摇摆椅', '平衡垫', '瑜伽球'],
+                steps: [
+                    '选择安全的摇摆设备，检查安全性',
+                    '让孩子坐稳，双手抓住支撑物',
+                    '开始进行缓慢的前后摇摆',
+                    '逐渐增加摇摆幅度和速度',
+                    '尝试左右摇摆和旋转运动',
+                    '观察孩子反应，及时调整强度'
+                ],
+                benefits: [
+                    '改善平衡能力',
+                    '增强空间定向感',
+                    '刺激前庭系统发育',
+                    '提升注意力和警觉度'
+                ],
+                safety: [
+                    '确保摇摆设备牢固安全',
+                    '有成人在旁监护',
+                    '避免过度刺激导致头晕',
+                    '如出现恶心立即停止'
+                ],
+                frequency: '每日1-2次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '味觉探索': {
+                title: '味觉探索训练',
+                description: '通过品尝不同口味的食物，丰富味觉经验，改善进食行为。',
+                materials: ['各种口味的安全食物', '小勺子', '水杯', '湿巾'],
+                steps: [
+                    '准备不同味道的安全食物（甜、酸、咸、苦）',
+                    '从孩子喜欢的味道开始',
+                    '用小勺子给予少量食物品尝',
+                    '引导孩子描述味道感受',
+                    '逐渐引入新的口味',
+                    '鼓励孩子接受多样化的味觉体验'
+                ],
+                benefits: [
+                    '扩展味觉接受范围',
+                    '改善偏食挑食行为',
+                    '促进口腔运动发育',
+                    '增强进食技能'
+                ],
+                safety: [
+                    '确保所有食物新鲜安全',
+                    '注意食物过敏史',
+                    '避免过度刺激的味道',
+                    '准备清水漱口'
+                ],
+                frequency: '每日随餐进行，每次5-10分钟',
+                ageRange: '适合1岁以上儿童'
+            },
+            '饥饿感知': {
+                title: '内脏觉饥饿感知训练',
+                description: '培养孩子识别饥饿和饱腹感的能力，建立良好的进食习惯。',
+                materials: ['进食日记', '时钟', '健康食物'],
+                steps: [
+                    '建立规律的进食时间表',
+                    '餐前询问孩子的饥饿程度（1-10分）',
+                    '引导孩子关注胃部的感觉',
+                    '进食过程中定期询问饱腹感',
+                    '教会孩子识别"适度饱"的感觉',
+                    '记录孩子的饥饿和饱腹感变化'
+                ],
+                benefits: [
+                    '建立良好的进食节律',
+                    '预防过度进食',
+                    '提升身体觉察能力',
+                    '促进消化系统健康'
+                ],
+                safety: [
+                    '不要强迫孩子进食',
+                    '避免用食物作为奖惩',
+                    '尊重孩子的饱腹感',
+                    '如有异常及时咨询医生'
+                ],
+                frequency: '每日三餐时进行',
+                ageRange: '适合3岁以上儿童'
+            },
+            '温水泡手': {
+                title: '温水泡手训练',
+                description: '通过温水接触，帮助婴幼儿感受水的温度和流动性，建立初期触觉基础。',
+                materials: ['温水盆', '温度计', '毛巾', '安全的水中玩具'],
+                steps: [
+                    '准备37-40度的温水，深度不超过5厘米',
+                    '让宝宝坐稳，家长全程陪护',
+                    '先用手指轻触水面，观察宝宝反应',
+                    '逐渐将手掌放入水中感受温度',
+                    '可加入漂浮玩具增加趣味性',
+                    '每次3-5分钟，完成后用毛巾轻拍干燥'
+                ],
+                benefits: ['建立水温感知', '减少触觉敏感', '促进手部精细动作', '增强安全感'],
+                safety: ['水温适中，避免烫伤', '家长全程监护', '注意防滑', '水深安全'],
+                frequency: '每日1-2次，每次3-5分钟',
+                ageRange: '适合6个月以上婴幼儿'
+            },
+            '抚触按摩': {
+                title: '抚触按摩训练',
+                description: '通过温柔的皮肤接触，促进婴幼儿触觉系统发育和亲子关系建立。',
+                materials: ['婴儿按摩油', '柔软毛巾', '舒适垫子'],
+                steps: [
+                    '选择宝宝心情愉快的时间进行',
+                    '确保室温适宜，环境安静',
+                    '从四肢开始，用指腹轻柔按摩',
+                    '按照一定节律进行，观察宝宝反应',
+                    '可配合轻柔的音乐或歌唱',
+                    '全身按摩时间控制在10-15分钟'
+                ],
+                benefits: ['促进血液循环', '增强免疫力', '改善睡眠质量', '建立安全依恋'],
+                safety: ['动作要轻柔', '避免关节过度活动', '注意宝宝表情反应', '室温要适宜'],
+                frequency: '每日1-2次，每次10-15分钟',
+                ageRange: '适合新生儿开始'
+            },
+            '爬行练习': {
+                title: '爬行练习训练',
+                description: '鼓励和引导婴幼儿进行爬行运动，促进大脑发育和身体协调发展。',
+                materials: ['爬行垫', '有趣玩具', '隧道或障碍物', '安全护具'],
+                steps: [
+                    '铺设安全的爬行区域',
+                    '在前方放置吸引注意的玩具',
+                    '家长示范爬行动作',
+                    '引导宝宝模仿爬行姿势',
+                    '逐渐增加爬行距离和难度',
+                    '给予充分的鼓励和赞美'
+                ],
+                benefits: ['促进大脑发育', '增强四肢力量', '提升协调能力', '建立空间概念'],
+                safety: ['爬行区域要安全', '移除尖锐物品', '确保地面清洁', '避免强迫训练'],
+                frequency: '每日多次，累计30-60分钟',
+                ageRange: '适合7-15个月婴幼儿'
+            },
+            '沙盘游戏': {
+                title: '沙盘寻宝游戏',
+                description: '在沙盘中隐藏小物件，让孩子通过触觉寻找，提升触觉辨别和专注力。',
+                materials: ['沙盘', '细沙', '各种小玩具', '小铲子', '筛子'],
+                steps: [
+                    '准备干净的细沙和沙盘',
+                    '将小玩具埋在沙中不同深度',
+                    '让孩子用手在沙中寻找物品',
+                    '找到后描述物品的特征',
+                    '可设置不同难度的寻找任务',
+                    '清理后整理所有找到的物品'
+                ],
+                benefits: ['提升触觉敏感度', '增强专注力', '发展手部精细动作', '培养耐心'],
+                safety: ['使用清洁的沙子', '定期更换沙子', '避免沙子进入眼口', '小物件要安全'],
+                frequency: '每周2-3次，每次15-20分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '粘土制作': {
+                title: '粘土创作训练',
+                description: '通过捏、揉、塑造粘土，发展手部精细动作和创造力，增强触觉体验。',
+                materials: ['无毒粘土', '塑型工具', '模具', '工作垫', '湿巾'],
+                steps: [
+                    '准备柔软适中的粘土',
+                    '先让孩子自由探索粘土质感',
+                    '示范基本的捏、揉、拉动作',
+                    '引导制作简单的形状',
+                    '逐步增加创作的复杂度',
+                    '完成后展示和分享作品'
+                ],
+                benefits: ['发展精细动作', '增强创造力', '改善手部力量', '提升专注力'],
+                safety: ['使用无毒材料', '避免误食', '定期清洁双手', '保持工作区整洁'],
+                frequency: '每周2-3次，每次20-30分钟',
+                ageRange: '适合18个月以上儿童'
+            },
+            '轻柔摇摆': {
+                title: '轻柔摇摆训练',
+                description: '通过缓慢温和的摇摆运动，刺激前庭系统发育，建立平衡感和安全感。',
+                materials: ['摇篮/秋千', '安全带', '软垫'],
+                steps: [
+                    '确保摇摆设备安全牢固',
+                    '让宝宝舒适地坐在摇篮中',
+                    '开始缓慢的前后摇摆',
+                    '观察宝宝的反应和表情',
+                    '根据宝宝状态调整摇摆幅度',
+                    '每次5-10分钟，避免过度刺激'
+                ],
+                benefits: ['促进前庭发育', '建立平衡感', '增强安全感', '改善睡眠质量'],
+                safety: ['摇摆速度要缓慢', '时间不宜过长', '注意宝宝反应', '确保设备安全'],
+                frequency: '每日2-3次，每次5-10分钟',
+                ageRange: '适合0-6个月婴儿'
+            },
+            '抱姿变化': {
+                title: '抱姿变化训练',
+                description: '通过经常改变抱宝宝的姿势和方向，刺激前庭系统和本体觉发育，增强空间感知能力。',
+                materials: ['舒适的抱毯', '软垫', '安全的活动空间'],
+                steps: [
+                    '准备安全舒适的环境',
+                    '从基础的竖抱、横抱开始',
+                    '逐渐尝试侧抱、背抱等不同姿势',
+                    '改变抱着时的朝向（面向前、后、左、右）',
+                    '在安全范围内轻微改变高度位置',
+                    '观察宝宝反应，及时调整'
+                ],
+                benefits: ['刺激前庭系统发育', '增强空间定向感', '促进颈部肌肉发育', '建立多元感觉体验'],
+                safety: ['确保抱姿安全稳固', '避免过度刺激', '注意宝宝颈部支撑', '观察不适反应'],
+                frequency: '每日多次，结合日常护理',
+                ageRange: '适合0-12个月婴儿'
+            },
+            '推球游戏': {
+                title: '推球运动训练',
+                description: '让宝宝推动大型软球，发展大肌肉运动能力和手眼协调。',
+                materials: ['大型软球', '安全垫', '开阔空间'],
+                steps: [
+                    '选择适当大小的软球',
+                    '让宝宝坐在球前',
+                    '示范推球动作',
+                    '鼓励宝宝用双手推球',
+                    '变化推球方向和距离',
+                    '与宝宝一起追球游戏'
+                ],
+                benefits: ['发展大肌肉运动', '增强手臂力量', '提升协调能力', '培养运动兴趣'],
+                safety: ['选择柔软安全的球', '确保活动空间', '避免球过重', '防止摔倒'],
+                frequency: '每日2-3次，每次10-15分钟',
+                ageRange: '适合6个月以上婴幼儿'
+            },
+            '拉拽玩具': {
+                title: '拉拽玩具训练',
+                description: '提供可以拉动的玩具车等，发展手部力量和因果关系认知。',
+                materials: ['拉绳玩具车', '各种拉拽玩具', '安全空间'],
+                steps: [
+                    '展示拉拽玩具的功能',
+                    '让宝宝抓握拉绳',
+                    '示范拉动动作',
+                    '鼓励宝宝自主拉动',
+                    '变化拉动方向',
+                    '增加拉动难度'
+                ],
+                benefits: ['发展手部精细动作', '理解因果关系', '增强手眼协调', '培养探索兴趣'],
+                safety: ['确保拉绳安全长度', '避免缠绕危险', '玩具材质安全', '定期检查磨损'],
+                frequency: '每日随时进行',
+                ageRange: '适合8个月以上婴幼儿'
+            },
+            '攀爬活动': {
+                title: '安全攀爬训练',
+                description: '在软垫上进行安全的攀爬活动，发展运动技能和空间感知。',
+                materials: ['软体攀爬架', '安全垫', '防护围栏'],
+                steps: [
+                    '设置安全的攀爬环境',
+                    '从低矮设施开始',
+                    '示范攀爬技巧',
+                    '在旁保护和鼓励',
+                    '逐渐增加高度难度',
+                    '培养安全意识'
+                ],
+                benefits: ['发展运动技能', '增强肌肉力量', '提升勇气自信', '建立空间概念'],
+                safety: ['软垫充分铺设', '成人全程监护', '高度适中安全', '及时消除隐患'],
+                frequency: '每日1-2次，每次15-20分钟',
+                ageRange: '适合12个月以上幼儿'
+            },
+            '重力游戏': {
+                title: '重力感知训练',
+                description: '使用重量适中的玩具进行游戏，帮助宝宝感知重量差异。',
+                materials: ['不同重量的玩具', '称重器', '对比物品'],
+                steps: [
+                    '准备不同重量的安全玩具',
+                    '让宝宝分别拿起感受',
+                    '比较轻重差异',
+                    '描述重量感觉',
+                    '进行重量排序游戏',
+                    '结合日常物品练习'
+                ],
+                benefits: ['发展重量感知', '增强本体觉', '提升比较能力', '丰富感觉经验'],
+                safety: ['重量适合宝宝承受', '避免过重物品', '防止砸伤', '选择安全材质'],
+                frequency: '每日1次，每次10分钟',
+                ageRange: '适合10个月以上婴幼儿'
+            },
+            '追视游戏': {
+                title: '视觉追踪训练',
+                description: '用鲜艳玩具吸引宝宝视线跟随，发展视觉追踪和专注能力。',
+                materials: ['鲜艳玩具', '发声玩具', '手电筒', '彩色球'],
+                steps: [
+                    '选择色彩鲜艳的玩具',
+                    '在宝宝眼前缓慢移动',
+                    '观察宝宝视线跟随',
+                    '变化移动方向和速度',
+                    '增加距离和难度',
+                    '结合声音刺激'
+                ],
+                benefits: ['发展视觉追踪', '增强专注力', '促进眼部肌肉发育', '提升感知能力'],
+                safety: ['玩具安全无害', '避免强光刺激', '控制游戏时间', '观察宝宝反应'],
+                frequency: '每日3-4次，每次5-8分钟',
+                ageRange: '适合2个月以上婴儿'
+            },
+            '颜色认知': {
+                title: '颜色识别训练',
+                description: '接触不同颜色的物品和图片，发展视觉分辨和认知能力。',
+                materials: ['彩色卡片', '彩色玩具', '颜色书籍', '彩色积木'],
+                steps: [
+                    '展示基础颜色（红、黄、蓝）',
+                    '让宝宝观察和触摸',
+                    '重复颜色名称',
+                    '进行颜色配对游戏',
+                    '在日常生活中指认颜色',
+                    '逐渐增加颜色种类'
+                ],
+                benefits: ['发展颜色认知', '提升视觉分辨', '丰富词汇量', '增强记忆力'],
+                safety: ['材料安全无毒', '颜色搭配适宜', '避免视觉疲劳', '适度刺激'],
+                frequency: '每日随时进行',
+                ageRange: '适合6个月以上婴幼儿'
+            },
+            '镜子游戏': {
+                title: '镜像认知训练',
+                description: '在镜子前进行各种表情和动作，发展自我认知和模仿能力。',
+                materials: ['安全镜子', '各种道具', '彩色贴纸'],
+                steps: [
+                    '让宝宝面对镜子',
+                    '做夸张的面部表情',
+                    '引导宝宝观察自己',
+                    '做简单手势和动作',
+                    '用道具增加趣味性',
+                    '鼓励宝宝模仿'
+                ],
+                benefits: ['发展自我认知', '提升模仿能力', '增强社交技能', '促进情感发展'],
+                safety: ['使用安全镜子', '固定镜子稳固', '避免镜面破损', '适当游戏时间'],
+                frequency: '每日2-3次，每次5-10分钟',
+                ageRange: '适合6个月以上婴幼儿'
+            },
+            '图书阅读': {
+                title: '早期阅读训练',
+                description: '看颜色鲜艳的图画书，发展视觉认知和语言能力。',
+                materials: ['布书', '纸板书', '图画书', '互动书籍'],
+                steps: [
+                    '选择适龄的图画书',
+                    '与宝宝一起翻阅',
+                    '指认图片中的物品',
+                    '描述图片内容',
+                    '让宝宝触摸和探索',
+                    '培养阅读兴趣'
+                ],
+                benefits: ['发展视觉认知', '丰富词汇量', '培养阅读兴趣', '增强专注力'],
+                safety: ['选择安全材质书籍', '避免误食撕咬', '保护书籍完整', '适当阅读时间'],
+                frequency: '每日2-3次，每次10-15分钟',
+                ageRange: '适合3个月以上婴幼儿'
+            },
+            '触觉袋': {
+                title: '盲摸辨识训练',
+                description: '在不看的情况下摸袋子里的物品，发展触觉辨别和认知能力。',
+                materials: ['布袋', '各种形状物品', '不同材质玩具'],
+                steps: [
+                    '准备各种安全小物品',
+                    '放入不透明袋子中',
+                    '让孩子伸手摸物品',
+                    '不看的情况下描述触感',
+                    '猜测物品是什么',
+                    '拿出验证答案'
+                ],
+                benefits: ['提升触觉辨别', '发展认知能力', '增强语言表达', '培养专注力'],
+                safety: ['物品安全无害', '大小适中不误食', '边缘光滑无刺', '定期清洁物品'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合18个月以上幼儿'
+            },
+            '刷身游戏': {
+                title: '触觉刺激游戏',
+                description: '用软毛刷轻刷身体各部位，提供丰富的触觉体验和刺激。',
+                materials: ['软毛刷', '不同材质刷子', '毛巾', '润肤霜'],
+                steps: [
+                    '选择适合的软毛刷',
+                    '从不敏感部位开始',
+                    '轻柔地刷拭皮肤',
+                    '观察宝宝的反应',
+                    '调整压力和节奏',
+                    '结束后用毛巾轻拍'
+                ],
+                benefits: ['丰富触觉体验', '减少触觉敏感', '促进感觉整合', '增强身体意识'],
+                safety: ['刷子要柔软清洁', '压力适中温和', '避免敏感部位', '观察不适反应'],
+                frequency: '每日1-2次，每次5-8分钟',
+                ageRange: '适合3个月以上婴幼儿'
+            },
+            '专注游戏': {
+                title: '专注力训练游戏',
+                description: '通过静态活动如拼图、积木等，提升儿童的注意力集中能力和持续专注时间。',
+                materials: ['适龄拼图', '积木', '计时器', '奖励贴纸'],
+                steps: [
+                    '选择适合孩子年龄的拼图或积木',
+                    '创造安静、无干扰的环境',
+                    '设定合理的完成时间目标',
+                    '给予适当的指导和鼓励',
+                    '逐渐增加任务的复杂度',
+                    '完成后给予积极的反馈'
+                ],
+                benefits: ['提升专注力', '增强耐心', '发展问题解决能力', '建立成就感'],
+                safety: ['避免过度疲劳', '选择安全材料', '适度休息', '保护视力'],
+                frequency: '每日1-2次，每次15-30分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '平衡木行走': {
+                title: '平衡木行走训练',
+                description: '通过在平衡木上行走，提升前庭觉功能、平衡能力和身体协调性。',
+                materials: ['平衡木', '安全垫', '辅助扶手'],
+                steps: [
+                    '在平衡木两侧铺设安全垫',
+                    '让孩子先在地面练习直线行走',
+                    '初期可提供手部支撑',
+                    '逐渐减少外部支撑',
+                    '增加平衡木的高度和长度',
+                    '可加入转身、倒走等变化'
+                ],
+                benefits: ['改善平衡能力', '增强自信心', '提升身体协调', '发展空间感知'],
+                safety: ['使用安全垫保护', '成人在旁监护', '高度要适当', '避免恐惧心理'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '跳跃游戏': {
+                title: '跳跃运动训练',
+                description: '通过各种跳跃活动，强化本体觉输入，提升身体意识和运动协调能力。',
+                materials: ['跳跃垫', '标记圆环', '软质障碍物'],
+                steps: [
+                    '从双脚原地跳跃开始',
+                    '练习双脚并拢向前跳',
+                    '尝试单脚跳跃训练',
+                    '设置简单的跳跃路线',
+                    '增加跳跃的距离和高度',
+                    '结合音乐节拍进行跳跃'
+                ],
+                benefits: ['增强腿部力量', '提升协调能力', '改善节奏感', '增强心肺功能'],
+                safety: ['确保着陆安全', '避免过度疲劳', '选择合适场地', '循序渐进训练'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '听觉专注': {
+                title: '听觉专注力训练',
+                description: '通过听故事和复述内容的活动，提升听觉注意力和信息处理能力。',
+                materials: ['故事书', '录音设备', '计时器', '记录本'],
+                steps: [
+                    '选择适合年龄的简短故事',
+                    '确保环境安静，减少干扰',
+                    '要求孩子专心聆听',
+                    '故事结束后询问关键内容',
+                    '让孩子复述故事要点',
+                    '逐渐增加故事的长度和复杂度'
+                ],
+                benefits: ['提升听觉注意力', '增强记忆能力', '发展语言理解', '培养专注习惯'],
+                safety: ['控制音量适中', '避免长时间训练', '保护听力健康', '适时休息'],
+                frequency: '每日1-2次，每次10-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '深压活动': {
+                title: '深压觉刺激训练',
+                description: '通过深度压力刺激，为感觉系统提供镇静输入，帮助情绪调节和注意力集中。',
+                materials: ['重毛毯', '压力背心', '大型瑜伽球', '沙袋'],
+                steps: [
+                    '选择合适重量的深压工具',
+                    '让孩子放松地坐着或躺着',
+                    '轻柔地施加深度压力',
+                    '从四肢开始逐渐到躯干',
+                    '观察孩子的反应和舒适度',
+                    '保持5-10分钟的深压刺激'
+                ],
+                benefits: ['促进镇静', '改善注意力', '减少焦虑', '提升自我调节'],
+                safety: ['压力要适中', '时间不宜过长', '观察孩子反应', '避免呼吸困难'],
+                frequency: '需要时使用，每次5-15分钟',
+                ageRange: '适合所有年龄段'
+            },
+            '旋转游戏': {
+                title: '旋转前庭觉训练',
+                description: '通过适度的旋转椅或转盘活动，刺激前庭觉系统，提升空间定向能力。',
+                materials: ['旋转椅', '转盘', '安全带', '软垫'],
+                steps: [
+                    '确保旋转设备安全',
+                    '让孩子坐稳并系好安全带',
+                    '开始缓慢旋转',
+                    '观察孩子的反应',
+                    '逐渐调整旋转速度',
+                    '停止后观察适应情况'
+                ],
+                benefits: ['刺激前庭觉系统', '提升平衡能力', '改善空间定向', '增强适应性'],
+                safety: ['控制旋转速度', '注意恶心反应', '及时停止', '避免过度刺激'],
+                frequency: '每周2-3次，每次5-10分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '秋千摇摆': {
+                title: '多方向秋千训练',
+                description: '进行各种方向的秋千摇摆活动，全面刺激前庭觉系统。',
+                materials: ['秋千', '安全绳索', '防护垫'],
+                steps: [
+                    '检查秋千安全性',
+                    '协助孩子正确坐好',
+                    '开始前后摇摆',
+                    '尝试左右摇摆',
+                    '进行环形摇摆',
+                    '变化摇摆节奏'
+                ],
+                benefits: ['全面刺激前庭觉', '提升平衡协调', '增强空间感知', '促进感觉整合'],
+                safety: ['确保设备安全', '控制摇摆幅度', '成人监护', '避免跌落'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '单脚站立': {
+                title: '单脚平衡训练',
+                description: '练习单脚站立保持平衡，发展静态平衡能力和本体觉。',
+                materials: ['平衡垫', '辅助扶手', '计时器'],
+                steps: [
+                    '先练习双脚站立',
+                    '抬起一只脚保持平衡',
+                    '逐渐延长站立时间',
+                    '交替练习两脚',
+                    '加入闭眼练习',
+                    '在不同表面练习'
+                ],
+                benefits: ['发展静态平衡', '增强腿部力量', '提升专注力', '改善身体控制'],
+                safety: ['提供扶手支撑', '软垫保护', '避免摔倒', '循序渐进'],
+                frequency: '每日2次，每次5-8分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '推重物': {
+                title: '重物推拉训练',
+                description: '推装满书的小车或重箱子，提供强烈的本体觉输入。',
+                materials: ['重物小车', '箱子', '书籍', '安全手套'],
+                steps: [
+                    '选择适当重量的物品',
+                    '教导正确推拉姿势',
+                    '从短距离开始',
+                    '逐渐增加重量',
+                    '变化推拉方向',
+                    '设置推拉路线'
+                ],
+                benefits: ['增强肌肉力量', '提供本体觉输入', '发展协调能力', '培养毅力'],
+                safety: ['重量要适中', '注意姿势正确', '避免扭伤', '适时休息'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '拉力训练': {
+                title: '拉力对抗训练',
+                description: '通过拔河、拉橡皮筋等活动，锻炼上肢力量和本体觉。',
+                materials: ['绳索', '橡皮筋', '拉力器', '防滑垫'],
+                steps: [
+                    '选择适合的拉力工具',
+                    '教导正确拉力姿势',
+                    '开始轻度拉力练习',
+                    '逐渐增加阻力',
+                    '进行对抗性游戏',
+                    '变化拉力方向'
+                ],
+                benefits: ['锻炼上肢力量', '发展协调能力', '增强竞争意识', '提升专注力'],
+                safety: ['控制拉力强度', '避免突然松手', '注意安全距离', '预防拉伤'],
+                frequency: '每周3次，每次10-15分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '动作模仿': {
+                title: '动作模仿训练',
+                description: '模仿各种动物的动作，发展运动计划和身体协调能力。',
+                materials: ['动物图片', '音乐', '开阔空间'],
+                steps: [
+                    '展示不同动物图片',
+                    '示范动物动作',
+                    '让孩子模仿练习',
+                    '加入音乐节拍',
+                    '创造动作故事',
+                    '鼓励创新动作'
+                ],
+                benefits: ['发展运动计划', '提升创造力', '增强协调能力', '培养想象力'],
+                safety: ['确保活动空间', '避免危险动作', '适度运动', '注意安全'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '拼图游戏': {
+                title: '视觉认知拼图',
+                description: '从简单到复杂的拼图练习，发展视觉认知和精细动作能力。',
+                materials: ['各难度拼图', '拼图垫', '计时器'],
+                steps: [
+                    '从大块简单拼图开始',
+                    '先观察完整图案',
+                    '按边缘开始拼接',
+                    '逐步完成内部',
+                    '增加拼图块数',
+                    '挑战限时完成'
+                ],
+                benefits: ['发展视觉认知', '提升专注力', '锻炼精细动作', '增强问题解决能力'],
+                safety: ['防止误食小件', '适当休息', '保护视力', '避免挫折'],
+                frequency: '每日1-2次，每次20-30分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '找不同': {
+                title: '视觉分辨训练',
+                description: '在图片中找出不同之处，提升视觉分辨和专注能力。',
+                materials: ['找不同图册', '放大镜', '记录笔'],
+                steps: [
+                    '选择适合难度的图片',
+                    '仔细观察两幅图',
+                    '逐区域对比差异',
+                    '标记发现的不同',
+                    '验证答案正确性',
+                    '挑战更难图片'
+                ],
+                benefits: ['提升视觉分辨', '增强专注力', '发展观察能力', '培养耐心'],
+                safety: ['保护视力', '适当休息', '避免过度专注', '调节光线'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '迷宫游戏': {
+                title: '视觉空间训练',
+                description: '用笔走迷宫路径，发展视觉空间能力和手眼协调。',
+                materials: ['迷宫图册', '彩色笔', '橡皮擦'],
+                steps: [
+                    '从简单迷宫开始',
+                    '观察迷宫整体结构',
+                    '规划行走路线',
+                    '用笔描绘路径',
+                    '遇到死路及时回头',
+                    '挑战复杂迷宫'
+                ],
+                benefits: ['发展空间认知', '提升规划能力', '锻炼手眼协调', '增强问题解决能力'],
+                safety: ['选择无毒笔具', '保持正确姿势', '适当休息', '保护视力'],
+                frequency: '每日1次，每次15-25分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '配对游戏': {
+                title: '认知配对训练',
+                description: '进行各种形状、颜色的配对活动，发展认知和分类能力。',
+                materials: ['配对卡片', '形状积木', '颜色样本'],
+                steps: [
+                    '准备配对材料',
+                    '展示配对规则',
+                    '开始简单配对',
+                    '增加配对难度',
+                    '进行速度挑战',
+                    '创新配对方式'
+                ],
+                benefits: ['发展认知能力', '提升分类技能', '增强记忆力', '培养逻辑思维'],
+                safety: ['使用安全材料', '避免误食', '适当休息', '保护视力'],
+                frequency: '每日1-2次，每次15-20分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '音乐律动': {
+                title: '音乐节奏训练',
+                description: '跟随音乐做各种动作，发展节奏感和身体协调能力。',
+                materials: ['音乐播放器', '节拍器', '彩带', '乐器'],
+                steps: [
+                    '选择适合的音乐',
+                    '感受音乐节拍',
+                    '随音乐摆动身体',
+                    '加入手臂动作',
+                    '创造舞蹈动作',
+                    '结合道具表演'
+                ],
+                benefits: ['发展节奏感', '提升协调能力', '增强表现力', '促进情感表达'],
+                safety: ['控制音量', '确保活动空间', '避免激烈动作', '注意安全'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '声音辨别': {
+                title: '听觉分辨训练',
+                description: '识别不同乐器的声音，发展听觉分辨和认知能力。',
+                materials: ['各种乐器', '音频设备', '乐器图片'],
+                steps: [
+                    '展示不同乐器',
+                    '让孩子听乐器声音',
+                    '闭眼识别声音',
+                    '匹配声音与乐器',
+                    '学习声音特点',
+                    '模仿乐器声音'
+                ],
+                benefits: ['提升听觉分辨', '发展认知能力', '增强记忆力', '培养音乐感'],
+                safety: ['控制音量适中', '保护听力', '避免突然噪音', '适当休息'],
+                frequency: '每周3次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '故事复述': {
+                title: '听觉记忆训练',
+                description: '听故事后进行简单复述，发展听觉记忆和语言能力。',
+                materials: ['故事书', '录音设备', '图片卡'],
+                steps: [
+                    '选择简短有趣的故事',
+                    '专心聆听故事内容',
+                    '理解故事情节',
+                    '复述关键信息',
+                    '回答相关问题',
+                    '表演故事内容'
+                ],
+                benefits: ['提升听觉记忆', '发展语言能力', '增强理解力', '培养表达技巧'],
+                safety: ['控制故事长度', '确保内容适宜', '避免过度疲劳', '鼓励表达'],
+                frequency: '每日1-2次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '节拍游戏': {
+                title: '节拍感知训练',
+                description: '用手拍或跺脚跟节拍，发展节奏感和听觉处理能力。',
+                materials: ['节拍器', '鼓', '音乐', '节拍卡'],
+                steps: [
+                    '感受基础节拍',
+                    '用手拍跟节拍',
+                    '用脚跟节拍',
+                    '变化节拍速度',
+                    '复杂节拍练习',
+                    '创造自己的节拍'
+                ],
+                benefits: ['发展节奏感', '提升协调能力', '增强专注力', '培养音乐能力'],
+                safety: ['适度练习', '避免过度用力', '保护关节', '适当休息'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '书写练习': {
+                title: '精细动作训练',
+                description: '正确握笔姿势和笔画练习，发展精细动作和手眼协调。',
+                materials: ['彩色笔', '练习本', '握笔器', '模板'],
+                steps: [
+                    '学习正确握笔姿势',
+                    '练习基础线条',
+                    '描摹简单图形',
+                    '练习字母或汉字',
+                    '自由创作绘画',
+                    '提升书写流畅度'
+                ],
+                benefits: ['发展精细动作', '提升手眼协调', '培养专注力', '为学习做准备'],
+                safety: ['保持正确姿势', '适当休息', '保护视力', '避免过度练习'],
+                frequency: '每日1-2次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '手工制作': {
+                title: '精细动作手工',
+                description: '剪纸、折纸、串珠等活动，锻炼精细动作和创造能力。',
+                materials: ['彩纸', '安全剪刀', '珠子', '胶水'],
+                steps: [
+                    '选择适合的手工项目',
+                    '学习基本操作技巧',
+                    '按步骤完成制作',
+                    '注意细节处理',
+                    '完成作品装饰',
+                    '展示和分享作品'
+                ],
+                benefits: ['锻炼精细动作', '发展创造力', '提升专注力', '增强成就感'],
+                safety: ['使用安全工具', '避免误食小件', '注意切割安全', '成人监护'],
+                frequency: '每周2-3次，每次30-45分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '乐器演奏': {
+                title: '乐器学习训练',
+                description: '学习键盘、吉他等乐器，发展精细动作和音乐能力。',
+                materials: ['儿童乐器', '乐谱', '节拍器'],
+                steps: [
+                    '认识乐器构造',
+                    '学习基本指法',
+                    '练习简单曲目',
+                    '掌握节拍节奏',
+                    '演奏完整乐曲',
+                    '创作简单旋律'
+                ],
+                benefits: ['发展精细动作', '培养音乐素养', '提升专注力', '增强自信心'],
+                safety: ['选择适合乐器', '控制练习时间', '保护听力', '正确姿势'],
+                frequency: '每日1次，每次20-30分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '触觉图形': {
+                title: '触觉认知训练',
+                description: '在背上画图形让孩子猜测，发展触觉认知和空间感知。',
+                materials: ['手指', '软毛刷', '图形卡片'],
+                steps: [
+                    '让孩子放松坐好',
+                    '在背上轻画简单图形',
+                    '鼓励孩子猜测图形',
+                    '验证猜测结果',
+                    '增加图形复杂度',
+                    '角色互换游戏'
+                ],
+                benefits: ['发展触觉认知', '提升空间感知', '增强专注力', '培养想象力'],
+                safety: ['动作要轻柔', '避免过度刺激', '注意孩子反应', '保持舒适'],
+                frequency: '每周2-3次，每次10-15分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '旋转训练': {
+                title: '旋转前庭觉强化',
+                description: '使用旋转椅进行适度旋转，强化前庭觉系统功能。',
+                materials: ['旋转椅', '安全带', '软垫', '计时器'],
+                steps: [
+                    '检查设备安全性',
+                    '让孩子正确坐好',
+                    '开始缓慢旋转',
+                    '逐渐调整速度',
+                    '变化旋转方向',
+                    '观察适应反应'
+                ],
+                benefits: ['强化前庭觉功能', '提升平衡能力', '改善空间定向', '增强适应性'],
+                safety: ['控制旋转强度', '观察不适反应', '及时停止', '避免过度刺激'],
+                frequency: '每周2次，每次5-8分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '平衡挑战': {
+                title: '复杂平衡训练',
+                description: '复杂的平衡木训练，挑战更高水平的平衡能力。',
+                materials: ['复杂平衡木', '障碍物', '安全垫', '计时器'],
+                steps: [
+                    '从基础平衡开始',
+                    '增加平衡木高度',
+                    '设置障碍挑战',
+                    '加入时间限制',
+                    '变化行走方式',
+                    '组合动作训练'
+                ],
+                benefits: ['提升高级平衡', '增强自信心', '发展运动技能', '培养挑战精神'],
+                safety: ['确保安全保护', '循序渐进', '避免恐惧心理', '成人监护'],
+                frequency: '每周3次，每次15-20分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '倒立练习': {
+                title: '倒立前庭觉训练',
+                description: '靠墙倒立或倒挂练习，提供强烈的前庭觉刺激。',
+                materials: ['瑜伽垫', '墙面', '安全垫', '倒立椅'],
+                steps: [
+                    '从靠墙支撑开始',
+                    '逐渐减少支撑',
+                    '练习短时间倒立',
+                    '增加倒立时间',
+                    '尝试不同倒立姿势',
+                    '结合呼吸练习'
+                ],
+                benefits: ['强烈前庭觉刺激', '增强上肢力量', '改善血液循环', '提升勇气'],
+                safety: ['确保安全支撑', '时间要适中', '避免头部受伤', '成人监护'],
+                frequency: '每周2-3次，每次5-10分钟',
+                ageRange: '适合6岁以上儿童'
+            },
+            '方向感训练': {
+                title: '空间定向训练',
+                description: '闭眼转圈后指出方向，发展空间定向和方向感。',
+                materials: ['眼罩', '指南针', '方向标识'],
+                steps: [
+                    '学习基本方向概念',
+                    '睁眼练习指方向',
+                    '闭眼原地转圈',
+                    '停止后指出方向',
+                    '验证方向准确性',
+                    '增加转圈次数'
+                ],
+                benefits: ['发展空间定向', '提升方向感', '增强身体意识', '培养专注力'],
+                safety: ['防止摔倒', '控制转圈速度', '避免头晕', '确保安全空间'],
+                frequency: '每周2次，每次10-15分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '重工作': {
+                title: '重体力活动训练',
+                description: '搬运重物、推拉训练，提供强烈的本体觉输入。',
+                materials: ['重物箱', '推车', '沙袋', '安全手套'],
+                steps: [
+                    '学习正确搬运姿势',
+                    '从轻物开始练习',
+                    '逐渐增加重量',
+                    '练习推拉动作',
+                    '设置搬运路线',
+                    '团队合作搬运'
+                ],
+                benefits: ['强化本体觉输入', '增强肌肉力量', '提升耐力', '培养毅力'],
+                safety: ['重量要适中', '注意正确姿势', '避免受伤', '适当休息'],
+                frequency: '每周2-3次，每次15-20分钟',
+                ageRange: '适合6岁以上儿童'
+            },
+            '运动计划': {
+                title: '复杂动作序列训练',
+                description: '复杂动作序列的模仿，发展运动计划和记忆能力。',
+                materials: ['动作卡片', '音乐', '镜子', '标记物'],
+                steps: [
+                    '展示简单动作序列',
+                    '分解动作练习',
+                    '连贯完成序列',
+                    '增加动作复杂度',
+                    '记忆更长序列',
+                    '创造自己的序列'
+                ],
+                benefits: ['发展运动计划', '提升记忆能力', '增强协调性', '培养创造力'],
+                safety: ['确保活动空间', '避免危险动作', '循序渐进', '适当休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '力量控制': {
+                title: '力量调节训练',
+                description: '轻重不同的触摸练习，发展力量控制和本体觉。',
+                materials: ['不同硬度球', '弹簧器', '力量计'],
+                steps: [
+                    '感受不同力量大小',
+                    '练习轻柔触摸',
+                    '练习适中力量',
+                    '练习较大力量',
+                    '快速切换力量',
+                    '精确控制力度'
+                ],
+                benefits: ['发展力量控制', '提升本体觉', '增强精细调节', '培养专注力'],
+                safety: ['避免过度用力', '保护关节', '循序渐进', '适当休息'],
+                frequency: '每日1-2次，每次10-15分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '姿势控制': {
+                title: '姿势保持训练',
+                description: '各种姿势的保持训练，发展姿势控制和身体稳定性。',
+                materials: ['瑜伽垫', '平衡球', '姿势卡片'],
+                steps: [
+                    '学习正确姿势',
+                    '短时间保持姿势',
+                    '逐渐延长时间',
+                    '尝试不同姿势',
+                    '加入呼吸配合',
+                    '连续姿势变换'
+                ],
+                benefits: ['发展姿势控制', '增强核心力量', '提升身体意识', '改善专注力'],
+                safety: ['避免过度疲劳', '注意正确对齐', '适当休息', '循序渐进'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '视觉追踪': {
+                title: '视觉追踪训练',
+                description: '跟踪移动物体的练习，发展视觉追踪和专注能力。',
+                materials: ['移动玩具', '彩色球', '激光笔', '追踪卡'],
+                steps: [
+                    '练习水平追踪',
+                    '练习垂直追踪',
+                    '练习圆形追踪',
+                    '练习Z字追踪',
+                    '增加追踪速度',
+                    '双目协调追踪'
+                ],
+                benefits: ['发展视觉追踪', '提升专注力', '增强眼部肌肉', '改善阅读准备'],
+                safety: ['避免过强光线', '控制追踪时间', '适当休息', '保护视力'],
+                frequency: '每日1-2次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '抄写练习': {
+                title: '抄写技能训练',
+                description: '从黑板抄写到本子上，发展视觉感知和手眼协调。',
+                materials: ['黑板', '粉笔', '练习本', '铅笔', '橡皮'],
+                steps: [
+                    '在黑板上写简单的字母或数字',
+                    '让孩子观察黑板上的内容',
+                    '指导孩子抄写到本子上',
+                    '检查抄写的准确性',
+                    '逐渐增加抄写内容的复杂度',
+                    '培养良好的抄写习惯'
+                ],
+                benefits: ['提升视觉感知', '发展手眼协调', '增强专注力', '为学业准备'],
+                safety: ['保持正确坐姿', '光线要充足', '控制练习时间', '保护视力'],
+                frequency: '每日1次，每次20-25分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '空间感知': {
+                title: '三维空间认知训练',
+                description: '三维空间的认知训练，发展空间感知和思维能力。',
+                materials: ['积木', '拼装玩具', '空间游戏', '模型'],
+                steps: [
+                    '观察三维物体的结构',
+                    '学习空间方位概念',
+                    '练习搭建立体结构',
+                    '进行空间想象训练',
+                    '完成三维拼图',
+                    '挑战复杂的空间任务'
+                ],
+                benefits: ['发展空间感知', '提升思维能力', '增强创造力', '培养工程思维'],
+                safety: ['选择安全材料', '避免小件误吞', '适当休息', '循序渐进'],
+                frequency: '每周2-3次，每次25-30分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '连线游戏': {
+                title: '连线描画训练',
+                description: '各种连线和描画练习，发展精细动作和视觉协调。',
+                materials: ['连线图册', '彩色笔', '直尺', '橡皮擦'],
+                steps: [
+                    '观察连线图的起点和终点',
+                    '规划连线的路径',
+                    '用笔连接相应的点',
+                    '练习不同类型的连线',
+                    '进行复杂图形的描画',
+                    '检查连线的准确性'
+                ],
+                benefits: ['发展精细动作', '提升手眼协调', '增强专注力', '培养计划能力'],
+                safety: ['握笔姿势要正确', '避免用力过度', '保护视力', '适当休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '听觉辨别': {
+                title: '听觉辨别训练',
+                description: '细微声音差异的识别，提升听觉感知和辨别能力。',
+                materials: ['各种声源', '录音设备', '辨别卡片', '耳机'],
+                steps: [
+                    '播放相似但不同的声音',
+                    '让孩子仔细聆听差异',
+                    '练习识别细微的音调变化',
+                    '进行声音配对游戏',
+                    '挑战在噪音中辨别目标声',
+                    '记录听觉辨别的进步'
+                ],
+                benefits: ['提升听觉辨别', '增强注意力', '发展音乐感知', '改善听觉处理'],
+                safety: ['控制音量适中', '保护听力', '避免突然大声', '适当休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '听觉记忆': {
+                title: '听觉记忆训练',
+                description: '复杂指令的记忆和执行，发展听觉记忆和执行功能。',
+                materials: ['指令卡片', '录音设备', '记录表', '奖励贴纸'],
+                steps: [
+                    '给出简单的单步指令',
+                    '逐渐增加指令的步骤',
+                    '练习记忆多步骤指令',
+                    '在执行前要求孩子复述',
+                    '挑战更复杂的指令序列',
+                    '记录指令执行的准确率'
+                ],
+                benefits: ['提升听觉记忆', '发展执行功能', '增强注意力', '培养遵循指令能力'],
+                safety: ['指令要清晰', '循序渐进增加难度', '给予充分时间', '正面鼓励'],
+                frequency: '每日1-2次，每次15-25分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '声音定位': {
+                title: '声音定位训练',
+                description: '判断声音来源的方向，发展听觉定位和空间感知。',
+                materials: ['各种声源', '眼罩', '方向标识', '移动音源'],
+                steps: [
+                    '让孩子闭眼坐在中央',
+                    '在不同方向发出声音',
+                    '要求孩子指出声音方向',
+                    '使用移动的声源',
+                    '在噪音环境中进行训练',
+                    '记录定位准确性'
+                ],
+                benefits: ['发展听觉定位', '提升空间感知', '增强注意力', '改善方向感'],
+                safety: ['环境要安全', '声音不宜过大', '避免突然惊吓', '循序渐进'],
+                frequency: '每周2-3次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '背景噪音': {
+                title: '噪音环境专注训练',
+                description: '在噪音环境中集中注意，发展听觉注意力和抗干扰能力。',
+                materials: ['背景音乐', '噪音播放器', '任务材料', '耳机'],
+                steps: [
+                    '在安静环境中练习',
+                    '加入轻微背景音',
+                    '专注目标声音',
+                    '逐渐增加噪音',
+                    '保持专注听觉',
+                    '复杂环境练习'
+                ],
+                benefits: ['提升专注力', '发展抗干扰能力', '改善听觉注意', '增强学习能力'],
+                safety: ['控制噪音水平', '保护听力健康', '避免过度疲劳', '适当休息'],
+                frequency: '每周2次，每次20-25分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '障碍训练': {
+                title: '障碍穿越训练',
+                description: '设置障碍物进行穿越，发展运动计划和身体协调。',
+                materials: ['各种障碍物', '安全垫', '计时器', '标记锥'],
+                steps: [
+                    '设计简单的障碍路线',
+                    '示范正确的穿越方法',
+                    '让孩子尝试穿越障碍',
+                    '逐渐增加障碍的复杂度',
+                    '计时挑战穿越速度',
+                    '设计创意障碍路线'
+                ],
+                benefits: ['发展运动计划', '提升身体协调', '增强敏捷性', '培养问题解决能力'],
+                safety: ['使用安全材料', '确保安全距离', '避免碰撞', '成人监护'],
+                frequency: '每周3次，每次20-25分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '专注训练': {
+                title: '专注力延长训练',
+                description: '延长专注于一项活动的时间，发展持续注意力。',
+                materials: ['计时器', '专注任务卡', '奖励贴纸'],
+                steps: [
+                    '选择有趣的活动',
+                    '设定短时专注目标',
+                    '逐渐延长专注时间',
+                    '记录专注进步',
+                    '增加任务难度',
+                    '培养自主专注'
+                ],
+                benefits: ['提升专注力', '增强自控能力', '改善学习效果', '培养毅力'],
+                safety: ['避免过度疲劳', '适当休息', '保持积极态度', '循序渐进'],
+                frequency: '每日2次，每次根据能力调整',
+                ageRange: '适合3岁以上儿童'
+            },
+            '盲盒游戏': {
+                title: '触觉认知游戏',
+                description: '闭眼摸索盒子里的物品并猜测，发展触觉认知和想象力。',
+                materials: ['不透明盒子', '各种形状物品', '记录卡'],
+                steps: [
+                    '准备各种形状物品',
+                    '闭眼或蒙眼摸索',
+                    '仔细感受物品特征',
+                    '猜测物品名称',
+                    '验证猜测结果',
+                    '讨论触感特点'
+                ],
+                benefits: ['发展触觉认知', '提升想象力', '增强分析能力', '培养专注力'],
+                safety: ['确保物品安全', '避免尖锐物品', '适当大小', '定期清洁'],
+                frequency: '每周2-3次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '粘土创作': {
+                title: '创意粘土制作',
+                description: '用彩泥、橡皮泥进行创意制作，发展创造力和精细动作。',
+                materials: ['彩色粘土', '制作工具', '模具', '装饰材料'],
+                steps: [
+                    '自由探索粘土质感',
+                    '学习基本制作技巧',
+                    '制作简单形状',
+                    '创作复杂作品',
+                    '添加装饰细节',
+                    '展示分享作品'
+                ],
+                benefits: ['发展创造力', '锻炼精细动作', '提升专注力', '增强自信心'],
+                safety: ['使用无毒材料', '避免误食', '注意清洁', '适当休息'],
+                frequency: '每周2-3次，每次30-45分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '沙画制作': {
+                title: '沙画艺术训练',
+                description: '在沙盘上用手指画画，发展创造力和触觉体验。',
+                materials: ['沙盘', '细沙', '画板', '清洁工具'],
+                steps: [
+                    '感受沙子质感',
+                    '用手指在沙上画画',
+                    '创作简单图案',
+                    '制作复杂画面',
+                    '学习阴影效果',
+                    '保存或拍照作品'
+                ],
+                benefits: ['发展创造力', '提升触觉体验', '培养艺术感', '增强想象力'],
+                safety: ['使用安全沙子', '避免误食', '注意清洁', '保护眼部'],
+                frequency: '每周2次，每次25-30分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '织物分类': {
+                title: '材质分类训练',
+                description: '按照材质和纹理分类不同织物，发展触觉分辨和分类能力。',
+                materials: ['各种织物样本', '分类盒', '标签'],
+                steps: [
+                    '收集不同织物样本',
+                    '触摸感受织物质感',
+                    '学习材质特点',
+                    '按质感分类',
+                    '按用途分类',
+                    '创造分类游戏'
+                ],
+                benefits: ['发展触觉分辨', '提升分类能力', '增强认知技能', '培养观察力'],
+                safety: ['确保织物安全', '避免过敏反应', '注意清洁', '适当大小'],
+                frequency: '每周2次，每次20-25分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '平衡木走路': {
+                title: '低矮平衡木训练',
+                description: '在低矮的平衡木上行走，发展平衡能力和自信心。',
+                materials: ['低矮平衡木', '安全垫', '辅助绳'],
+                steps: [
+                    '在地面练习直线行走',
+                    '踏上低矮平衡木',
+                    '慢速行走练习',
+                    '提升行走速度',
+                    '加入转身动作',
+                    '尝试侧步行走'
+                ],
+                benefits: ['发展平衡能力', '增强自信心', '提升协调性', '培养勇气'],
+                safety: ['使用安全垫', '控制高度', '成人监护', '循序渐进'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '旋转椅游戏': {
+                title: '旋转椅控制训练',
+                description: '在旋转椅上控制旋转速度，发展前庭觉和自控能力。',
+                materials: ['旋转椅', '安全带', '控制器'],
+                steps: [
+                    '学习安全使用方法',
+                    '开始缓慢旋转',
+                    '练习控制速度',
+                    '体验不同旋转方向',
+                    '学习停止技巧',
+                    '掌握精确控制'
+                ],
+                benefits: ['发展前庭觉功能', '提升自控能力', '增强平衡感', '培养专注力'],
+                safety: ['确保设备安全', '控制旋转强度', '避免过度刺激', '成人监护'],
+                frequency: '每周2次，每次8-12分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '跳跃练习': {
+                title: '多样跳跃训练',
+                description: '各种形式的跳跃动作，发展下肢力量和协调能力。',
+                materials: ['跳跃垫', '标记线', '跳绳', '障碍物'],
+                steps: [
+                    '原地双脚跳跃',
+                    '向前跳跃练习',
+                    '左右跳跃练习',
+                    '单脚跳跃练习',
+                    '跳绳技能训练',
+                    '障碍跳跃挑战'
+                ],
+                benefits: ['增强下肢力量', '提升协调能力', '改善心肺功能', '发展节奏感'],
+                safety: ['确保着陆安全', '适当运动量', '避免过度疲劳', '选择合适场地'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '找不同游戏': {
+                title: '视觉差异识别',
+                description: '在图片中找出差异，发展视觉分辨和专注能力。',
+                materials: ['找不同图册', '计时器', '标记笔'],
+                steps: [
+                    '观察图片整体',
+                    '系统性搜索差异',
+                    '标记发现的不同',
+                    '验证答案正确性',
+                    '挑战时间限制',
+                    '创作自己的找不同'
+                ],
+                benefits: ['提升视觉分辨', '增强专注力', '发展观察技能', '培养耐心'],
+                safety: ['保护视力', '适当休息', '调节光线', '避免过度专注'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '追踪练习': {
+                title: '眼球追踪训练',
+                description: '眼睛跟随移动的物体，发展视觉追踪和眼球运动。',
+                materials: ['移动目标', '追踪板', '激光笔'],
+                steps: [
+                    '水平方向追踪',
+                    '垂直方向追踪',
+                    '圆形轨迹追踪',
+                    '复杂路径追踪',
+                    '多目标追踪',
+                    '速度变化追踪'
+                ],
+                benefits: ['发展视觉追踪', '提升眼球运动', '增强专注力', '改善阅读准备'],
+                safety: ['避免过强光线', '控制追踪时间', '适当休息', '保护视力'],
+                frequency: '每日1-2次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '节奏拍打': {
+                title: '节奏感培养训练',
+                description: '跟随音乐节拍拍手，发展节奏感和听觉协调能力。',
+                materials: ['音乐播放器', '节拍器', '鼓棒', '打击乐器'],
+                steps: [
+                    '感受音乐基本节拍',
+                    '用手拍打节拍',
+                    '跟随节拍器练习',
+                    '尝试复杂节奏型',
+                    '使用乐器打节拍',
+                    '创造自己的节奏'
+                ],
+                benefits: ['发展节奏感', '提升听觉协调', '增强专注力', '培养音乐素养'],
+                safety: ['控制音量适中', '保护听力', '适当休息', '避免过度用力'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '听话复述': {
+                title: '听觉理解复述',
+                description: '听完故事后复述内容，发展听觉理解和语言表达能力。',
+                materials: ['故事音频', '图片卡', '录音设备'],
+                steps: [
+                    '专心聆听故事',
+                    '理解故事内容',
+                    '回忆关键情节',
+                    '用自己的话复述',
+                    '回答相关问题',
+                    '表演故事片段'
+                ],
+                benefits: ['提升听觉理解', '发展语言表达', '增强记忆力', '培养沟通技巧'],
+                safety: ['控制故事长度', '确保内容适宜', '鼓励表达', '适当休息'],
+                frequency: '每日1-2次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '音乐游戏': {
+                title: '互动音乐活动',
+                description: '通过音乐进行各种互动，发展听觉和社交能力。',
+                materials: ['各种乐器', '音乐', '道具', '服装'],
+                steps: [
+                    '听音乐做动作',
+                    '跟唱简单歌曲',
+                    '使用乐器伴奏',
+                    '音乐角色扮演',
+                    '创编音乐游戏',
+                    '团体音乐表演'
+                ],
+                benefits: ['发展听觉能力', '提升社交技能', '增强表现力', '培养团队合作'],
+                safety: ['控制音量', '确保器材安全', '避免过度兴奋', '适当休息'],
+                frequency: '每周3次，每次20-30分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '体感游戏': {
+                title: '体感运动训练',
+                description: '使用体感设备进行运动，发展全身协调和反应能力。',
+                materials: ['体感游戏设备', '安全垫', '充足空间'],
+                steps: [
+                    '学习设备使用方法',
+                    '开始简单体感游戏',
+                    '练习全身协调动作',
+                    '提升反应速度',
+                    '挑战复杂游戏',
+                    '与他人互动游戏'
+                ],
+                benefits: ['发展全身协调', '提升反应能力', '增强运动兴趣', '培养竞争意识'],
+                safety: ['确保活动空间', '避免过度疲劳', '注意设备安全', '适当休息'],
+                frequency: '每周2-3次，每次20-30分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '书写准备': {
+                title: '书写前技能训练',
+                description: '握笔姿势和书写前技能，为正式书写做准备。',
+                materials: ['粗笔', '细笔', '练习纸', '握笔器'],
+                steps: [
+                    '学习正确握笔姿势',
+                    '练习手腕稳定性',
+                    '描摹基本线条',
+                    '练习基本图形',
+                    '控制笔压力度',
+                    '提升书写流畅性'
+                ],
+                benefits: ['发展精细动作', '为书写做准备', '提升手眼协调', '培养专注力'],
+                safety: ['保持正确姿势', '适当休息', '保护视力', '循序渐进'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '触觉刷': {
+                title: '触觉刷刺激训练',
+                description: '用软毛刷进行皮肤刺激，提供触觉输入，促进感觉调节。',
+                materials: ['软毛刷', '按摩刷', '不同质地刷子'],
+                steps: [
+                    '选择合适的刷子',
+                    '从四肢开始轻刷',
+                    '按顺序刷身体各部位',
+                    '调整刷子压力',
+                    '观察孩子反应',
+                    '结束后温柔按摩'
+                ],
+                benefits: ['提供触觉输入', '促进感觉调节', '改善触觉敏感', '增强身体意识'],
+                safety: ['使用软质刷子', '避免过度刺激', '观察皮肤反应', '动作轻柔'],
+                frequency: '每日1-2次，每次5-10分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '温度训练': {
+                title: '温度感知训练',
+                description: '感受不同温度的物品，发展温度觉和触觉分辨能力。',
+                materials: ['温水', '冷水', '温度计', '不同温度物品'],
+                steps: [
+                    '安全地接触温水',
+                    '体验适中的冷水',
+                    '比较温度差异',
+                    '识别物品温度',
+                    '描述温度感受',
+                    '温度匹配游戏'
+                ],
+                benefits: ['发展温度觉', '提升触觉分辨', '增强安全意识', '丰富感觉体验'],
+                safety: ['确保温度安全', '避免烫伤冻伤', '测试温度', '成人监护'],
+                frequency: '每周2次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '摇摆训练': {
+                title: '多方向摇摆活动',
+                description: '各种方向的摇摆活动，全面刺激前庭觉系统。',
+                materials: ['摇摆设备', '安全带', '软垫'],
+                steps: [
+                    '前后方向摇摆',
+                    '左右方向摇摆',
+                    '圆形摇摆运动',
+                    '变化摇摆速度',
+                    '调整摇摆幅度',
+                    '结合音乐摇摆'
+                ],
+                benefits: ['刺激前庭觉系统', '改善平衡能力', '增强空间感知', '促进镇静效果'],
+                safety: ['确保设备安全', '控制摇摆强度', '观察不适反应', '成人监护'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合1岁以上儿童'
+            },
+            '平衡练习': {
+                title: '平衡能力综合训练',
+                description: '平衡木、独木桥行走等综合平衡训练。',
+                materials: ['平衡木', '独木桥', '平衡垫', '安全设备'],
+                steps: [
+                    '在宽平衡木上行走',
+                    '尝试窄平衡木',
+                    '独木桥穿越',
+                    '加入障碍物',
+                    '闭眼平衡练习',
+                    '动态平衡挑战'
+                ],
+                benefits: ['发展平衡能力', '增强自信心', '提升协调性', '培养勇气'],
+                safety: ['使用安全保护', '控制难度', '成人监护', '循序渐进'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '倒立训练': {
+                title: '倒立姿势练习',
+                description: '各种倒立姿势练习，提供强烈的前庭觉和本体觉刺激。',
+                materials: ['瑜伽垫', '墙面支撑', '倒立椅', '安全垫'],
+                steps: [
+                    '学习正确倒立姿势',
+                    '靠墙支撑倒立',
+                    '逐渐减少支撑',
+                    '短时间自由倒立',
+                    '延长倒立时间',
+                    '不同倒立变化'
+                ],
+                benefits: ['强烈感觉刺激', '增强上肢力量', '改善血液循环', '提升勇气'],
+                safety: ['确保安全支撑', '时间要适中', '避免头部受伤', '专业指导'],
+                frequency: '每周2-3次，每次5-10分钟',
+                ageRange: '适合6岁以上儿童'
+            },
+            '滑行活动': {
+                title: '滑行运动训练',
+                description: '滑梯、滑板等活动，提供前庭觉刺激和运动体验。',
+                materials: ['滑梯', '滑板', '保护设备', '安全垫'],
+                steps: [
+                    '学习安全滑行姿势',
+                    '从低矮滑梯开始',
+                    '练习控制滑行速度',
+                    '尝试不同滑行方式',
+                    '增加滑行难度',
+                    '组合滑行动作'
+                ],
+                benefits: ['刺激前庭觉系统', '增强勇气', '发展运动技能', '提升协调能力'],
+                safety: ['使用保护设备', '检查设施安全', '成人监护', '循序渐进'],
+                frequency: '每周3次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '关节挤压': {
+                title: '关节压力刺激',
+                description: '适度的关节压力刺激，提供本体觉输入，促进感觉调节。',
+                materials: ['瑜伽垫', '按摩球', '弹力带'],
+                steps: [
+                    '学习正确施压方法',
+                    '从大关节开始',
+                    '适度施加压力',
+                    '保持压力几秒钟',
+                    '按顺序处理各关节',
+                    '结束后放松活动'
+                ],
+                benefits: ['提供本体觉输入', '促进感觉调节', '改善身体意识', '增强镇静效果'],
+                safety: ['压力要适中', '避免过度用力', '观察孩子反应', '专业指导'],
+                frequency: '需要时使用，每次5-10分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '攀爬训练': {
+                title: '攀爬技能训练',
+                description: '攀岩墙、绳索攀爬等，发展全身力量和协调能力。',
+                materials: ['攀岩墙', '绳索', '安全绳', '保护垫'],
+                steps: [
+                    '学习基本攀爬技巧',
+                    '练习手脚协调',
+                    '从低处开始攀爬',
+                    '逐渐增加高度',
+                    '挑战不同路线',
+                    '提升攀爬技能'
+                ],
+                benefits: ['发展全身力量', '提升协调能力', '增强自信心', '培养毅力'],
+                safety: ['使用安全设备', '专业指导', '检查器材', '循序渐进'],
+                frequency: '每周2-3次，每次20-30分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '跳跃运动': {
+                title: '蹦床跳跃训练',
+                description: '蹦床、跳绳等活动，提供强烈的前庭觉和本体觉刺激。',
+                materials: ['蹦床', '跳绳', '安全网', '保护垫'],
+                steps: [
+                    '学习安全跳跃姿势',
+                    '基础弹跳练习',
+                    '控制跳跃高度',
+                    '尝试不同跳跃动作',
+                    '跳绳技能训练',
+                    '组合跳跃动作'
+                ],
+                benefits: ['强烈感觉刺激', '增强下肢力量', '改善协调能力', '提升心肺功能'],
+                safety: ['使用安全设备', '控制跳跃强度', '避免过度疲劳', '成人监护'],
+                frequency: '每周3次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '力量对抗': {
+                title: '力量对抗游戏',
+                description: '拔河、推手等游戏，发展力量和本体觉感知。',
+                materials: ['绳索', '推手垫', '阻力带', '安全设备'],
+                steps: [
+                    '学习正确用力姿势',
+                    '开始轻度对抗',
+                    '逐渐增加阻力',
+                    '练习持续用力',
+                    '团队对抗游戏',
+                    '技巧性对抗练习'
+                ],
+                benefits: ['发展肌肉力量', '提升本体觉', '增强竞争意识', '培养团队精神'],
+                safety: ['控制对抗强度', '避免受伤', '公平竞争', '适当休息'],
+                frequency: '每周2次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '平衡木行走': {
+                title: '平衡木行走训练',
+                description: '在地面平衡木上行走，提升平衡能力和身体协调性。',
+                materials: ['低矮平衡木', '安全垫', '标记线', '平衡杆'],
+                steps: [
+                    '先在地面直线上练习行走',
+                    '上平衡木保持身体直立',
+                    '目视前方缓慢前进',
+                    '双臂伸展保持平衡',
+                    '练习在平衡木上转身',
+                    '增加行走速度和距离'
+                ],
+                benefits: ['改善平衡能力', '增强核心力量', '提升专注力', '建立身体意识'],
+                safety: ['使用安全垫保护', '成人陪同指导', '平衡木高度适中', '避免恐惧心理'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '秋千摇摆': {
+                title: '秋千摇摆训练',
+                description: '各种方向的秋千摇摆活动，刺激前庭觉发展。',
+                materials: ['安全秋千', '防护设备', '软垫', '安全绳'],
+                steps: [
+                    '确保秋千设备安全牢固',
+                    '让孩子坐稳并系好安全带',
+                    '开始轻柔的前后摇摆',
+                    '逐渐增加摇摆幅度',
+                    '尝试左右摇摆变化',
+                    '观察孩子反应调整强度'
+                ],
+                benefits: ['刺激前庭系统', '改善平衡感', '增强空间感知', '放松身心'],
+                safety: ['检查设备安全', '控制摇摆强度', '避免过度刺激', '成人监护'],
+                frequency: '每日1-2次，每次10-15分钟',
+                ageRange: '适合18个月以上儿童'
+            },
+            '单脚站立': {
+                title: '单脚站立平衡训练',
+                description: '练习单脚站立保持平衡，提升前庭觉和本体觉功能。',
+                materials: ['平衡垫', '计时器', '支撑物', '奖励贴纸'],
+                steps: [
+                    '双手扶墙开始练习',
+                    '抬起一只脚保持平衡',
+                    '逐渐延长站立时间',
+                    '减少手部支撑依赖',
+                    '尝试闭眼单脚站立',
+                    '左右脚轮换练习'
+                ],
+                benefits: ['增强平衡能力', '提升腿部力量', '改善身体协调', '建立自信心'],
+                safety: ['旁边有支撑物', '避免摔倒风险', '循序渐进训练', '注意疲劳程度'],
+                frequency: '每日2-3次，每次5-10分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '推重物': {
+                title: '推重物力量训练',
+                description: '推装满书的小车或重箱子，发展全身力量和本体觉。',
+                materials: ['重物箱子', '小推车', '安全垫', '重量可调节物品'],
+                steps: [
+                    '选择适合孩子力量的重物',
+                    '教导正确的推拉姿势',
+                    '双手推物慢慢前进',
+                    '感受肌肉用力的感觉',
+                    '逐渐增加重量和距离',
+                    '变换不同方向推拉'
+                ],
+                benefits: ['发展全身力量', '提升本体觉输入', '增强肌肉耐力', '改善姿势控制'],
+                safety: ['重量要适中', '姿势要正确', '避免过度疲劳', '确保地面安全'],
+                frequency: '每周3次，每次10-15分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '拉力训练': {
+                title: '拉力对抗训练',
+                description: '拔河、拉橡皮筋等活动，增强上肢力量和本体觉感知。',
+                materials: ['拔河绳', '橡皮筋', '拉力器', '标记线'],
+                steps: [
+                    '学习正确的拉拽姿势',
+                    '双手握紧绳索或器材',
+                    '身体后倾使用全身力量',
+                    '持续用力保持拉拽状态',
+                    '进行团队拔河比赛',
+                    '尝试不同阻力的训练'
+                ],
+                benefits: ['增强上肢力量', '提升协调能力', '发展团队合作', '增强竞争意识'],
+                safety: ['控制拉力强度', '避免突然松手', '注意手部保护', '防止摔倒'],
+                frequency: '每周2-3次，每次15-20分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '动作模仿': {
+                title: '动作模仿训练',
+                description: '模仿各种动物的动作，发展运动计划和身体协调能力。',
+                materials: ['动物图片', '音乐播放器', '镜子', '空旷场地'],
+                steps: [
+                    '观看动物动作图片或视频',
+                    '分解动作要领进行示范',
+                    '让孩子模仿基本动作',
+                    '纠正动作姿势和节奏',
+                    '串联多个动作形成序列',
+                    '配合音乐进行动作表演'
+                ],
+                benefits: ['提升运动计划能力', '增强身体协调', '发展创造力', '提升模仿学习'],
+                safety: ['确保活动空间安全', '动作幅度要适中', '避免过于剧烈', '注意身体协调'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '拼图游戏': {
+                title: '拼图专注训练',
+                description: '从简单到复杂的拼图练习，提升视觉感知和专注力。',
+                materials: ['不同难度拼图', '拼图垫', '计时器', '放大镜'],
+                steps: [
+                    '选择适合年龄的拼图',
+                    '先观察完整图案',
+                    '从边框片开始拼接',
+                    '按颜色和图案分类',
+                    '逐步完成整幅拼图',
+                    '记录完成时间进步'
+                ],
+                benefits: ['提升专注力', '增强视觉感知', '发展耐心品质', '提升问题解决能力'],
+                safety: ['选择安全材质', '避免小件误吞', '控制训练时间', '保护视力'],
+                frequency: '每日1次，每次20-30分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '找不同': {
+                title: '找不同视觉训练',
+                description: '在图片中找出不同之处，提升视觉辨别和注意力。',
+                materials: ['找不同图书', '放大镜', '标记笔', '计时器'],
+                steps: [
+                    '仔细观察两幅相似图片',
+                    '系统地比较每个区域',
+                    '发现差异后做标记',
+                    '检查是否遗漏其他差异',
+                    '逐步增加图片复杂度',
+                    '记录找到差异的数量'
+                ],
+                benefits: ['提升视觉辨别能力', '增强注意力', '发展观察技能', '提升耐心'],
+                safety: ['控制用眼时间', '保持适当距离', '光线要充足', '定期休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '迷宫游戏': {
+                title: '迷宫路径训练',
+                description: '用笔走迷宫路径，发展视觉追踪和计划能力。',
+                materials: ['迷宫图册', '彩色笔', '橡皮擦', '直尺'],
+                steps: [
+                    '观察迷宫的起点和终点',
+                    '用眼睛先规划可能路径',
+                    '用笔慢慢描绘正确路径',
+                    '遇到死路时退回重新选择',
+                    '完成后检查路径是否正确',
+                    '挑战更复杂的迷宫'
+                ],
+                benefits: ['发展计划能力', '提升视觉追踪', '增强耐心', '提升问题解决能力'],
+                safety: ['握笔姿势要正确', '避免用力过度', '控制训练时间', '保护视力'],
+                frequency: '每日1次，每次15-25分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '配对游戏': {
+                title: '配对认知训练',
+                description: '各种形状、颜色的配对游戏，提升视觉认知和分类能力。',
+                materials: ['配对卡片', '分类盒', '形状积木', '颜色样本'],
+                steps: [
+                    '准备不同类型的配对材料',
+                    '先示范简单的配对方法',
+                    '让孩子尝试独立配对',
+                    '从简单到复杂逐步进行',
+                    '及时给予正确性反馈',
+                    '增加配对的种类和数量'
+                ],
+                benefits: ['提升分类能力', '增强视觉认知', '发展逻辑思维', '提升专注力'],
+                safety: ['选择安全材质', '避免小件误吞', '适当休息', '正面引导'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '音乐律动': {
+                title: '音乐律动训练',
+                description: '跟随音乐做各种动作，发展听觉感知和身体协调。',
+                materials: ['音乐播放器', '节拍器', '音乐CD', '简单乐器'],
+                steps: [
+                    '播放节奏明快的音乐',
+                    '示范简单的律动动作',
+                    '引导孩子跟随节拍运动',
+                    '变换不同的动作组合',
+                    '使用简单乐器伴奏',
+                    '创编属于自己的律动'
+                ],
+                benefits: ['发展节奏感', '提升听觉感知', '增强身体协调', '培养音乐素养'],
+                safety: ['控制音量适中', '动作要安全', '避免过度兴奋', '注意活动空间'],
+                frequency: '每日1-2次，每次15-25分钟',
+                ageRange: '适合1岁以上儿童'
+            },
+            '声音辨别': {
+                title: '声音辨别训练',
+                description: '识别不同乐器的声音，提升听觉辨别和注意力。',
+                materials: ['各种乐器', '声音录音', '播放设备', '识别卡片'],
+                steps: [
+                    '准备多种不同音色的乐器',
+                    '让孩子闭眼聆听各种声音',
+                    '播放录音让孩子识别乐器',
+                    '用卡片进行听音选择',
+                    '增加声音的复杂程度',
+                    '练习在噪音中识别目标声音'
+                ],
+                benefits: ['提升听觉辨别', '增强注意力', '发展音乐感知', '提升记忆力'],
+                safety: ['控制音量适中', '避免突然大声', '保护听力', '环境要安静'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '故事复述': {
+                title: '故事复述训练',
+                description: '听故事后进行简单复述，发展听觉记忆和语言表达。',
+                materials: ['故事书', '录音设备', '图片卡', '奖励贴纸'],
+                steps: [
+                    '选择适合年龄的简短故事',
+                    '清晰地朗读故事内容',
+                    '提醒孩子认真聆听',
+                    '故事结束后请孩子复述',
+                    '提供必要的提示和引导',
+                    '逐步增加故事的长度'
+                ],
+                benefits: ['提升听觉记忆', '发展语言表达', '增强理解能力', '培养专注力'],
+                safety: ['语速要适中', '内容要积极', '鼓励表达', '耐心引导'],
+                frequency: '每日1-2次，每次15-25分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '节拍游戏': {
+                title: '节拍感知训练',
+                description: '用手拍或跺脚跟节拍，发展听觉感知和身体协调。',
+                materials: ['节拍器', '音乐播放器', '鼓棒', '简单打击乐器'],
+                steps: [
+                    '播放有明显节拍的音乐',
+                    '示范用手拍打节拍',
+                    '引导孩子跟随节拍拍手',
+                    '尝试用脚跟随节拍',
+                    '使用简单乐器打节拍',
+                    '创造复杂的节拍组合'
+                ],
+                benefits: ['发展节拍感', '提升听觉感知', '增强协调能力', '培养音乐素养'],
+                safety: ['控制音量适中', '动作要协调', '避免过度用力', '适当休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合2岁以上儿童'
+            },
+            '书写练习': {
+                title: '书写准备训练',
+                description: '正确握笔姿势和笔画练习，发展精细动作和手眼协调。',
+                materials: ['各种笔类', '练习纸', '描红本', '握笔器'],
+                steps: [
+                    '学习正确的握笔姿势',
+                    '练习基本的线条描画',
+                    '从简单笔画开始练习',
+                    '逐步过渡到复杂图形',
+                    '进行字母或汉字描红',
+                    '培养良好的书写习惯'
+                ],
+                benefits: ['发展精细动作', '提升手眼协调', '为学业准备', '培养专注力'],
+                safety: ['坐姿要端正', '光线要充足', '控制练习时间', '避免手部疲劳'],
+                frequency: '每日1次，每次15-25分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '手工制作': {
+                title: '精细手工训练',
+                description: '剪纸、折纸、串珠等活动，发展手部精细动作和创造力。',
+                materials: ['彩纸', '安全剪刀', '胶水', '珠子', '绳线'],
+                steps: [
+                    '选择适合年龄的手工项目',
+                    '示范基本的制作技巧',
+                    '引导孩子模仿操作',
+                    '鼓励创意发挥',
+                    '完成作品并展示',
+                    '分享制作心得'
+                ],
+                benefits: ['发展精细动作', '增强创造力', '提升专注力', '培养审美能力'],
+                safety: ['使用安全工具', '避免误食小件', '注意手部安全', '适当休息'],
+                frequency: '每周2-3次，每次20-30分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '乐器演奏': {
+                title: '乐器演奏训练',
+                description: '学习键盘、吉他等乐器，发展听觉感知和手指协调。',
+                materials: ['键盘/钢琴', '吉他', '音乐书', '节拍器'],
+                steps: [
+                    '学习基本的乐器知识',
+                    '练习正确的演奏姿势',
+                    '从简单的音阶开始',
+                    '学习基础的曲目',
+                    '培养音乐感知能力',
+                    '定期进行演奏展示'
+                ],
+                benefits: ['发展听觉感知', '提升手指协调', '培养音乐素养', '增强记忆力'],
+                safety: ['控制练习时间', '保护听力', '注意手指放松', '适当休息'],
+                frequency: '每日1次，每次20-30分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '触觉图形': {
+                title: '触觉图形识别训练',
+                description: '在背上画图形让孩子猜测，发展触觉辨别能力。',
+                materials: ['图形卡片', '记录表', '奖励贴纸'],
+                steps: [
+                    '让孩子背对操作者坐好',
+                    '用手指在背上画简单图形',
+                    '让孩子猜测是什么图形',
+                    '从简单到复杂逐步进行',
+                    '记录正确率和进步情况',
+                    '给予积极的反馈和鼓励'
+                ],
+                benefits: ['提升触觉辨别', '增强空间感知', '发展注意力', '提升记忆力'],
+                safety: ['手指要清洁', '力度要适中', '避免过长时间', '尊重孩子感受'],
+                frequency: '每日1次，每次10-15分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '旋转训练': {
+                title: '旋转椅训练',
+                description: '使用旋转椅进行适度旋转，刺激前庭觉发展。',
+                materials: ['安全旋转椅', '防护设备', '计时器'],
+                steps: [
+                    '确保旋转椅安全稳固',
+                    '让孩子坐稳并抓紧扶手',
+                    '开始缓慢的旋转运动',
+                    '观察孩子的反应和耐受度',
+                    '逐渐调整旋转速度',
+                    '完成后静坐休息片刻'
+                ],
+                benefits: ['刺激前庭系统', '改善平衡能力', '增强空间感知', '提升身体意识'],
+                safety: ['控制旋转速度', '避免过度刺激', '随时观察反应', '准备应急措施'],
+                frequency: '每周2-3次，每次5-10分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '平衡挑战': {
+                title: '复杂平衡训练',
+                description: '复杂的平衡木训练，提升高级平衡技能。',
+                materials: ['高级平衡木', '平衡球', '平衡垫', '障碍物'],
+                steps: [
+                    '在平衡木上完成各种动作',
+                    '加入转身、下蹲等挑战',
+                    '使用平衡球进行训练',
+                    '设置复杂的平衡路线',
+                    '挑战闭眼平衡',
+                    '进行计时平衡比赛'
+                ],
+                benefits: ['提升高级平衡技能', '增强自信心', '发展运动计划', '提升专注力'],
+                safety: ['使用安全保护', '循序渐进挑战', '避免恐惧心理', '成人陪同'],
+                frequency: '每周2次，每次15-20分钟',
+                ageRange: '适合6岁以上儿童'
+            },
+            '倒立练习': {
+                title: '倒立平衡训练',
+                description: '靠墙倒立或倒挂练习，强烈刺激前庭觉和本体觉。',
+                materials: ['墙面', '软垫', '倒立架', '安全带'],
+                steps: [
+                    '先练习靠墙手倒立',
+                    '掌握基本的倒立技巧',
+                    '逐渐增加倒立时间',
+                    '尝试独立倒立',
+                    '进行倒挂训练',
+                    '挑战不同的倒立变化'
+                ],
+                benefits: ['强烈前庭刺激', '增强上肢力量', '改善血液循环', '提升身体意识'],
+                safety: ['必须有成人指导', '使用安全保护', '控制训练时间', '避免头部受压'],
+                frequency: '每周2次，每次5-10分钟',
+                ageRange: '适合8岁以上儿童'
+            },
+            '方向感训练': {
+                title: '空间方向感训练',
+                description: '闭眼转圈后指出方向，发展空间定向能力。',
+                materials: ['指南针', '方向标识', '眼罩', '奖励贴纸'],
+                steps: [
+                    '先学习基本的方向概念',
+                    '睁眼状态下练习指方向',
+                    '闭眼转圈后指出东南西北',
+                    '增加转圈的次数和复杂度',
+                    '在不同环境中练习',
+                    '记录准确率的提高'
+                ],
+                benefits: ['发展空间定向', '提升前庭功能', '增强方向感', '提升注意力'],
+                safety: ['避免头晕摔倒', '循序渐进训练', '选择安全环境', '适当休息'],
+                frequency: '每周2次，每次10-15分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '重工作': {
+                title: '重力工作训练',
+                description: '搬运重物、推拉训练，提供强烈的本体觉输入。',
+                materials: ['重物箱', '推车', '拉绳', '安全设备'],
+                steps: [
+                    '选择适合的重物重量',
+                    '教授正确的搬运姿势',
+                    '进行推车训练',
+                    '练习拉绳活动',
+                    '组织团队重工作',
+                    '逐渐增加工作强度'
+                ],
+                benefits: ['提供强烈本体觉', '增强全身力量', '改善身体意识', '提升工作能力'],
+                safety: ['重量要适中', '姿势要正确', '避免过度疲劳', '注意安全'],
+                frequency: '每周3次，每次15-20分钟',
+                ageRange: '适合6岁以上儿童'
+            },
+            '运动计划': {
+                title: '复杂运动计划训练',
+                description: '复杂动作序列的模仿，发展运动计划和执行能力。',
+                materials: ['动作卡片', '音乐播放器', '镜子', '记录表'],
+                steps: [
+                    '设计复杂的动作序列',
+                    '分解每个动作要领',
+                    '让孩子观察并记忆',
+                    '指导孩子模仿执行',
+                    '纠正动作的准确性',
+                    '逐步增加序列复杂度'
+                ],
+                benefits: ['发展运动计划', '提升记忆力', '增强协调能力', '提升执行功能'],
+                safety: ['动作要安全', '避免过度疲劳', '循序渐进', '正面鼓励'],
+                frequency: '每日1次，每次20-25分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '力量控制': {
+                title: '力量控制训练',
+                description: '轻重不同的触摸练习，发展力量控制和本体觉感知。',
+                materials: ['不同材质物品', '力量测试器', '记录表'],
+                steps: [
+                    '练习轻柔的触摸',
+                    '尝试中等力度的接触',
+                    '练习用力的抓握',
+                    '学会控制力量大小',
+                    '在不同任务中应用',
+                    '记录力量控制进步'
+                ],
+                benefits: ['发展力量控制', '提升本体觉', '改善精细动作', '增强身体意识'],
+                safety: ['避免用力过度', '保护手部安全', '循序渐进', '适当休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '姿势控制': {
+                title: '姿势控制训练',
+                description: '各种姿势的保持训练，发展姿势稳定性和控制能力。',
+                materials: ['平衡垫', '计时器', '镜子', '姿势卡片'],
+                steps: [
+                    '学习标准的身体姿势',
+                    '练习保持坐姿',
+                    '训练站立姿势',
+                    '挑战单腿站立',
+                    '练习动态姿势控制',
+                    '在活动中保持良好姿势'
+                ],
+                benefits: ['改善姿势控制', '增强核心力量', '提升身体意识', '预防姿势问题'],
+                safety: ['避免过度疲劳', '注意正确姿势', '循序渐进', '适当休息'],
+                frequency: '每日2次，每次10-15分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '视觉追踪': {
+                title: '视觉追踪训练',
+                description: '跟踪移动物体的练习，发展视觉追踪和注意力。',
+                materials: ['移动玩具', '激光笔', '追踪卡', '计时器'],
+                steps: [
+                    '用玩具做慢速移动',
+                    '让孩子眼睛跟随物体',
+                    '增加移动速度和复杂度',
+                    '练习不同方向的追踪',
+                    '使用激光笔做精确追踪',
+                    '记录追踪准确性'
+                ],
+                benefits: ['提升视觉追踪', '增强注意力', '改善眼球运动', '提升专注力'],
+                safety: ['控制移动速度', '避免眼部疲劳', '保持适当距离', '定期休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '抄写练习': {
+                title: '抄写技能训练',
+                description: '从黑板抄写到本子上，发展视觉感知和手眼协调。',
+                materials: ['黑板', '粉笔', '练习本', '铅笔', '橡皮'],
+                steps: [
+                    '在黑板上写简单的字母或数字',
+                    '让孩子观察黑板上的内容',
+                    '指导孩子抄写到本子上',
+                    '检查抄写的准确性',
+                    '逐渐增加抄写内容的复杂度',
+                    '培养良好的抄写习惯'
+                ],
+                benefits: ['提升视觉感知', '发展手眼协调', '增强专注力', '为学业准备'],
+                safety: ['保持正确坐姿', '光线要充足', '控制练习时间', '保护视力'],
+                frequency: '每日1次，每次20-25分钟',
+                ageRange: '适合5岁以上儿童'
+            },
+            '空间感知': {
+                title: '三维空间认知训练',
+                description: '三维空间的认知训练，发展空间感知和思维能力。',
+                materials: ['积木', '拼装玩具', '空间游戏', '模型'],
+                steps: [
+                    '观察三维物体的结构',
+                    '学习空间方位概念',
+                    '练习搭建立体结构',
+                    '进行空间想象训练',
+                    '完成三维拼图',
+                    '挑战复杂的空间任务'
+                ],
+                benefits: ['发展空间感知', '提升思维能力', '增强创造力', '培养工程思维'],
+                safety: ['选择安全材料', '避免小件误吞', '适当休息', '循序渐进'],
+                frequency: '每周2-3次，每次25-30分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '连线游戏': {
+                title: '连线描画训练',
+                description: '各种连线和描画练习，发展精细动作和视觉协调。',
+                materials: ['连线图册', '彩色笔', '直尺', '橡皮擦'],
+                steps: [
+                    '观察连线图的起点和终点',
+                    '规划连线的路径',
+                    '用笔连接相应的点',
+                    '练习不同类型的连线',
+                    '进行复杂图形的描画',
+                    '检查连线的准确性'
+                ],
+                benefits: ['发展精细动作', '提升手眼协调', '增强专注力', '培养计划能力'],
+                safety: ['握笔姿势要正确', '避免用力过度', '保护视力', '适当休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '听觉辨别': {
+                title: '听觉辨别训练',
+                description: '细微声音差异的识别，提升听觉感知和辨别能力。',
+                materials: ['各种声源', '录音设备', '辨别卡片', '耳机'],
+                steps: [
+                    '播放相似但不同的声音',
+                    '让孩子仔细聆听差异',
+                    '练习识别细微的音调变化',
+                    '进行声音配对游戏',
+                    '挑战在噪音中辨别目标声',
+                    '记录听觉辨别的进步'
+                ],
+                benefits: ['提升听觉辨别', '增强注意力', '发展音乐感知', '改善听觉处理'],
+                safety: ['控制音量适中', '保护听力', '避免突然大声', '适当休息'],
+                frequency: '每日1次，每次15-20分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '听觉记忆': {
+                title: '听觉记忆训练',
+                description: '复杂指令的记忆和执行，发展听觉记忆和执行功能。',
+                materials: ['指令卡片', '录音设备', '记录表', '奖励贴纸'],
+                steps: [
+                    '给出简单的单步指令',
+                    '逐渐增加指令的步骤',
+                    '练习记忆多步骤指令',
+                    '在执行前要求孩子复述',
+                    '挑战更复杂的指令序列',
+                    '记录指令执行的准确率'
+                ],
+                benefits: ['提升听觉记忆', '发展执行功能', '增强注意力', '培养遵循指令能力'],
+                safety: ['指令要清晰', '循序渐进增加难度', '给予充分时间', '正面鼓励'],
+                frequency: '每日1-2次，每次15-25分钟',
+                ageRange: '适合4岁以上儿童'
+            },
+            '声音定位': {
+                title: '声音定位训练',
+                description: '判断声音来源的方向，发展听觉定位和空间感知。',
+                materials: ['各种声源', '眼罩', '方向标识', '移动音源'],
+                steps: [
+                    '让孩子闭眼坐在中央',
+                    '在不同方向发出声音',
+                    '要求孩子指出声音方向',
+                    '使用移动的声源',
+                    '在噪音环境中进行训练',
+                    '记录定位准确性'
+                ],
+                benefits: ['发展听觉定位', '提升空间感知', '增强注意力', '改善方向感'],
+                safety: ['环境要安全', '声音不宜过大', '避免突然惊吓', '循序渐进'],
+                frequency: '每周2-3次，每次15-20分钟',
+                ageRange: '适合3岁以上儿童'
+            },
+            '背景噪音': {
+                title: '噪音环境专注训练',
+                description: '在噪音环境中集中注意，发展听觉注意力和抗干扰能力。',
+                materials: ['背景音乐', '噪音播放器', '任务材料', '耳机'],
+                steps: [
+                    '在安静环境中完成简单任务',
+                    '逐渐加入轻微背景音',
+                    '增加背景噪音的强度',
+                    '在噪音中完成专注任务',
+                    '练习过滤不相关声音',
+                    '挑战复杂的噪音环境'
+                ],
+                benefits: ['提升专注力', '发展抗干扰能力', '改善听觉注意', '增强学习能力'],
+                safety: ['控制噪音强度', '保护听力', '避免过度刺激', '适当休息'],
+                frequency: '每周2次，每次20-25分钟',
+                ageRange: '适合5岁以上儿童'
+            }
+        };
+
+        // 弹出框功能
+        const modal = document.getElementById('trainingModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalClose = document.getElementById('modalClose');
+
+        // 显示训练详情
+        function showTrainingDetail(trainingKey) {
+            const detail = trainingDetails[trainingKey];
+            if (!detail) return;
+
+            modalTitle.textContent = detail.title;
+            
+            modalBody.innerHTML = `
+                <div class="training-detail-section">
+                    <h4><i class="fas fa-info-circle"></i> 训练说明</h4>
+                    <p>${detail.description}</p>
+                </div>
+
+                <div class="training-detail-section">
+                    <h4><i class="fas fa-tools"></i> 所需材料</h4>
+                    <ul class="training-steps">
+                        ${detail.materials.map(material => `<li><i class="fas fa-check"></i> ${material}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="training-detail-section">
+                    <h4><i class="fas fa-list-ol"></i> 训练步骤</h4>
+                    <ul class="training-steps">
+                        ${detail.steps.map((step, index) => `
+                            <li>
+                                <span class="step-number">${index + 1}</span>
+                                <span>${step}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="benefit-box">
+                    <h5><i class="fas fa-star"></i> 训练益处</h5>
+                    <ul>
+                        ${detail.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="safety-alert">
+                    <h5><i class="fas fa-exclamation-triangle"></i> 安全注意</h5>
+                    <ul>
+                        ${detail.safety.map(safety => `<li>${safety}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="training-detail-section">
+                    <h4><i class="fas fa-clock"></i> 训练频率</h4>
+                    <p>${detail.frequency}</p>
+                </div>
+
+                <div class="training-detail-section">
+                    <h4><i class="fas fa-child"></i> 适用年龄</h4>
+                    <p>${detail.ageRange}</p>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭弹出框
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 添加点击事件监听器
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('training-item')) {
+                const trainingKey = e.target.dataset.detail;
+                showTrainingDetail(trainingKey);
+            }
+        });
+
+        // 关闭按钮事件
+        modalClose.addEventListener('click', closeModal);
+
+        // 点击遮罩关闭
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // ESC键关闭
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // 自动为所有训练项目添加可点击功能
+        function addClickableToAllTrainingItems() {
+            // 查找所有包含训练活动的span元素
+            const allSpans = document.querySelectorAll('.training-activities span');
+            
+            allSpans.forEach(span => {
+                const text = span.textContent.trim();
+                // 提取训练项目名称（冒号前的部分）
+                const colonIndex = text.indexOf('：');
+                if (colonIndex > 0) {
+                    const trainingName = text.substring(0, colonIndex);
+                    
+                    // 检查是否已经有训练详情数据
+                    if (trainingDetails[trainingName]) {
+                        // 添加必要的类和属性
+                        if (!span.classList.contains('training-item')) {
+                            span.classList.add('training-item');
+                        }
+                        span.setAttribute('data-detail', trainingName);
+                        
+                        // 添加可点击样式
+                        span.style.cursor = 'pointer';
+                        span.style.color = '#2c5282';
+                        span.style.textDecoration = 'underline';
+                        
+                        // 添加悬停效果
+                        span.addEventListener('mouseenter', function() {
+                            this.style.backgroundColor = '#e6f3ff';
+                            this.style.padding = '2px 4px';
+                            this.style.borderRadius = '3px';
+                        });
+                        
+                        span.addEventListener('mouseleave', function() {
+                            this.style.backgroundColor = 'transparent';
+                            this.style.padding = '0';
+                        });
+                    }
+                }
+            });
+            
+            console.log('已为', document.querySelectorAll('.training-item').length, '个训练项目添加可点击功能');
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            addClickableToAllTrainingItems();
+        });
+
+        // 如果页面已经加载完成，立即执行
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', addClickableToAllTrainingItems);
+        } else {
+            addClickableToAllTrainingItems();
+        }
+    </script>
+</body>
+</html> 

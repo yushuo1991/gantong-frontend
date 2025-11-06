@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家长社区 - 感觉统合训练中心</title>
+    
+    <!-- 预加载字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* === 基础样式 === */
+        :root {
+            --primary-color: #db5f7c;
+            --primary-light: #fe8b95;
+            --secondary-color: #342f82;
+            --accent-color: #ecda1d;
+            --success-color: #4ed0e8;
+            --warning-color: #ffbe50;
+            --error-color: #db5f7c;
+            
+            --text-primary: #2d2438;
+            --text-secondary: #5a4d6b;
+            --text-light: #8b7a94;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #faf9fb;
+            --bg-accent: #f8f6fa;
+            
+            --border-color: #e8e4eb;
+            --border-light: #f0ecf3;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(52, 47, 130, 0.08);
+            --shadow-md: 0 4px 6px -1px rgba(52, 47, 130, 0.12), 0 2px 4px -1px rgba(219, 95, 124, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(52, 47, 130, 0.15), 0 4px 6px -2px rgba(219, 95, 124, 0.10);
+            --shadow-xl: 0 20px 25px -5px rgba(52, 47, 130, 0.18), 0 10px 10px -5px rgba(219, 95, 124, 0.12);
+            
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-2xl: 1.5rem;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6; color: var(--text-primary); background-color: var(--bg-secondary);
+        }
+
+        /* === 导航栏 === */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); height: 80px;
+        }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex;
+            align-items: center; justify-content: space-between; height: 100%;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius-xl); display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 24px;
+        }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+        .logo-subtitle { font-size: 0.875rem; color: var(--text-secondary); font-weight: 500; }
+        .logo-image { height: 60px; width: auto; max-width: 250px; object-fit: contain; }
+        .back-btn {
+            background: var(--bg-accent); color: var(--primary-color); padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-lg); text-decoration: none; font-weight: 600;
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .back-btn:hover { background: var(--primary-color); color: white; }
+
+        /* === 主要内容 === */
+        .main-content { padding-top: 120px; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        /* === 页面标题 === */
+        .page-header {
+            text-align: center; padding: 3rem 0;
+            background: linear-gradient(135deg, var(--success-color), #22C55E);
+            color: white; border-radius: var(--border-radius-2xl); margin-bottom: 3rem;
+        }
+        .page-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+        .page-subtitle { font-size: 1.25rem; opacity: 0.9; }
+
+        /* === 社区统计 === */
+        .community-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem; margin-bottom: 3rem;
+        }
+        .stat-card {
+            background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius-xl);
+            text-align: center; box-shadow: var(--shadow-md); transition: all 0.3s ease;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .stat-icon {
+            width: 60px; height: 60px; margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--success-color), #22C55E);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: white;
+        }
+        .stat-number { font-size: 2rem; font-weight: 800; color: var(--primary-color); }
+        .stat-label { color: var(--text-secondary); font-weight: 500; }
+
+        /* === 讨论区域 === */
+        .discussion-section {
+            display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-bottom: 3rem;
+        }
+        @media (max-width: 768px) { .discussion-section { grid-template-columns: 1fr; } }
+
+        .discussion-main {
+            background: var(--bg-primary); border-radius: var(--border-radius-2xl);
+            padding: 2rem; box-shadow: var(--shadow-lg);
+        }
+        .section-title { 
+            font-size: 1.5rem; font-weight: 700; color: var(--text-primary); 
+            margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; 
+        }
+
+        /* === 话题列表 === */
+        .topic-list { margin-bottom: 2rem; }
+        .topic-item {
+            background: var(--bg-secondary); padding: 1.5rem; border-radius: var(--border-radius-lg);
+            margin-bottom: 1rem; transition: all 0.3s ease; cursor: pointer;
+        }
+        .topic-item:hover { background: var(--bg-accent); transform: translateX(4px); }
+
+        .topic-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+        .topic-title { font-weight: 700; color: var(--text-primary); font-size: 1.1rem; }
+        .topic-tag {
+            background: var(--success-color); color: white; padding: 0.25rem 0.75rem;
+            border-radius: var(--border-radius-sm); font-size: 0.875rem; font-weight: 500;
+        }
+
+        .topic-content { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+        .topic-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.875rem; color: var(--text-light);
+        }
+        .topic-author { display: flex; align-items: center; gap: 0.5rem; }
+        .topic-stats { display: flex; gap: 1rem; }
+
+        /* === 发布话题 === */
+        .post-topic {
+            background: var(--bg-accent); padding: 2rem; border-radius: var(--border-radius-lg);
+            margin-bottom: 2rem;
+        }
+        .post-title { font-weight: 700; color: var(--primary-color); margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-input, .form-textarea {
+            width: 100%; padding: 0.75rem; border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-lg); font-size: 1rem; transition: all 0.3s ease;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none; border-color: var(--primary-color);
+        }
+        .form-textarea { min-height: 100px; resize: vertical; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1.5rem; border-radius: var(--border-radius-lg); font-weight: 600;
+            text-decoration: none; border: none; cursor: pointer; font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--success-color), #22C55E);
+            color: white; box-shadow: var(--shadow-md);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        /* === 侧边栏 === */
+        .discussion-sidebar {
+            display: flex; flex-direction: column; gap: 2rem;
+        }
+        .sidebar-card {
+            background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+        .sidebar-title { 
+            font-size: 1.25rem; font-weight: 700; color: var(--text-primary); 
+            margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; 
+        }
+
+        /* === 热门话题 === */
+        .hot-topic {
+            padding: 1rem; background: var(--bg-secondary); border-radius: var(--border-radius-lg);
+            margin-bottom: 1rem; transition: all 0.3s ease; cursor: pointer;
+        }
+        .hot-topic:hover { background: var(--bg-accent); }
+        .hot-topic-title { font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
+        .hot-topic-stats { font-size: 0.875rem; color: var(--text-light); }
+
+        /* === 活跃用户 === */
+        .active-user {
+            display: flex; align-items: center; gap: 1rem; padding: 1rem;
+            background: var(--bg-secondary); border-radius: var(--border-radius-lg); margin-bottom: 1rem;
+        }
+        .user-avatar {
+            width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700;
+        }
+        .user-info { flex: 1; }
+        .user-name { font-weight: 600; color: var(--text-primary); }
+        .user-posts { font-size: 0.875rem; color: var(--text-light); }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.njch.com.cn/images/logo1.png" alt="南京市儿童医院" class="logo-image">
+            </a>
+            <a href="support.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                返回支持页面
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="page-header">
+                <h1 class="page-title">家长社区</h1>
+                <p class="page-subtitle">与其他家长分享经验，互相支持，共同成长</p>
+            </div>
+
+            <!-- 社区统计 -->
+            <div class="community-stats">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number">2,568</div>
+                    <div class="stat-label">注册家长</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-comments"></i></div>
+                    <div class="stat-number">1,234</div>
+                    <div class="stat-label">讨论话题</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                    <div class="stat-number">8,769</div>
+                    <div class="stat-label">互助回复</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">成功案例</div>
+                </div>
+            </div>
+
+            <!-- 讨论区域 -->
+            <div class="discussion-section">
+                <!-- 主讨论区 -->
+                <div class="discussion-main">
+                    <h2 class="section-title">
+                        <i class="fas fa-comments"></i>
+                        最新讨论
+                    </h2>
+
+                    <!-- 发布话题 -->
+                    <div class="post-topic">
+                        <h3 class="post-title">分享您的经验或提出问题</h3>
+                        <form id="postForm">
+                            <div class="form-group">
+                                <input type="text" class="form-input" placeholder="话题标题..." required>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-textarea" placeholder="分享您的经验、遇到的问题或想法..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                发布话题
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 话题列表 -->
+                    <div class="topic-list">
+                        <div class="topic-item">
+                            <div class="topic-header">
+                                <div class="topic-title">3岁孩子对触摸很敏感，怎么办？</div>
+                                <div class="topic-tag">求助</div>
+                            </div>
+                            <div class="topic-content">
+                                我家孩子3岁了，特别不喜欢被人碰，连洗脸刷牙都要大哭。想问问其他家长有没有遇到类似情况，都是怎么解决的？
+                            </div>
+                            <div class="topic-footer">
+                                <div class="topic-author">
+                                    <i class="fas fa-user"></i>
+                                    <span>小明妈妈</span>
+                                </div>
+                                <div class="topic-stats">
+                                    <span><i class="fas fa-reply"></i> 12回复</span>
+                                    <span><i class="fas fa-clock"></i> 2小时前</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="topic-item">
+                            <div class="topic-header">
+                                <div class="topic-title">分享：感统训练3个月的效果</div>
+                                <div class="topic-tag" style="background: var(--success-color);">经验</div>
+                            </div>
+                            <div class="topic-content">
+                                想跟大家分享一下我家孩子进行感统训练3个月的效果。之前注意力不集中，现在有了很大改善...
+                            </div>
+                            <div class="topic-footer">
+                                <div class="topic-author">
+                                    <i class="fas fa-user"></i>
+                                    <span>小花爸爸</span>
+                                </div>
+                                <div class="topic-stats">
+                                    <span><i class="fas fa-reply"></i> 28回复</span>
+                                    <span><i class="fas fa-clock"></i> 5小时前</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="topic-item">
+                            <div class="topic-header">
+                                <div class="topic-title">家庭训练器材推荐</div>
+                                <div class="topic-tag" style="background: var(--primary-color);">分享</div>
+                            </div>
+                            <div class="topic-content">
+                                给大家推荐几个我们在用的家庭训练器材，性价比都不错，效果也很好...
+                            </div>
+                            <div class="topic-footer">
+                                <div class="topic-author">
+                                    <i class="fas fa-user"></i>
+                                    <span>豆豆妈妈</span>
+                                </div>
+                                <div class="topic-stats">
+                                    <span><i class="fas fa-reply"></i> 35回复</span>
+                                    <span><i class="fas fa-clock"></i> 1天前</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="topic-item">
+                            <div class="topic-header">
+                                <div class="topic-title">孩子不配合训练怎么办？</div>
+                                <div class="topic-tag">求助</div>
+                            </div>
+                            <div class="topic-content">
+                                每次想给孩子做训练，他都不配合，有时候还发脾气。请问有什么好的方法能让孩子愿意配合吗？
+                            </div>
+                            <div class="topic-footer">
+                                <div class="topic-author">
+                                    <i class="fas fa-user"></i>
+                                    <span>果果妈妈</span>
+                                </div>
+                                <div class="topic-stats">
+                                    <span><i class="fas fa-reply"></i> 18回复</span>
+                                    <span><i class="fas fa-clock"></i> 2天前</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 侧边栏 -->
+                <div class="discussion-sidebar">
+                    <!-- 热门话题 -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">
+                            <i class="fas fa-fire"></i>
+                            热门话题
+                        </h3>
+                        <div class="hot-topic">
+                            <div class="hot-topic-title">感统训练的最佳时间</div>
+                            <div class="hot-topic-stats">68回复 · 256浏览</div>
+                        </div>
+                        <div class="hot-topic">
+                            <div class="hot-topic-title">如何选择感统训练机构</div>
+                            <div class="hot-topic-stats">45回复 · 189浏览</div>
+                        </div>
+                        <div class="hot-topic">
+                            <div class="hot-topic-title">家庭训练注意事项</div>
+                            <div class="hot-topic-stats">39回复 · 167浏览</div>
+                        </div>
+                        <div class="hot-topic">
+                            <div class="hot-topic-title">感统问题早期识别</div>
+                            <div class="hot-topic-stats">52回复 · 203浏览</div>
+                        </div>
+                    </div>
+
+                    <!-- 活跃用户 -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">
+                            <i class="fas fa-medal"></i>
+                            活跃家长
+                        </h3>
+                        <div class="active-user">
+                            <div class="user-avatar">A</div>
+                            <div class="user-info">
+                                <div class="user-name">安安妈妈</div>
+                                <div class="user-posts">发布了 23 个话题</div>
+                            </div>
+                        </div>
+                        <div class="active-user">
+                            <div class="user-avatar">B</div>
+                            <div class="user-info">
+                                <div class="user-name">贝贝爸爸</div>
+                                <div class="user-posts">发布了 18 个话题</div>
+                            </div>
+                        </div>
+                        <div class="active-user">
+                            <div class="user-avatar">C</div>
+                            <div class="user-info">
+                                <div class="user-name">聪聪妈妈</div>
+                                <div class="user-posts">发布了 15 个话题</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 社区公告 -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">
+                            <i class="fas fa-bullhorn"></i>
+                            社区公告
+                        </h3>
+                        <div style="color: var(--text-secondary); line-height: 1.6;">
+                            <p style="margin-bottom: 1rem;">
+                                <strong>社区规则：</strong>请大家文明讨论，互相尊重，分享真实经验。
+                            </p>
+                            <p style="margin-bottom: 1rem;">
+                                <strong>专家答疑：</strong>每周三晚8点，专家在线答疑。
+                            </p>
+                            <p>
+                                <strong>线下活动：</strong>本月25日举办家长聚会，欢迎参加。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // 发布话题功能
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = this.querySelector('input').value;
+            const content = this.querySelector('textarea').value;
+            
+            if (title.trim() && content.trim()) {
+                // 模拟发布成功
+                alert('话题发布成功！感谢您的分享。');
+                this.reset();
+            }
+        });
+
+        // 话题点击功能
+        document.querySelectorAll('.topic-item, .hot-topic').forEach(item => {
+            item.addEventListener('click', function() {
+                alert('跳转到话题详情页面（功能演示）');
+            });
+        });
+
+        // 用户交互增强
+        document.querySelectorAll('.topic-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(8px)';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(4px)';
+            });
+        });
+    </script>
+</body>
+</html> 

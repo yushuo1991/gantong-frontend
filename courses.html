@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家长课堂 - 感觉统合训练中心</title>
+    
+    <!-- 预加载字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* === 基础样式 === */
+        :root {
+            --primary-color: #db5f7c;
+            --primary-light: #fe8b95;
+            --secondary-color: #342f82;
+            --accent-color: #ecda1d;
+            --success-color: #4ed0e8;
+            --warning-color: #ffbe50;
+            --error-color: #db5f7c;
+            
+            --text-primary: #2d2438;
+            --text-secondary: #5a4d6b;
+            --text-light: #8b7a94;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #faf9fb;
+            --bg-accent: #f8f6fa;
+            
+            --border-color: #e8e4eb;
+            --border-light: #f0ecf3;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(52, 47, 130, 0.08);
+            --shadow-md: 0 4px 6px -1px rgba(52, 47, 130, 0.12), 0 2px 4px -1px rgba(219, 95, 124, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(52, 47, 130, 0.15), 0 4px 6px -2px rgba(219, 95, 124, 0.10);
+            --shadow-xl: 0 20px 25px -5px rgba(52, 47, 130, 0.18), 0 10px 10px -5px rgba(219, 95, 124, 0.12);
+            
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-2xl: 1.5rem;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6; color: var(--text-primary); background-color: var(--bg-secondary);
+        }
+
+        /* === 导航栏 === */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); height: 80px;
+        }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex;
+            align-items: center; justify-content: space-between; height: 100%;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius-xl); display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 24px;
+        }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+        .logo-subtitle { font-size: 0.875rem; color: var(--text-secondary); font-weight: 500; }
+        .logo-image { height: 60px; width: auto; max-width: 250px; object-fit: contain; }
+        .back-btn {
+            background: var(--bg-accent); color: var(--primary-color); padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-lg); text-decoration: none; font-weight: 600;
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .back-btn:hover { background: var(--primary-color); color: white; }
+
+        /* === 主要内容 === */
+        .main-content { padding-top: 120px; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        /* === 页面标题 === */
+        .page-header {
+            text-align: center; padding: 3rem 0;
+            background: linear-gradient(135deg, var(--accent-color), #F97316);
+            color: white; border-radius: var(--border-radius-2xl); margin-bottom: 3rem;
+        }
+        .page-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+        .page-subtitle { font-size: 1.25rem; opacity: 0.9; }
+
+        /* === 课程分类 === */
+        .course-categories {
+            display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;
+        }
+        .category-btn {
+            padding: 1rem 2rem; border: 2px solid var(--border-color); background: var(--bg-primary);
+            color: var(--text-secondary); border-radius: var(--border-radius-xl); cursor: pointer;
+            font-weight: 600; transition: all 0.3s ease; text-decoration: none;
+        }
+        .category-btn:hover, .category-btn.active {
+            border-color: var(--accent-color); background: var(--accent-color); color: white;
+        }
+
+        /* === 课程网格 === */
+        .courses-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem; margin-bottom: 3rem;
+        }
+        .course-card {
+            background: var(--bg-primary); border-radius: var(--border-radius-2xl);
+            overflow: hidden; box-shadow: var(--shadow-lg); transition: all 0.3s ease;
+        }
+        .course-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); }
+
+        .course-image {
+            height: 200px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;
+        }
+        .course-content { padding: 2rem; }
+        .course-category {
+            background: var(--accent-color); color: white; padding: 0.25rem 0.75rem;
+            border-radius: var(--border-radius-sm); font-size: 0.875rem; font-weight: 500;
+            display: inline-block; margin-bottom: 1rem;
+        }
+        .course-title { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; }
+        .course-description { color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
+
+        .course-meta {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;
+            font-size: 0.95rem; color: var(--text-secondary);
+        }
+        .meta-item { display: flex; align-items: center; gap: 0.5rem; }
+        .meta-item i { color: var(--accent-color); }
+
+        .course-footer { display: flex; justify-content: space-between; align-items: center; }
+        .course-price { font-size: 1.5rem; font-weight: 800; color: var(--accent-color); }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1.5rem; border-radius: var(--border-radius-lg); font-weight: 600;
+            text-decoration: none; border: none; cursor: pointer; font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color), #F97316);
+            color: white; box-shadow: var(--shadow-md);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        /* === 即将开课 === */
+        .upcoming-section {
+            background: var(--bg-primary); border-radius: var(--border-radius-2xl);
+            padding: 3rem; box-shadow: var(--shadow-lg); margin-bottom: 3rem;
+        }
+        .section-title {
+            font-size: 2rem; font-weight: 700; color: var(--text-primary);
+            text-align: center; margin-bottom: 3rem;
+        }
+        .upcoming-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .upcoming-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.5rem; background: var(--bg-secondary); border-radius: var(--border-radius-lg);
+            transition: all 0.3s ease;
+        }
+        .upcoming-item:hover { background: var(--bg-accent); }
+
+        .upcoming-info { flex: 1; }
+        .upcoming-title { font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .upcoming-details { color: var(--text-secondary); font-size: 0.95rem; }
+        .upcoming-date {
+            background: var(--accent-color); color: white; padding: 0.75rem 1rem;
+            border-radius: var(--border-radius-lg); text-align: center; font-weight: 600;
+        }
+
+        /* === 讲师介绍 === */
+        .instructors-section {
+            background: var(--bg-primary); border-radius: var(--border-radius-2xl);
+            padding: 3rem; box-shadow: var(--shadow-lg);
+        }
+        .instructors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .instructor-card {
+            text-align: center; padding: 2rem; background: var(--bg-secondary);
+            border-radius: var(--border-radius-xl); transition: all 0.3s ease;
+        }
+        .instructor-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+        .instructor-avatar {
+            width: 100px; height: 100px; margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; color: white;
+        }
+        .instructor-name { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .instructor-title { color: var(--text-secondary); margin-bottom: 1rem; }
+        .instructor-bio { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+
+        /* === 响应式设计 === */
+        @media (max-width: 768px) {
+            .courses-grid { grid-template-columns: 1fr; }
+            .course-meta { grid-template-columns: 1fr; }
+            .upcoming-item { flex-direction: column; gap: 1rem; text-align: center; }
+            .instructors-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.njch.com.cn/images/logo1.png" alt="南京市儿童医院" class="logo-image">
+            </a>
+            <a href="support.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                返回支持页面
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="page-header">
+                <h1 class="page-title">家长课堂</h1>
+                <p class="page-subtitle">系统学习感统知识，掌握专业训练技巧</p>
+            </div>
+
+            <!-- 课程分类 -->
+            <div class="course-categories">
+                <a href="#" class="category-btn active" data-category="all">全部课程</a>
+                <a href="#" class="category-btn" data-category="basic">基础理论</a>
+                <a href="#" class="category-btn" data-category="training">训练技巧</a>
+                <a href="#" class="category-btn" data-category="assessment">评估方法</a>
+                <a href="#" class="category-btn" data-category="advanced">进阶课程</a>
+            </div>
+
+            <!-- 课程网格 -->
+            <div class="courses-grid">
+                <div class="course-card" data-category="basic">
+                    <div class="course-image">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">基础理论</span>
+                        <h3 class="course-title">感觉统合理论入门</h3>
+                        <p class="course-description">
+                            全面了解感觉统合的基本概念、发展历程和核心理论，为后续学习奠定坚实基础。
+                        </p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>3小时</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                <span>已有156人学习</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>随时开始</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-certificate"></i>
+                                <span>颁发证书</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">免费</div>
+                            <a href="#" class="btn btn-primary">立即学习</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="training">
+                    <div class="course-image">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">训练技巧</span>
+                        <h3 class="course-title">家庭感统训练实操</h3>
+                        <p class="course-description">
+                            学习各种家庭训练方法，掌握训练器材的使用，制定个性化训练计划。
+                        </p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>5小时</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                <span>已有89人学习</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>每周三</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-video"></i>
+                                <span>视频教学</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">¥299</div>
+                            <a href="#" class="btn btn-primary">报名学习</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="assessment">
+                    <div class="course-image">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">评估方法</span>
+                        <h3 class="course-title">儿童感统能力评估</h3>
+                        <p class="course-description">
+                            学习如何观察和记录儿童行为，掌握标准化评估工具的使用方法。
+                        </p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>4小时</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                <span>已有67人学习</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>每周六</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-hands-helping"></i>
+                                <span>实操指导</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">¥399</div>
+                            <a href="#" class="btn btn-primary">报名学习</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="advanced">
+                    <div class="course-image">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">进阶课程</span>
+                        <h3 class="course-title">特殊需求儿童感统训练</h3>
+                        <p class="course-description">
+                            针对自闭症、多动症等特殊需求儿童的感统训练方法和注意事项。
+                        </p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>6小时</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                <span>已有34人学习</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>每月一期</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span>专家授课</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">¥599</div>
+                            <a href="#" class="btn btn-primary">报名学习</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="training">
+                    <div class="course-image">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">训练技巧</span>
+                        <h3 class="course-title">0-3岁婴幼儿感统训练</h3>
+                        <p class="course-description">
+                            专门针对0-3岁婴幼儿的感统发展特点，学习早期干预和预防方法。
+                        </p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>4小时</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                <span>已有78人学习</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>每周日</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-baby"></i>
+                                <span>亲子互动</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">¥199</div>
+                            <a href="#" class="btn btn-primary">报名学习</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="basic">
+                    <div class="course-image">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">基础理论</span>
+                        <h3 class="course-title">儿童发展心理学基础</h3>
+                        <p class="course-description">
+                            了解儿童发展的基本规律和特点，为感统训练提供理论支持。
+                        </p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>3小时</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                <span>已有123人学习</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>随时开始</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-book"></i>
+                                <span>理论学习</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">免费</div>
+                            <a href="#" class="btn btn-primary">立即学习</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 即将开课 -->
+            <div class="upcoming-section">
+                <h2 class="section-title">即将开课</h2>
+                <div class="upcoming-list">
+                    <div class="upcoming-item">
+                        <div class="upcoming-info">
+                            <div class="upcoming-title">感统训练安全防护专题讲座</div>
+                            <div class="upcoming-details">专家讲解训练中的安全注意事项和应急处理方法</div>
+                        </div>
+                        <div class="upcoming-date">
+                            <div>12月15日</div>
+                            <div style="font-size: 0.85rem;">周五 19:00</div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-item">
+                        <div class="upcoming-info">
+                            <div class="upcoming-title">家长经验分享会</div>
+                            <div class="upcoming-details">优秀家长分享训练心得和成功经验</div>
+                        </div>
+                        <div class="upcoming-date">
+                            <div>12月20日</div>
+                            <div style="font-size: 0.85rem;">周三 20:00</div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-item">
+                        <div class="upcoming-info">
+                            <div class="upcoming-title">器材选择与使用指导</div>
+                            <div class="upcoming-details">如何选择适合的训练器材并正确使用</div>
+                        </div>
+                        <div class="upcoming-date">
+                            <div>12月25日</div>
+                            <div style="font-size: 0.85rem;">周一 19:30</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 讲师介绍 -->
+            <div class="instructors-section">
+                <h2 class="section-title">专业讲师团队</h2>
+                <div class="instructors-grid">
+                    <div class="instructor-card">
+                        <div class="instructor-avatar">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="instructor-name">吴大勇</div>
+                        <div class="instructor-title">主任治疗师</div>
+                        <div class="instructor-bio">
+                            15年感统治疗经验，国际认证治疗师，主讲理论基础和评估方法课程。
+                        </div>
+                    </div>
+
+                    <div class="instructor-card">
+                        <div class="instructor-avatar">
+                            <i class="fas fa-user-nurse"></i>
+                        </div>
+                        <div class="instructor-name">李敏</div>
+                        <div class="instructor-title">高级治疗师</div>
+                        <div class="instructor-bio">
+                            专注婴幼儿感统发展，丰富的家庭训练指导经验，主讲实操技巧课程。
+                        </div>
+                    </div>
+
+                    <div class="instructor-card">
+                        <div class="instructor-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="instructor-name">张华</div>
+                        <div class="instructor-title">资深治疗师</div>
+                        <div class="instructor-bio">
+                            专业处理学龄儿童感统问题，在特殊需求儿童训练方面经验丰富。
+                        </div>
+                    </div>
+
+                    <div class="instructor-card">
+                        <div class="instructor-avatar">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="instructor-name">王丽</div>
+                        <div class="instructor-title">心理咨询师</div>
+                        <div class="instructor-bio">
+                            儿童发展心理学专家，主讲发展心理学和家长心理调适课程。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // 课程分类筛选
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 更新按钮状态
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 筛选课程
+                const category = this.dataset.category;
+                courseCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.5s ease-in-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 课程学习/报名功能
+        function startCourse(courseName, isFree) {
+            if (isFree) {
+                alert(`开始学习"${courseName}"课程！正在为您准备课程内容...`);
+                // 这里可以跳转到学习页面
+            } else {
+                alert(`报名"${courseName}"课程成功！我们将在24小时内联系您确认上课时间和支付方式。`);
+                // 这里可以跳转到报名页面
+            }
+        }
+
+        // 为现有按钮添加点击事件（备用方案）
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            if (!btn.onclick) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const courseName = this.closest('.course-card').querySelector('.course-title').textContent;
+                    const isFreeCourse = this.closest('.course-footer').querySelector('.course-price').textContent === '免费';
+                    
+                    startCourse(courseName, isFreeCourse);
+                });
+            }
+        });
+
+        // 添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

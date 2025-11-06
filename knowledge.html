@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业知识 - 感觉统合训练中心</title>
+    
+    <!-- 预加载字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS动画库 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* === 基础样式（与其他页面保持一致） === */
+        :root {
+            --primary-color: #db5f7c;
+            --primary-light: #fe8b95;
+            --primary-dark: #c74665;
+            --secondary-color: #342f82;
+            --secondary-light: #6862bb;
+            --accent-color: #ecda1d;
+            --accent-light: #ffbe50;
+            --success-color: #4ed0e8;
+            --warning-color: #ffbe50;
+            --error-color: #db5f7c;
+            
+            --text-primary: #2d2438;
+            --text-secondary: #5a4d6b;
+            --text-light: #8b7a94;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #faf9fb;
+            --bg-accent: #f8f6fa;
+            
+            --border-color: #e8e4eb;
+            --border-light: #f0ecf3;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(52, 47, 130, 0.08);
+            --shadow-md: 0 4px 6px -1px rgba(52, 47, 130, 0.12), 0 2px 4px -1px rgba(219, 95, 124, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(52, 47, 130, 0.15), 0 4px 6px -2px rgba(219, 95, 124, 0.10);
+            --shadow-xl: 0 20px 25px -5px rgba(52, 47, 130, 0.18), 0 10px 10px -5px rgba(219, 95, 124, 0.12);
+            
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-2xl: 1.5rem;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6; color: var(--text-primary); background-color: var(--bg-secondary); overflow-x: hidden;
+        }
+
+        /* === 导航栏样式 === */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease;
+        }
+        .navbar.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: var(--shadow-lg); }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex;
+            align-items: center; justify-content: space-between; height: 80px;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius-xl); display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 24px;
+        }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+        .logo-subtitle { font-size: 0.875rem; color: var(--text-secondary); font-weight: 500; }
+        .logo-image { height: 60px; width: auto; max-width: 250px; object-fit: contain; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav-link {
+            text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: 0.95rem;
+            transition: all 0.3s ease; padding: 0.75rem 1rem; border-radius: var(--border-radius-lg);
+        }
+        .nav-link:hover { color: var(--primary-color); background-color: var(--bg-accent); }
+        .nav-link.active { color: var(--primary-color); background-color: var(--bg-accent); }
+        .mobile-menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--text-primary); cursor: pointer; }
+
+        /* === 主要内容区域 === */
+        .main-content { padding-top: 120px; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        /* === 页面标题区域 === */
+        .page-header {
+            text-align: center; padding: 4rem 0;
+            background: linear-gradient(135deg, 
+                rgba(99, 102, 241, 0.05) 0%, 
+                rgba(139, 92, 246, 0.03) 50%,
+                rgba(236, 72, 153, 0.05) 100%);
+            margin-bottom: 4rem; border-radius: var(--border-radius-2xl);
+        }
+        .page-title {
+            font-size: 3rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), #8B5CF6);
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .page-subtitle { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        /* === 知识分类导航 === */
+        .knowledge-nav {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem; margin-bottom: 4rem;
+        }
+        .nav-card {
+            background: var(--bg-primary); border-radius: var(--border-radius-xl);
+            padding: 2rem; text-align: center; cursor: pointer; transition: all 0.3s ease;
+            border: 2px solid var(--border-light); box-shadow: var(--shadow-md);
+        }
+        .nav-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+        .nav-card.active {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--bg-accent), var(--bg-primary));
+        }
+        .nav-card-icon {
+            width: 60px; height: 60px; margin: 0 auto 1rem;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: white;
+        }
+        .nav-card-title { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); }
+
+        /* === 知识内容区域 === */
+        .knowledge-content { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .knowledge-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* === 文章卡片 === */
+        .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .article-card {
+            background: var(--bg-primary); border-radius: var(--border-radius-2xl);
+            padding: 2rem; box-shadow: var(--shadow-lg); border: 1px solid var(--border-light);
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .article-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.05), transparent);
+            transition: left 0.5s;
+        }
+        .article-card:hover::before { left: 100%; }
+        .article-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); }
+
+        .article-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .article-icon {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; color: white;
+        }
+        .article-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); }
+        .article-summary { color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
+        .article-content { color: var(--text-primary); line-height: 1.7; }
+        .article-content h4 { color: var(--primary-color); margin: 1.5rem 0 0.75rem 0; font-weight: 600; }
+        .article-content p { margin-bottom: 1rem; }
+        .article-content ul { margin: 1rem 0; padding-left: 1.5rem; }
+        .article-content li { margin-bottom: 0.5rem; }
+
+        /* === 特殊样式 === */
+        .highlight-box {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border: 1px solid var(--warning-color); border-radius: var(--border-radius-lg);
+            padding: 1.5rem; margin: 1.5rem 0;
+        }
+        .highlight-box h5 {
+            color: #92400E; font-weight: 700; margin-bottom: 0.75rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .highlight-box p { color: #92400E; margin-bottom: 0.5rem; }
+
+        .definition-box {
+            background: var(--bg-accent); border-left: 4px solid var(--primary-color);
+            padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+        }
+        .definition-box h5 { color: var(--primary-color); font-weight: 700; margin-bottom: 0.75rem; }
+        .definition-box p { color: var(--text-primary); }
+
+        /* === 回到顶部按钮 === */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: var(--shadow-xl);
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-color));
+        }
+        
+        .back-to-top:active {
+            transform: translateY(-1px) scale(1.05);
+        }
+
+        /* === 移动端菜单样式 === */
+        .nav-links.mobile-active {
+            display: flex !important;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-light);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .nav-links.mobile-active .nav-link {
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links.mobile-active .nav-link:last-child {
+            border-bottom: none;
+        }
+        
+        .nav-links.mobile-active .nav-link:hover {
+            background: var(--bg-accent);
+            padding-left: 2.5rem;
+        }
+
+        /* === 响应式设计 === */
+        @media (max-width: 1024px) {
+            .container { padding: 0 1.5rem; }
+            .knowledge-nav { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+            .article-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { 
+                display: none; 
+            }
+            .mobile-menu-toggle { 
+                display: block !important;
+                position: relative;
+                z-index: 1001;
+                padding: 0.5rem;
+                border-radius: var(--border-radius-md);
+                transition: all 0.3s ease;
+            }
+            .mobile-menu-toggle:hover {
+                background: var(--bg-accent);
+                color: var(--primary-color);
+            }
+            .mobile-menu-toggle:active {
+                transform: scale(0.95);
+            }
+            .container { padding: 0 1rem; }
+            .main-content { padding-top: 100px; }
+            
+            /* 页面标题区域 */
+            .page-header { 
+                padding: 2rem 1rem; 
+                margin-bottom: 2rem; 
+                border-radius: var(--border-radius-xl);
+            }
+            .page-title { 
+                font-size: 2.5rem; 
+                line-height: 1.2;
+                margin-bottom: 0.75rem;
+            }
+            .page-subtitle { 
+                font-size: 1.1rem; 
+                padding: 0 0.5rem;
+            }
+            
+            /* 知识分类导航 */
+            .knowledge-nav { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 1rem; 
+                margin-bottom: 2rem;
+            }
+            .nav-card { 
+                padding: 1.5rem 1rem; 
+            }
+            .nav-card-icon { 
+                width: 50px; 
+                height: 50px; 
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+            .nav-card-title { 
+                font-size: 1rem; 
+            }
+            
+            /* 文章卡片 */
+            .article-grid { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem;
+            }
+            .article-card { 
+                padding: 1.5rem; 
+                border-radius: var(--border-radius-xl);
+            }
+            .article-header { 
+                margin-bottom: 1rem; 
+            }
+            .article-icon { 
+                width: 45px; 
+                height: 45px; 
+                font-size: 1.1rem;
+            }
+            .article-title { 
+                font-size: 1.15rem; 
+                line-height: 1.3;
+            }
+            .article-summary { 
+                font-size: 0.95rem; 
+                margin-bottom: 1rem;
+            }
+            .article-content { 
+                font-size: 0.95rem; 
+            }
+            .article-content h4 { 
+                font-size: 1.1rem; 
+                margin: 1rem 0 0.5rem 0;
+            }
+            
+            /* 特殊框样式 */
+            .highlight-box, .definition-box { 
+                padding: 1rem; 
+                margin: 1rem 0;
+                border-radius: var(--border-radius-md);
+            }
+            .highlight-box h5, .definition-box h5 { 
+                font-size: 1rem; 
+                margin-bottom: 0.5rem;
+            }
+            .highlight-box p, .definition-box p { 
+                font-size: 0.9rem; 
+            }
+            
+            /* 回到顶部按钮 */
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 0.75rem; }
+            .main-content { padding-top: 90px; }
+            
+            /* 导航栏 */
+            .nav-container { 
+                padding: 0 1rem; 
+                height: 70px;
+            }
+            .logo-image { 
+                height: 50px; 
+                max-width: 200px;
+            }
+            
+            /* 页面标题 */
+            .page-header { 
+                padding: 1.5rem 0.75rem; 
+                margin-bottom: 1.5rem;
+            }
+            .page-title { 
+                font-size: 2rem; 
+            }
+            .page-subtitle { 
+                font-size: 1rem; 
+            }
+            
+            /* 知识导航 */
+            .knowledge-nav { 
+                gap: 0.75rem; 
+                margin-bottom: 1.5rem;
+            }
+            .nav-card { 
+                padding: 1rem 0.75rem; 
+            }
+            .nav-card-icon { 
+                width: 40px; 
+                height: 40px; 
+                font-size: 1rem;
+            }
+            .nav-card-title { 
+                font-size: 0.9rem; 
+            }
+            
+            /* 文章内容 */
+            .article-grid { 
+                gap: 1rem; 
+            }
+            .article-card { 
+                padding: 1.25rem; 
+            }
+            .article-title { 
+                font-size: 1.1rem; 
+            }
+            .article-content { 
+                font-size: 0.9rem; 
+                line-height: 1.6;
+            }
+            .article-content ul { 
+                padding-left: 1.25rem; 
+            }
+            
+            /* 回到顶部按钮 */
+            .back-to-top {
+                width: 45px;
+                height: 45px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* === 超大屏幕优化 === */
+        @media (min-width: 1440px) {
+            .container { max-width: 1400px; }
+            .knowledge-nav { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+            .article-grid { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.njch.com.cn/images/logo1.png" alt="南京市儿童医院" class="logo-image">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="assessment.html" class="nav-link">智能测评</a></li>
+                <li><a href="training.html" class="nav-link">训练指南</a></li>
+                <li><a href="knowledge.html" class="nav-link active">专业知识</a></li>
+                <li><a href="support.html" class="nav-link">家长支持</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题区域 -->
+            <div class="page-header" data-aos="fade-up">
+                <h1 class="page-title">专业知识库</h1>
+                <p class="page-subtitle">深入了解感觉统合理论，掌握科学的教育理念和方法</p>
+            </div>
+
+            <!-- 知识分类导航 -->
+            <div class="knowledge-nav" data-aos="fade-up" data-aos-delay="100">
+                <div class="nav-card active" data-category="basic">
+                    <div class="nav-card-icon" style="background: linear-gradient(135deg, #db5f7c, #fe8b95);">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="nav-card-title">基础理论</div>
+                </div>
+                <div class="nav-card" data-category="systems">
+                    <div class="nav-card-icon" style="background: linear-gradient(135deg, #10B981, #059669);">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="nav-card-title">感觉系统</div>
+                </div>
+                <div class="nav-card" data-category="development">
+                    <div class="nav-card-icon" style="background: linear-gradient(135deg, #F59E0B, #F97316);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="nav-card-title">发展阶段</div>
+                </div>
+                <div class="nav-card" data-category="disorders">
+                    <div class="nav-card-icon" style="background: linear-gradient(135deg, #EF4444, #DC2626);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="nav-card-title">失调表现</div>
+                </div>
+            </div>
+
+            <!-- 基础理论内容 -->
+            <div class="knowledge-content active" id="basic-content" data-aos="fade-up" data-aos-delay="200">
+                <div class="article-grid">
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #db5f7c, #fe8b95);">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h3 class="article-title">什么是感觉统合？</h3>
+                        </div>
+                        <p class="article-summary">
+                            感觉统合是大脑接收、处理和整合感觉信息的神经过程，是人类学习和行为的基础。
+                        </p>
+                        <div class="article-content">
+                            <div class="definition-box">
+                                <h5><i class="fas fa-quote-left"></i> 专业定义</h5>
+                                <p>感觉统合是指大脑对个体从视觉、听觉、触觉、前庭觉、本体觉及嗅味觉等不同感觉器官输入的感觉信息进行选择、解释、联系和统一的神经心理过程。</p>
+                            </div>
+                            
+                            <h4>感觉统合的工作过程</h4>
+                            <p><strong>第一步：感觉输入</strong> - 个体通过各种感觉器官接收环境刺激。</p>
+                            <p><strong>第二步：中枢神经系统处理</strong> - 大脑对接收到的感觉信息进行区辨、调节和运用。</p>
+                            <p><strong>第三步：计划和组织行为</strong> - 基于处理结果制定行动计划。</p>
+                            <p><strong>第四步：适应性互动与行为</strong> - 产生适当的行为反应并接收回馈。</p>
+                            
+                            <h4>感觉统合的重要性</h4>
+                            <ul>
+                                <li>是儿童学习能力发展的基础</li>
+                                <li>影响儿童的情绪调节和行为控制</li>
+                                <li>决定儿童的运动协调和身体意识</li>
+                                <li>影响儿童的社交技能和自信心</li>
+                                <li>学习的发生在于每一次的计划与组织，学习的检核在于每一次有效的回馈</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <h3 class="article-title">理论发展历程</h3>
+                        </div>
+                        <p class="article-summary">
+                            感觉统合理论由美国南加州大学的让·艾尔斯博士在1970年代提出，经过几十年的发展和完善。
+                        </p>
+                        <div class="article-content">
+                            <h4>创始人：让·艾尔斯博士</h4>
+                            <p>作业治疗师和教育心理学家，通过大量临床观察和研究，发现了感觉处理问题与学习、行为困难之间的关系。</p>
+                            
+                            <h4>理论发展阶段</h4>
+                            <p><strong>1970年代</strong> - 感觉统合理论初步建立</p>
+                            <p><strong>1980-1990年代</strong> - 理论体系逐步完善</p>
+                            <p><strong>2000年代至今</strong> - 神经科学验证和临床应用扩展</p>
+                            
+                            <h4>理论演变对比</h4>
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-timeline"></i> 三个发展阶段</h5>
+                                <p><strong>SID (1970年代)：</strong>感觉统合失调 - 艾尔斯博士提出，关注运用能力障碍和感觉调节不佳</p>
+                                <p><strong>SPD (2007年)：</strong>感觉处理障碍 - 露西·珍·米勒博士发展，包括感觉调节、运用、区辨障碍</p>
+                                <p><strong>SBI (现代)：</strong>感觉基础干预 - 应用一切感觉输入方式协助孩子适应环境的多专业方法</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #059669, #10B981);">
+                                <i class="fas fa-cogs"></i>
+                </div>
+                            <h3 class="article-title">理论基础四大假说</h3>
+                        </div>
+                        <p class="article-summary">
+                            感觉统合理论建立在四个核心假说基础上，这些假说为理解和干预感觉处理问题提供了科学依据。
+                        </p>
+                        <div class="article-content">
+                            <h4>1. 神经可塑性假说</h4>
+                            <p>大脑具有终生可塑性，能够通过经验和训练改变神经连接和功能。这意味着即使存在感觉处理困难，通过适当的干预也能够改善。</p>
+                            
+                            <h4>2. 大脑整体运作假说</h4>
+                            <p>大脑各个部分相互关联，协同工作。感觉系统不是独立运作的，而是需要与其他脑区整合才能产生有效的行为反应。</p>
+                            
+                            <h4>3. 适应性互动假说</h4>
+                            <p>通过与环境的适应性互动，个体的感觉统合能力得到发展。这种互动必须是有意义的、有目的的，并且能够产生适应性的反应。</p>
+                            
+                            <h4>4. 内在驱力假说</h4>
+                            <p>儿童天生具有寻求感觉经验以促进自身发展的内在动力。这种驱力推动儿童主动参与感觉运动活动，促进感觉统合的发展。</p>
+                            
+                            <div class="definition-box">
+                                <h5>干预原则</h5>
+                                <p><strong>内在驱力 → 最适挑战 → 胜任感</strong></p>
+                                <p>基于儿童的内在动机，提供适当的挑战，帮助儿童获得成功体验，建立胜任感。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #F97316, #EA580C);">
+                                <i class="fas fa-target"></i>
+                            </div>
+                            <h3 class="article-title">理论应用目的</h3>
+                        </div>
+                        <p class="article-summary">
+                            感觉统合理论有三个主要应用目的，为临床实践和教育干预提供指导。
+                        </p>
+                        <div class="article-content">
+                            <h4>1. 解释功能</h4>
+                            <p>解释人们为什么以特定方式表现，帮助理解儿童行为背后的感觉处理机制。</p>
+                            
+                            <h4>2. 发展功能</h4>
+                            <p>发展介入方法以改善相关困难，为感觉处理问题提供有效的干预策略。</p>
+                            
+                            <h4>3. 预测功能</h4>
+                            <p>预测介入后的行为改变，评估干预效果并调整治疗方案。</p>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-lightbulb"></i> 干预要点</h5>
+                                <p><strong>干预1：</strong>提供适当的感觉输入，促进中枢神经系统处理</p>
+                                <p><strong>干预2：</strong>建立有效的回馈机制，强化学习成果</p>
+                                <p>当感觉输入、神经处理或回馈环节出现问题时，就可能导致感觉统合失调。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 感觉系统内容 -->
+            <div class="knowledge-content" id="systems-content">
+                <div class="article-grid">
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #F59E0B, #F97316);">
+                                <i class="fas fa-hand-paper"></i>
+                            </div>
+                            <h3 class="article-title">触觉系统</h3>
+                        </div>
+                        <p class="article-summary">
+                            触觉是人体最大的感觉系统，也是最早发育的感觉系统，为儿童提供与环境的第一次接触。
+                        </p>
+                        <div class="article-content">
+                            <h4>触觉的功能</h4>
+                            <ul>
+                                <li><strong>保护功能：</strong>识别危险刺激，启动保护反应</li>
+                                <li><strong>辨别功能：</strong>识别物体的质地、温度、形状等</li>
+                                <li><strong>情绪调节：</strong>影响情绪状态和安全感</li>
+                                <li><strong>社交发展：</strong>通过触摸建立人际关系</li>
+                            </ul>
+                            
+                            <h4>触觉发育里程碑</h4>
+                            <p><strong>0-3个月：</strong>反射性触觉反应</p>
+                            <p><strong>3-6个月：</strong>主动触觉探索</p>
+                            <p><strong>6-12个月：</strong>精细触觉辨别</p>
+                            <p><strong>1-3岁：</strong>触觉计划和控制</p>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #10B981, #059669);">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h3 class="article-title">前庭觉系统</h3>
+                        </div>
+                        <p class="article-summary">
+                            位于内耳的前庭系统负责感知头部位置变化和重力作用，是平衡和空间定向的基础。
+                        </p>
+                        <div class="article-content">
+                            <h4>前庭觉的作用</h4>
+                            <ul>
+                                <li><strong>平衡维持：</strong>保持身体平衡和姿势稳定</li>
+                                <li><strong>空间定向：</strong>了解身体在空间中的位置</li>
+                                <li><strong>眼球运动：</strong>稳定视野，协调眼部运动</li>
+                                <li><strong>肌张力调节：</strong>维持适当的肌肉张力</li>
+                            </ul>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-exclamation-circle"></i> 重要提醒</h5>
+                                <p>前庭觉与其他感觉系统密切相关，特别是与视觉和本体觉的整合对学习和运动至关重要。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #6366F1, #4F46E5);">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3 class="article-title">本体觉系统</h3>
+                        </div>
+                        <p class="article-summary">
+                            本体觉让我们无需视觉就能感知身体各部位的位置、运动和力量，是身体意识的基础。
+                        </p>
+                        <div class="article-content">
+                            <h4>本体觉的重要性</h4>
+                            <ul>
+                                <li><strong>身体意识：</strong>了解身体各部位的位置</li>
+                                <li><strong>力量控制：</strong>调节肌肉用力的大小</li>
+                                <li><strong>运动计划：</strong>计划和执行复杂动作</li>
+                                <li><strong>精细动作：</strong>支持精细的手部动作</li>
+                            </ul>
+                            
+                            <h4>本体觉与学习</h4>
+                            <p>良好的本体觉是书写、运动技能和注意力的重要基础，影响儿童的学业表现。</p>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #3B82F6, #2563EB);">
+                                <i class="fas fa-eye"></i>
+                </div>
+                            <h3 class="article-title">视觉系统</h3>
+                        </div>
+                        <p class="article-summary">
+                            视觉系统是人类最重要的感觉系统之一，负责接收和处理光线信息，对学习和日常生活至关重要。
+                        </p>
+                        <div class="article-content">
+                            <h4>视觉功能分类</h4>
+                            <ul>
+                                <li><strong>视觉敏锐度：</strong>清晰看见细节的能力</li>
+                                <li><strong>视觉追踪：</strong>跟随移动目标的能力</li>
+                                <li><strong>视觉聚焦：</strong>在不同距离间调整焦点</li>
+                                <li><strong>双眼协调：</strong>两眼协同工作的能力</li>
+                                <li><strong>视觉感知：</strong>理解和解释视觉信息</li>
+                            </ul>
+                            
+                            <h4>视觉感知技能</h4>
+                            <p><strong>视觉记忆：</strong>记住看过的信息</p>
+                            <p><strong>视觉辨别：</strong>区分相似的形状、符号</p>
+                            <p><strong>视觉完形：</strong>从部分信息推断整体</p>
+                            <p><strong>空间关系：</strong>理解物体间的位置关系</p>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-graduation-cap"></i> 学习相关</h5>
+                                <p>视觉技能直接影响阅读、书写、数学和体育运动表现。良好的视觉统合能力是学业成功的重要基础。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">
+                                <i class="fas fa-volume-up"></i>
+                            </div>
+                            <h3 class="article-title">听觉系统</h3>
+                        </div>
+                        <p class="article-summary">
+                            听觉系统不仅帮助我们感知声音，还在语言发展、社交沟通和学习中发挥关键作用。
+                        </p>
+                        <div class="article-content">
+                            <h4>听觉处理能力</h4>
+                            <ul>
+                                <li><strong>听觉敏感度：</strong>感知不同音量和频率的声音</li>
+                                <li><strong>听觉辨别：</strong>区分不同的声音和语音</li>
+                                <li><strong>听觉记忆：</strong>记住听到的信息序列</li>
+                                <li><strong>听觉注意：</strong>专注于特定声音，过滤背景噪音</li>
+                                <li><strong>听觉理解：</strong>理解语言和指令的含义</li>
+                            </ul>
+                            
+                            <h4>语言发展中的作用</h4>
+                            <p><strong>语音感知：</strong>区分语音的细微差别</p>
+                            <p><strong>节律感知：</strong>感知语言的节奏和韵律</p>
+                            <p><strong>语言理解：</strong>理解复杂的语法结构</p>
+                            <p><strong>社交沟通：</strong>理解语调和情感表达</p>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-comments"></i> 发展关键期</h5>
+                                <p>0-3岁是听觉发展的关键期，充分的听觉刺激对语言发展和认知能力具有重要影响。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #EC4899, #BE185D);">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3 class="article-title">味觉系统</h3>
+                        </div>
+                        <p class="article-summary">
+                            味觉系统通过舌头上的味蕾感知食物的味道，与嗅觉密切配合，影响进食行为和营养摄入。
+                        </p>
+                        <div class="article-content">
+                            <h4>基本味觉类型</h4>
+                            <ul>
+                                <li><strong>甜味：</strong>能量来源的信号，通常令人愉悦</li>
+                                <li><strong>酸味：</strong>可能表示食物腐败或未成熟</li>
+                                <li><strong>咸味：</strong>重要矿物质的来源</li>
+                                <li><strong>苦味：</strong>可能有毒物质的警告信号</li>
+                                <li><strong>鲜味：</strong>蛋白质的标志，肉类和奶酪的特征</li>
+                            </ul>
+                            
+                            <h4>味觉的发展</h4>
+                            <p><strong>胎儿期：</strong>味觉感受器开始形成</p>
+                            <p><strong>新生儿：</strong>偏好甜味，拒绝苦味</p>
+                            <p><strong>幼儿期：</strong>味觉偏好受经验影响</p>
+                            <p><strong>学龄期：</strong>味觉辨别能力成熟</p>
+                            
+                            <h4>感统意义</h4>
+                            <p>味觉与口腔运动、触觉系统协调工作，影响进食技能、营养状况和口腔发育。味觉异常可能导致偏食、拒食等行为问题。</p>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #059669, #047857);">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3 class="article-title">嗅觉系统</h3>
+                        </div>
+                        <p class="article-summary">
+                            嗅觉是最古老的感觉系统，直接连接到大脑的情感和记忆中心，在安全识别和情绪调节中发挥重要作用。
+                        </p>
+                        <div class="article-content">
+                            <h4>嗅觉的特点</h4>
+                            <ul>
+                                <li><strong>直接传导：</strong>绕过丘脑，直达大脑皮层</li>
+                                <li><strong>情绪连接：</strong>与边缘系统密切相关</li>
+                                <li><strong>记忆触发：</strong>能够唤起强烈的记忆</li>
+                                <li><strong>适应性强：</strong>对熟悉气味快速适应</li>
+                                <li><strong>个体差异：</strong>嗅觉敏感度因人而异</li>
+                            </ul>
+                            
+                            <h4>功能作用</h4>
+                            <p><strong>安全识别：</strong>识别有害气体、腐败食物</p>
+                            <p><strong>食欲调节：</strong>影响食物的香味感知</p>
+                            <p><strong>情绪影响：</strong>某些气味能够改变情绪状态</p>
+                            <p><strong>社交信号：</strong>参与人际交往的化学信号</p>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-heart"></i> 情绪调节</h5>
+                                <p>嗅觉与情绪的密切联系使其成为感觉统合治疗中的重要工具，特别是在情绪调节和放松训练方面。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #DC2626, #B91C1C);">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <h3 class="article-title">内脏觉系统</h3>
+                        </div>
+                        <p class="article-summary">
+                            内脏觉是感知内部器官状态的感觉系统，包括饥饿、渴觉、心跳、呼吸等生理感觉，是自我调节的基础。
+                        </p>
+                        <div class="article-content">
+                            <h4>内脏觉的类型</h4>
+                            <ul>
+                                <li><strong>消化系统：</strong>饥饿感、饱腹感、胃部不适</li>
+                                <li><strong>循环系统：</strong>心跳、血压变化的感知</li>
+                                <li><strong>呼吸系统：</strong>呼吸节律、气短的感觉</li>
+                                <li><strong>泌尿系统：</strong>膀胱充盈感、排尿冲动</li>
+                                <li><strong>体温调节：</strong>冷热感觉、温度变化</li>
+                            </ul>
+                            
+                            <h4>发展重要性</h4>
+                            <p><strong>自我调节：</strong>学会识别和响应身体需求</p>
+                            <p><strong>健康意识：</strong>发展对身体状态的觉察</p>
+                            <p><strong>情绪识别：</strong>身体感觉与情绪状态的联系</p>
+                            <p><strong>生活技能：</strong>独立的生活自理能力</p>
+                            
+                            <h4>常见问题</h4>
+                            <p>内脏觉发展不良可能导致：无法识别饥饿或饱腹感、忽视身体不适、情绪调节困难、生活自理能力差等问题。</p>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-balance-scale"></i> 平衡发展</h5>
+                                <p>内脏觉的良好发展需要家长和教师的耐心引导，帮助儿童学会倾听身体的声音，建立健康的生活习惯。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 发展阶段内容 -->
+            <div class="knowledge-content" id="development-content">
+                <div class="article-grid">
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #F59E0B, #F97316);">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <h3 class="article-title">0-3岁发展阶段</h3>
+                        </div>
+                        <p class="article-summary">
+                            这是感觉统合发展的关键期，各种感觉系统开始建立基础连接。
+                        </p>
+                        <div class="article-content">
+                            <h4>0-6个月：感觉接收期</h4>
+                            <ul>
+                                <li><strong>触觉发展：</strong>通过皮肤接触感受世界</li>
+                                <li><strong>前庭觉建立：</strong>头部控制和平衡反应</li>
+                                <li><strong>本体觉萌芽：</strong>基本的身体感知</li>
+                                <li><strong>视听协调：</strong>声音和视觉的初步整合</li>
+                            </ul>
+                            
+                            <h4>6-18个月：感觉整合期</h4>
+                            <ul>
+                                <li><strong>坐立平衡：</strong>前庭觉和本体觉协调发展</li>
+                                <li><strong>爬行探索：</strong>双侧协调和空间感知</li>
+                                <li><strong>精细抓握：</strong>手眼协调初步建立</li>
+                                <li><strong>语言萌芽：</strong>听觉和口腔运动整合</li>
+                            </ul>
+                            
+                            <h4>18-36个月：感觉运用期</h4>
+                            <ul>
+                                <li><strong>行走跑跳：</strong>前庭本体觉成熟</li>
+                                <li><strong>语言爆发：</strong>多感觉系统协调</li>
+                                <li><strong>游戏行为：</strong>感觉寻求和探索</li>
+                                <li><strong>自我意识：</strong>身体图式初步形成</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <h3 class="article-title">3-6岁发展阶段</h3>
+                        </div>
+                        <p class="article-summary">
+                            学前期是感觉统合能力精进和专门化的重要时期。
+                        </p>
+                        <div class="article-content">
+                            <h4>3-4岁：技能建立期</h4>
+                            <ul>
+                                <li><strong>运动技能：</strong>跳跃、攀爬、骑车等复杂运动</li>
+                                <li><strong>精细动作：</strong>穿珠、剪纸、绘画等精细技能</li>
+                                <li><strong>语言发展：</strong>复杂句式和语法规则</li>
+                                <li><strong>情绪调节：</strong>通过感觉输入调节情绪</li>
+                            </ul>
+                            
+                            <h4>4-5岁：技能精进期</h4>
+                            <ul>
+                                <li><strong>双侧协调：</strong>左右手协调配合</li>
+                                <li><strong>平衡控制：</strong>单脚站立、平衡木行走</li>
+                                <li><strong>视觉技能：</strong>形状识别、视觉记忆</li>
+                                <li><strong>社交技能：</strong>团体游戏和合作行为</li>
+                            </ul>
+                            
+                            <h4>5-6岁：学习准备期</h4>
+                            <ul>
+                                <li><strong>书写准备：</strong>握笔姿势和线条控制</li>
+                                <li><strong>注意力控制：</strong>持续专注和选择性注意</li>
+                                <li><strong>空间概念：</strong>方向感和空间关系理解</li>
+                                <li><strong>自我控制：</strong>冲动控制和情绪管理</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #10B981, #059669);">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="article-title">6岁以上发展阶段</h3>
+                        </div>
+                        <p class="article-summary">
+                            学龄期是感觉统合能力应用于学习和社交的关键时期。
+                        </p>
+                        <div class="article-content">
+                            <h4>6-8岁：学习适应期</h4>
+                            <ul>
+                                <li><strong>学业技能：</strong>阅读、书写、数学等学科能力</li>
+                                <li><strong>视觉运动：</strong>眼球追踪和手眼协调精进</li>
+                                <li><strong>听觉处理：</strong>复杂指令理解和听觉记忆</li>
+                                <li><strong>组织计划：</strong>任务规划和执行能力</li>
+                            </ul>
+                            
+                            <h4>8-12岁：技能整合期</h4>
+                            <ul>
+                                <li><strong>运动专项：</strong>体育运动和技能专门化</li>
+                                <li><strong>认知整合：</strong>抽象思维和逻辑推理</li>
+                                <li><strong>社交成熟：</strong>复杂社交情境应对</li>
+                                <li><strong>自主管理：</strong>学习和生活自我管理</li>
+                            </ul>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-lightbulb"></i> 关键提示</h5>
+                                <p>每个儿童的发展节奏不同，这些里程碑仅供参考。重要的是关注个体差异，提供适合的支持和挑战。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 失调表现内容 -->
+            <div class="knowledge-content" id="disorders-content">
+                <div class="article-grid">
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #EF4444, #DC2626);">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3 class="article-title">感觉调节障碍</h3>
+                        </div>
+                        <p class="article-summary">
+                            感觉调节障碍是指大脑无法适当地调节对感觉刺激的反应强度和持续时间。
+                        </p>
+                        <div class="article-content">
+                            <h4>感觉反应过度（感觉敏感）</h4>
+                            <div class="definition-box">
+                                <h5><i class="fas fa-info-circle"></i> 主要表现</h5>
+                                <p>对日常感觉刺激产生过度强烈的反应，常表现为回避、恐惧或痛苦。</p>
+                            </div>
+                            <ul>
+                                <li><strong>触觉过敏：</strong>不喜欢被触摸、抗拒某些衣物质地、害怕弄脏手</li>
+                                <li><strong>听觉过敏：</strong>害怕突然的声音、在嘈杂环境中痛苦、捂耳朵</li>
+                                <li><strong>视觉过敏：</strong>害怕强光、经常眯眼、避免眼神接触</li>
+                                <li><strong>前庭过敏：</strong>害怕高度、抗拒摇摆、容易晕车</li>
+                                <li><strong>嗅味觉过敏：</strong>对气味和食物极度挑剔、容易恶心</li>
+                            </ul>
+                            
+                            <h4>感觉反应不足（感觉迟钝）</h4>
+                            <ul>
+                                <li><strong>触觉迟钝：</strong>感受不到痛觉、温度变化不敏感</li>
+                                <li><strong>听觉迟钝：</strong>似乎听不见叫唤、需要很大声音才反应</li>
+                                <li><strong>视觉迟钝：</strong>注意不到视觉细节、经常找不到物品</li>
+                                <li><strong>前庭迟钝：</strong>缺乏平衡感、经常摔倒、姿势控制差</li>
+                                <li><strong>本体觉迟钝：</strong>用力过度或不足、动作笨拙</li>
+                            </ul>
+                            
+                            <h4>感觉寻求</h4>
+                            <ul>
+                                <li><strong>强烈寻求：</strong>不断寻找感觉刺激、难以满足</li>
+                                <li><strong>运动寻求：</strong>喜欢旋转、跳跃、爬高等活动</li>
+                                <li><strong>触觉寻求：</strong>喜欢触摸各种物品、需要用力的拥抱</li>
+                                <li><strong>口腔寻求：</strong>咬东西、咀嚼非食物、流口水</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #F59E0B, #F97316);">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3 class="article-title">感觉辨别障碍</h3>
+                        </div>
+                        <p class="article-summary">
+                            感觉辨别障碍是指难以准确识别和区分不同的感觉信息。
+                        </p>
+                        <div class="article-content">
+                            <h4>触觉辨别困难</h4>
+                            <ul>
+                                <li><strong>质地辨别：</strong>无法区分不同材质（光滑vs粗糙）</li>
+                                <li><strong>形状识别：</strong>摸不出物品的形状和大小</li>
+                                <li><strong>温度感知：</strong>对冷热变化不敏感</li>
+                                <li><strong>位置定位：</strong>无法准确指出被触摸的部位</li>
+                            </ul>
+                            
+                            <h4>本体觉辨别困难</h4>
+                            <ul>
+                                <li><strong>位置感知：</strong>不知道身体各部位的位置</li>
+                                <li><strong>力量控制：</strong>用力过度或不足</li>
+                                <li><strong>动作协调：</strong>双手配合困难</li>
+                                <li><strong>精细动作：</strong>手指灵活性差，握笔困难</li>
+                            </ul>
+                            
+                            <h4>前庭觉辨别困难</h4>
+                            <ul>
+                                <li><strong>平衡感知：</strong>不知道身体是否平衡</li>
+                                <li><strong>运动方向：</strong>分不清上下左右</li>
+                                <li><strong>速度感知：</strong>对运动速度判断不准</li>
+                                <li><strong>重力感：</strong>对倾斜和颠倒不敏感</li>
+                            </ul>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-exclamation-circle"></i> 影响表现</h5>
+                                <p>辨别困难常导致学习效率低下、自信心不足，需要更多时间和练习来掌握基本技能。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <h3 class="article-title">感觉相关运动障碍</h3>
+                        </div>
+                        <p class="article-summary">
+                            感觉相关运动障碍包括姿势控制不良和运动计划困难两大类。
+                        </p>
+                        <div class="article-content">
+                            <h4>姿势控制不良</h4>
+                            <div class="definition-box">
+                                <h5><i class="fas fa-info-circle"></i> 核心问题</h5>
+                                <p>无法维持适当的姿势来支持活动，常表现为低肌张力和耐力不足。</p>
+                            </div>
+                            <ul>
+                                <li><strong>坐姿问题：</strong>坐不直、经常靠着或趴在桌上</li>
+                                <li><strong>站立困难：</strong>站立时摇摆、无法长时间站立</li>
+                                <li><strong>行走异常：</strong>步态不稳、容易疲劳</li>
+                                <li><strong>肌张力低：</strong>肌肉松软、关节过度弯曲</li>
+                                <li><strong>耐力不足：</strong>很快感到疲倦、活动持续时间短</li>
+                            </ul>
+                            
+                            <h4>运动计划困难（失用症）</h4>
+                            <ul>
+                                <li><strong>新动作学习：</strong>学习新的运动技能困难</li>
+                                <li><strong>动作顺序：</strong>无法按正确顺序执行动作</li>
+                                <li><strong>动作模仿：</strong>模仿他人动作困难</li>
+                                <li><strong>工具使用：</strong>不会正确使用工具和器械</li>
+                                <li><strong>游戏参与：</strong>避免需要运动技能的游戏</li>
+                            </ul>
+                            
+                            <h4>日常生活影响</h4>
+                            <ul>
+                                <li><strong>学习活动：</strong>书写困难、体育课表现差</li>
+                                <li><strong>生活自理：</strong>穿衣、刷牙等日常技能困难</li>
+                                <li><strong>游戏活动：</strong>避免运动性游戏、偏好静态活动</li>
+                                <li><strong>社交影响：</strong>因运动笨拙而被同伴排斥</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-card">
+                        <div class="article-header">
+                            <div class="article-icon" style="background: linear-gradient(135deg, #10B981, #059669);">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <h3 class="article-title">各年龄段常见表现</h3>
+                        </div>
+                        <p class="article-summary">
+                            感统失调在不同年龄段有不同的表现形式，及早识别有助于及时干预。
+                        </p>
+                        <div class="article-content">
+                            <h4>婴幼儿期（0-3岁）</h4>
+                            <ul>
+                                <li><strong>哭闹不安：</strong>无法安抚、睡眠困难</li>
+                                <li><strong>喂养问题：</strong>吞咽困难、挑食严重</li>
+                                <li><strong>运动迟缓：</strong>爬行、走路时间延迟</li>
+                                <li><strong>语言发育：</strong>说话晚、语言不清楚</li>
+                                <li><strong>情绪问题：</strong>容易激动、难以安静</li>
+                            </ul>
+                            
+                            <h4>学前期（3-6岁）</h4>
+                            <ul>
+                                <li><strong>行为问题：</strong>多动、注意力不集中、冲动</li>
+                                <li><strong>社交困难：</strong>不合群、攻击性行为</li>
+                                <li><strong>学习准备：</strong>握笔困难、精细动作差</li>
+                                <li><strong>情绪调节：</strong>情绪波动大、适应能力差</li>
+                                <li><strong>游戏技能：</strong>运动技能发展缓慢</li>
+                            </ul>
+                            
+                            <h4>学龄期（6-12岁）</h4>
+                            <ul>
+                                <li><strong>学业困难：</strong>阅读、书写、数学学习困难</li>
+                                <li><strong>注意力问题：</strong>上课不专心、作业拖拉</li>
+                                <li><strong>运动协调：</strong>体育课表现差、动作笨拙</li>
+                                <li><strong>自信心低：</strong>因能力不足而自卑</li>
+                                <li><strong>行为问题：</strong>冲动、情绪控制困难</li>
+                            </ul>
+                            
+                            <div class="highlight-box">
+                                <h5><i class="fas fa-clock"></i> 早期识别的重要性</h5>
+                                <p>0-7岁是感觉统合发展的黄金期，早期识别和干预可以显著改善预后，避免后续学习和社交问题的产生。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTopBtn" title="回到顶部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 初始化AOS动画
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: true, offset: 100 });
+
+        // 知识分类导航
+        const navCards = document.querySelectorAll('.nav-card');
+        const knowledgeContents = document.querySelectorAll('.knowledge-content');
+
+        navCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // 更新导航卡片状态
+                navCards.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 显示对应内容
+                knowledgeContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === category + '-content') {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // 移动端菜单切换
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        console.log('移动端菜单初始化：');
+        console.log('- 菜单按钮元素：', mobileMenuToggle);
+        console.log('- 导航链接元素：', navLinks);
+        
+        if (mobileMenuToggle && navLinks) {
+            // 添加点击事件监听器
+            mobileMenuToggle.addEventListener('click', function(e) {
+                console.log('移动端菜单按钮被点击');
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // 切换菜单显示状态
+                const isActive = navLinks.classList.contains('mobile-active');
+                
+                if (isActive) {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.querySelector('i').className = 'fas fa-bars';
+                    console.log('菜单已关闭');
+                } else {
+                    navLinks.classList.add('mobile-active');
+                    mobileMenuToggle.querySelector('i').className = 'fas fa-times';
+                    console.log('菜单已打开');
+                }
+            });
+            
+            // 点击菜单链接后关闭菜单
+            const menuLinks = navLinks.querySelectorAll('.nav-link');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.querySelector('i').className = 'fas fa-bars';
+                    console.log('点击菜单链接，菜单已关闭');
+                });
+            });
+            
+            // 点击菜单外部关闭菜单
+            document.addEventListener('click', function(e) {
+                if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    if (navLinks.classList.contains('mobile-active')) {
+                        navLinks.classList.remove('mobile-active');
+                        mobileMenuToggle.querySelector('i').className = 'fas fa-bars';
+                        console.log('点击外部区域，菜单已关闭');
+                    }
+                }
+            });
+            
+            // 监听窗口大小变化
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.querySelector('i').className = 'fas fa-bars';
+                }
+            });
+            
+            console.log('移动端菜单事件监听器已添加');
+        } else {
+            console.error('移动端菜单元素未找到！');
+            console.error('- mobileMenuToggle:', mobileMenuToggle);
+            console.error('- navLinks:', navLinks);
+        }
+
+        // 回到顶部按钮功能
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        
+        // 监听滚动事件，控制按钮显示/隐藏
+        window.addEventListener('scroll', function() {
+            // 导航栏滚动效果
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                navbar.classList.toggle('scrolled', window.scrollY > 100);
+            }
+            
+            // 回到顶部按钮显示控制
+            if (backToTopBtn) {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            }
+        });
+        
+        // 回到顶部按钮点击事件
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', function() {
+                // 平滑滚动到顶部
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                // 添加点击动画效果
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        }
+        
+        // 触摸设备优化
+        if ('ontouchstart' in window) {
+            // 为触摸设备优化点击区域
+            const touchElements = document.querySelectorAll('.nav-card, .back-to-top');
+            touchElements.forEach(element => {
+                element.style.minHeight = '44px'; // iOS推荐的最小触摸区域
+            });
+        }
+        
+        // 页面加载完成后的额外初始化
+        window.addEventListener('load', function() {
+            // 检查是否是移动设备
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // 移动设备特定优化
+                console.log('移动设备检测完成，已应用移动端优化');
+                
+                // 优化触摸体验
+                document.body.style.webkitTouchCallout = 'none';
+                document.body.style.webkitUserSelect = 'none';
+                
+                // 为知识分类卡片添加触摸反馈
+                const navCards = document.querySelectorAll('.nav-card');
+                navCards.forEach(card => {
+                    card.addEventListener('touchstart', function() {
+                        this.style.transform = 'scale(0.98)';
+                    });
+                    
+                    card.addEventListener('touchend', function() {
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 100);
+                    });
+                });
+                
+                // 移动端菜单额外检查
+                const mobileBtn = document.getElementById('mobileMenuToggle');
+                const navMenu = document.getElementById('navLinks');
+                
+                console.log('移动端菜单最终检查：');
+                console.log('- 菜单按钮存在：', !!mobileBtn);
+                console.log('- 导航菜单存在：', !!navMenu);
+                console.log('- 菜单按钮可见：', mobileBtn ? getComputedStyle(mobileBtn).display !== 'none' : false);
+                
+                if (mobileBtn) {
+                    // 确保按钮可点击
+                    mobileBtn.style.pointerEvents = 'auto';
+                    mobileBtn.style.cursor = 'pointer';
+                    
+                    // 添加触摸事件支持
+                    mobileBtn.addEventListener('touchstart', function(e) {
+                        console.log('触摸开始：移动端菜单按钮');
+                        e.preventDefault();
+                        this.style.background = 'var(--bg-accent)';
+                    });
+                    
+                    mobileBtn.addEventListener('touchend', function(e) {
+                        console.log('触摸结束：移动端菜单按钮');
+                        e.preventDefault();
+                        this.style.background = '';
+                        
+                        // 触发点击事件
+                        setTimeout(() => {
+                            this.click();
+                        }, 50);
+                    });
+                }
+            }
+            
+            console.log('专业知识库页面初始化完成');
+            console.log('- 回到顶部按钮已启用');
+            console.log('- 移动端适配已优化');
+            console.log('- 响应式设计已加载');
+            console.log('- 移动端菜单功能已启用');
+        });
+    </script>
+</body>
+</html> 

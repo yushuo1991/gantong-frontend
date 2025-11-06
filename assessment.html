@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能测评 - 感觉统合训练中心</title>
+    
+    <!-- 预加载字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* === 基础设计系统 === */
+        :root {
+            --primary-color: #db5f7c;
+            --primary-light: #fe8b95;
+            --secondary-color: #342f82;
+            --accent-color: #ecda1d;
+            --success-color: #4ed0e8;
+            --warning-color: #ffbe50;
+            --error-color: #db5f7c;
+            
+            --text-primary: #2d2438;
+            --text-secondary: #5a4d6b;
+            --text-light: #8b7a94;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #faf9fb;
+            --bg-accent: #f8f6fa;
+            --bg-gradient: linear-gradient(145deg, var(--bg-primary) 0%, rgba(248, 246, 250, 0.8) 100%);
+            
+            --border-color: #e8e4eb;
+            --border-light: #f0ecf3;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(52, 47, 130, 0.08);
+            --shadow-md: 0 4px 6px -1px rgba(52, 47, 130, 0.12), 0 2px 4px -1px rgba(219, 95, 124, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(52, 47, 130, 0.15), 0 4px 6px -2px rgba(219, 95, 124, 0.10);
+            --shadow-xl: 0 20px 25px -5px rgba(52, 47, 130, 0.18), 0 10px 10px -5px rgba(219, 95, 124, 0.12);
+            
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-2xl: 1.5rem;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6; color: var(--text-primary); background: var(--bg-secondary);
+            overflow-x: hidden;
+        }
+
+        /* === 导航栏样式 === */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-lg);
+        }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex;
+            align-items: center; justify-content: space-between; height: 80px;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
+        .logo-image {
+            height: 60px; width: auto; max-width: 250px; object-fit: contain;
+        }
+        
+        .nav-links {
+            display: flex; align-items: center; gap: 2rem; list-style: none;
+        }
+        .nav-link {
+            text-decoration: none; color: var(--text-secondary); font-weight: 500;
+            font-size: 0.95rem; transition: all 0.3s ease; padding: 0.75rem 1rem;
+            border-radius: var(--border-radius-lg); position: relative;
+        }
+        .nav-link:hover {
+            color: var(--primary-color); background-color: var(--bg-accent);
+        }
+        .nav-link.active {
+            color: var(--primary-color); background-color: var(--bg-accent);
+        }
+        .mobile-menu-toggle {
+            display: none; background: none; border: none; font-size: 1.5rem;
+            color: var(--text-primary); cursor: pointer;
+        }
+
+        /* === 主要内容容器 === */
+        .main-content { padding-top: 120px; min-height: 100vh; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+
+        /* === 页面头部 === */
+        .page-header {
+            text-align: center; margin-bottom: 3rem; padding: 3rem 0;
+            background: var(--bg-gradient); border-radius: var(--border-radius-2xl);
+            box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
+        }
+        .page-header::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(219, 95, 124, 0.05), rgba(52, 47, 130, 0.03));
+            z-index: 1;
+        }
+        .page-header > * { position: relative; z-index: 2; }
+        
+        .header-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
+            background: rgba(219, 95, 124, 0.1); color: var(--primary-color);
+            border-radius: var(--border-radius-lg); font-weight: 600; font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        .page-title {
+            font-size: 3rem; font-weight: 800; color: var(--text-primary);
+            margin-bottom: 1rem; line-height: 1.1;
+        }
+        .page-subtitle {
+            font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;
+            max-width: 600px; margin-left: auto; margin-right: auto;
+        }
+        
+        .assessment-features {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem; margin-top: 2rem;
+        }
+        .feature-item {
+            display: flex; align-items: center; gap: 0.75rem; padding: 1.25rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 249, 251, 0.85));
+            border-radius: var(--border-radius-lg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(219, 95, 124, 0.08);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .feature-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(219, 95, 124, 0.15);
+        }
+        .feature-icon {
+            width: 45px; height: 45px; 
+            border-radius: var(--border-radius-lg); 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+        .feature-text { 
+            font-weight: 600; 
+            color: var(--text-primary); 
+            font-size: 0.95rem;
+        }
+        
+        /* 为每个功能特色设置不同的主题色 */
+        .feature-item:nth-child(1) .feature-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        }
+        .feature-item:nth-child(2) .feature-icon {
+            background: linear-gradient(135deg, var(--secondary-color), #6862bb);
+        }
+        .feature-item:nth-child(3) .feature-icon {
+            background: linear-gradient(135deg, var(--success-color), #7ee3f3);
+        }
+        .feature-item:nth-child(4) .feature-icon {
+            background: linear-gradient(135deg, var(--warning-color), #ffd280);
+        }
+
+        /* === 个人信息填写区域 === */
+        .personal-info-section {
+            background: var(--bg-primary); border-radius: var(--border-radius-xl);
+            padding: 2.5rem; margin-bottom: 2rem; box-shadow: var(--shadow-md);
+        }
+        .personal-info-section h3 {
+            font-size: 1.5rem; font-weight: 700; color: var(--text-primary);
+            margin-bottom: 1rem; text-align: center;
+        }
+        .personal-info-section p {
+            color: var(--text-secondary); text-align: center; margin-bottom: 2rem;
+        }
+        
+        .personal-info-form {
+            max-width: 600px; margin: 0 auto;
+        }
+        .form-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .form-group {
+            display: flex; flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .form-group input,
+        .form-group select {
+            padding: 0.875rem 1rem; border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md); font-size: 0.95rem;
+            transition: var(--transition); background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none; border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(219, 95, 124, 0.1);
+        }
+        .form-group small {
+            color: var(--text-light); font-size: 0.8rem; margin-top: 0.25rem;
+        }
+
+        
+        .btn-submit {
+            width: 100%; padding: 1rem 2rem; margin-top: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white; border: none; border-radius: var(--border-radius-lg);
+            font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            transition: var(--transition); display: flex; align-items: center;
+            justify-content: center; gap: 0.5rem; box-shadow: var(--shadow-md);
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px); box-shadow: var(--shadow-lg);
+        }
+
+        /* === 年龄选择区域 === */
+        .age-selection {
+            background: var(--bg-primary); border-radius: var(--border-radius-xl);
+            padding: 2.5rem; margin-bottom: 2rem; box-shadow: var(--shadow-md);
+        }
+        .age-selection h3 {
+            font-size: 1.5rem; font-weight: 700; color: var(--text-primary);
+            margin-bottom: 1rem; text-align: center;
+        }
+        .age-selection p {
+            color: var(--text-secondary); text-align: center; margin-bottom: 2rem;
+        }
+        .age-groups {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+        }
+        .age-group {
+            background: var(--bg-gradient); border: 2px solid var(--border-light);
+            border-radius: var(--border-radius-lg); padding: 2rem; text-align: center;
+            cursor: pointer; transition: var(--transition); position: relative; overflow: hidden;
+        }
+        .age-group::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0); transition: var(--transition);
+        }
+        .age-group:hover::before { transform: scaleX(1); }
+        .age-group:hover {
+            border-color: var(--primary-color); transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        .age-group.selected {
+            border-color: var(--primary-color); background: rgba(219, 95, 124, 0.05);
+        }
+        .age-group.selected::before { transform: scaleX(1); }
+        
+        .age-icon {
+            width: 60px; height: 60px; margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: var(--border-radius-xl); display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.5rem;
+        }
+        .age-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .age-description { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+        .age-items { font-size: 0.85rem; color: var(--text-light); line-height: 1.8; }
+
+
+
+        /* === 测评问卷样式 === */
+        .assessment-container {
+            display: none; /* 初始隐藏 */
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .progress-section {
+            background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius-xl);
+            margin-bottom: 2rem; box-shadow: var(--shadow-md);
+        }
+        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .progress-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); }
+        .progress-text { color: var(--text-secondary); font-size: 0.875rem; }
+        .progress-bar {
+            width: 100%; height: 8px; background: var(--border-light); border-radius: 4px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.5s ease; border-radius: 4px;
+        }
+
+        .questionnaire-form {
+            background: var(--bg-gradient); border-radius: var(--border-radius-xl);
+            padding: 3rem; box-shadow: var(--shadow-lg); margin-bottom: 2rem;
+            border: 1px solid rgba(219, 95, 124, 0.1); position: relative; overflow: hidden;
+        }
+        
+        .section-header {
+            text-align: center; margin-bottom: 3rem; padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+        .section-title {
+            font-size: 2rem; font-weight: 700; color: var(--primary-color); margin-bottom: 0.5rem;
+        }
+        .section-subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+
+        .question-group {
+            margin-bottom: 3rem; padding: 2rem; background: var(--bg-secondary);
+            border-radius: var(--border-radius-lg); border-left: 4px solid var(--accent-color);
+        }
+        .group-title {
+            font-size: 1.5rem; font-weight: 700; color: var(--text-primary);
+            margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+        }
+        .group-icon { color: var(--accent-color); }
+
+        .question-item {
+            margin-bottom: 2rem; padding: 1.5rem; background: var(--bg-primary);
+            border-radius: var(--border-radius-lg); border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+        .question-item:hover { box-shadow: var(--shadow-md); }
+        
+        .question-text {
+            font-size: 1.1rem; font-weight: 600; color: var(--text-primary);
+            margin-bottom: 1rem; line-height: 1.6;
+        }
+
+        .answer-options {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem;
+        }
+        .option-label {
+            display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem;
+            background: var(--bg-secondary); border-radius: var(--border-radius-lg);
+            cursor: pointer; transition: var(--transition); border: 2px solid transparent;
+            text-align: center;
+        }
+        .option-label:hover { background: var(--bg-accent); transform: translateY(-2px); }
+        .option-label.selected { 
+            border-color: var(--primary-color); background: rgba(219, 95, 124, 0.1);
+            transform: translateY(-2px); box-shadow: var(--shadow-md);
+        }
+
+        .option-score {
+            width: 30px; height: 30px; border-radius: 50%; 
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem;
+        }
+        .option-text { font-weight: 500; color: var(--text-primary); font-size: 0.9rem; }
+        .option-description { font-size: 0.8rem; color: var(--text-light); line-height: 1.3; }
+
+        .form-navigation {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 2rem; background: var(--bg-primary); border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+        .btn {
+            padding: 1rem 2rem; border-radius: var(--border-radius-lg); font-weight: 600;
+            text-decoration: none; border: none; cursor: pointer; font-size: 1rem;
+            transition: var(--transition); display: flex; align-items: center; gap: 0.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white; box-shadow: var(--shadow-md);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-secondary {
+            background: var(--bg-secondary); color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+        }
+        .btn-secondary:hover { background: var(--bg-accent); color: var(--primary-color); border-color: var(--primary-color); }
+        
+        /* 快速测试按钮样式 */
+        .btn-test:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, #ffab40, #ffc107) !important;
+        }
+        
+        .btn-quick-test:hover {
+            transform: translateY(-1px) scale(1.05);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, #f7931e, #ff6b35) !important;
+        }
+
+        /* === 动画 === */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse { animation: pulse 2s infinite; }
+
+        /* === 结果页面样式 === */
+        .results-container {
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .results-section {
+            background: var(--bg-gradient);
+            border-radius: var(--border-radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+        
+        .results-header {
+            margin-bottom: 3rem;
+        }
+        
+        .results-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(78, 208, 232, 0.1);
+            color: var(--success-color);
+            border-radius: var(--border-radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .results-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+        
+        .results-summary {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .total-score {
+            text-align: center;
+        }
+        
+        .score-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            line-height: 1;
+        }
+        
+        .score-label {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        
+        .score-interpretation {
+            max-width: 400px;
+        }
+        
+        .interpretation-level {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .interpretation-text {
+            color: var(--text-secondary);
+        }
+        
+        .detailed-scores {
+            margin-bottom: 3rem;
+        }
+        
+        .scores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .score-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .score-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .score-card[onclick]:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .more-training-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--accent-light), var(--warning-color)) !important;
+        }
+        
+        .score-card-header {
+            margin-bottom: 1rem;
+        }
+        
+        .score-card-header i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-card-header h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .score-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-level {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .score-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .recommendations-section {
+            text-align: left;
+        }
+        
+        .recommendation-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid;
+        }
+        
+        .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .recommendation-header h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .urgency {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .training-method {
+            background: var(--bg-accent);
+            border-radius: var(--border-radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .training-method h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .training-method p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .method-details {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .method-details span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .no-recommendations {
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            border: 2px solid var(--success-color);
+        }
+        
+        .no-recommendations i {
+            font-size: 3rem;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+        
+        .no-recommendations h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        /* === 响应式设计 === */
+        @media (max-width: 1024px) {
+            .nav-links { gap: 1rem; }
+            .container { padding: 0 1.5rem; }
+            .assessment-features { grid-template-columns: repeat(2, 1fr); }
+            .form-row { grid-template-columns: 1fr; gap: 1rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 0 1rem; }
+            .main-content { padding-top: 100px; }
+            
+            /* 页面头部 */
+            .page-header { padding: 2rem 0; margin-bottom: 2rem; }
+            .page-title { font-size: 2rem; line-height: 1.2; }
+            .page-subtitle { font-size: 1rem; }
+            
+            /* 特色展示 */
+            .assessment-features { grid-template-columns: 1fr; gap: 1rem; }
+            .feature-item { padding: 1rem; }
+            .feature-icon { width: 40px; height: 40px; }
+            
+            /* 个人信息表单 */
+            .personal-info-section { padding: 1.5rem; }
+            .form-row { grid-template-columns: 1fr; gap: 1rem; }
+                         .form-group input, .form-group select {
+                 padding: 0.75rem;
+             }
+            
+            /* 年龄选择 */
+            .age-selection { padding: 1.5rem; }
+            .age-groups { grid-template-columns: 1fr; gap: 1rem; }
+            .age-group { padding: 1.5rem; }
+            .age-icon { width: 50px; height: 50px; }
+            .age-title { font-size: 1.1rem; }
+            
+            /* 测评问卷 */
+            .questionnaire-form { padding: 1.5rem; }
+            .progress-section { padding: 1.5rem; }
+            .answer-options { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+            .option-label { padding: 0.75rem; }
+            .form-navigation { 
+                padding: 1.5rem; flex-direction: column; gap: 1rem; 
+                align-items: stretch;
+            }
+            .nav-info { order: -1; text-align: center; }
+            .btn { padding: 0.875rem 1.5rem; justify-content: center; }
+            
+            /* 导航菜单 */
+            .mobile-menu-toggle { display: block; }
+            .nav-links {
+                position: fixed; top: 80px; left: 0; width: 100%; height: calc(100vh - 80px);
+                background: var(--bg-primary); flex-direction: column; justify-content: flex-start;
+                padding: 2rem; gap: 1rem; display: none; box-shadow: var(--shadow-lg);
+                border-top: 1px solid var(--border-color);
+            }
+            .nav-links.mobile-active {
+                display: flex !important; z-index: 999;
+                animation: slideDown 0.3s ease-out;
+            }
+            .nav-link { width: 100%; text-align: center; padding: 1rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .container { padding: 0 0.75rem; }
+            .page-title { font-size: 1.75rem; }
+            .assessment-features { gap: 0.75rem; }
+            .feature-item { padding: 0.875rem; gap: 0.5rem; }
+            .feature-text { font-size: 0.9rem; }
+            
+            /* 表单优化 */
+            .personal-info-section, .age-selection { padding: 1rem; }
+            .questionnaire-form { padding: 1rem; }
+            .progress-section { padding: 1rem; }
+            
+            /* 年龄选择优化 */
+            .age-group { padding: 1rem; }
+            .age-icon { width: 45px; height: 45px; font-size: 1.2rem; }
+            .age-items { font-size: 0.8rem; }
+            
+            /* 答题选项优化 */
+            .answer-options { grid-template-columns: 1fr; }
+            .option-label { padding: 1rem; }
+            
+            /* 按钮优化 */
+            .btn { padding: 0.75rem 1rem; font-size: 0.9rem; }
+            .btn-submit { padding: 0.875rem 1.5rem; }
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.njch.com.cn/images/logo1.png" alt="南京市儿童医院" class="logo-image">
+            </a>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="assessment.html" class="nav-link active">智能测评</a></li>
+                <li><a href="training.html" class="nav-link">训练指南</a></li>
+                <li><a href="knowledge.html" class="nav-link">专业知识</a></li>
+                <li><a href="support.html" class="nav-link">家长支持</a></li>
+            </ul>
+            
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面头部 -->
+            <section class="page-header">
+                <div class="header-badge">
+                    <i class="fas fa-certificate"></i>
+                    专业科学评估
+                </div>
+                <h1 class="page-title">感觉统合智能测评系统</h1>
+                <p class="page-subtitle">
+                    基于国际标准感觉统合理论，采用科学评分体系，为您的孩子提供专业、准确的感觉统合能力评估
+                </p>
+                
+                <div class="assessment-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">30</div>
+                        <div class="feature-text">专业测评条目</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">6</div>
+                        <div class="feature-text">核心能力维度</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">AI</div>
+                        <div class="feature-text">智能分析报告</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">个性</div>
+                        <div class="feature-text">定制训练方案</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 年龄选择 -->
+            <section class="age-selection" id="ageSelectionSection">
+                <h3>请选择孩子的年龄段</h3>
+                <p>不同年龄段的评估标准和训练重点有所不同，请准确选择以获得最佳评估效果</p>
+                
+                <div class="age-groups">
+                    <div class="age-group" data-age="0-3">
+                        <div class="age-icon">
+                            <i class="fas fa-baby"></i>
+                        </div>
+                        <div class="age-title">0-3岁 婴幼儿期</div>
+                        <div class="age-description">感觉系统基础发育期，重点关注感觉接受和初步整合能力</div>
+                        <div class="age-items">
+                            • 触觉防御与探索<br>
+                            • 前庭觉平衡发展<br>
+                            • 本体觉基础建立<br>
+                            • 视听觉初步整合
+                        </div>
+                    </div>
+                    
+                    <div class="age-group" data-age="3-6">
+                        <div class="age-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <div class="age-title">3-6岁 学前期</div>
+                        <div class="age-description">感觉统合快速发展期，注重运动协调和认知整合能力</div>
+                        <div class="age-items">
+                            • 精细动作发展<br>
+                            • 空间感知能力<br>
+                            • 注意力集中<br>
+                            • 社交情绪调节
+                        </div>
+                    </div>
+                    
+                    <div class="age-group" data-age="6+">
+                        <div class="age-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="age-title">6岁以上 学龄期</div>
+                        <div class="age-description">感觉统合成熟期，重点评估学习相关的感觉统合能力</div>
+                        <div class="age-items">
+                            • 学习能力支持<br>
+                            • 复杂动作计划<br>
+                            • 感觉辨别精度<br>
+                            • 执行功能发展
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 个人信息填写 -->
+            <section class="personal-info-section" id="personalInfoSection" style="display: none;">
+                <h3>请填写基本信息</h3>
+                <p>为了提供更加精准的评估和个性化建议，请完善以下信息</p>
+                
+                <form class="personal-info-form" id="personalInfoForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="childName">孩子姓名</label>
+                            <input type="text" id="childName" name="childName" placeholder="请输入孩子的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="childAge">具体年龄</label>
+                            <input type="number" id="childAge" name="childAge" placeholder="请输入年龄（岁）" min="0" max="18" step="0.5" required>
+                            <small>如：2岁半请填写2.5</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="childGender">性别</label>
+                            <select id="childGender" name="childGender" required>
+                                <option value="">请选择</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="childDiagnosis">诊断情况</label>
+                            <input type="text" id="childDiagnosis" name="childDiagnosis" placeholder="如有相关诊断请填写，无则填写"无"">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions" style="display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-arrow-right"></i>
+                            开始专业测评
+                        </button>
+                        <button type="button" class="btn-test" onclick="fillTestData()" style="padding: 1rem 1.5rem; background: linear-gradient(135deg, #ff9500, #ffab40); color: white; border: none; border-radius: var(--border-radius-lg); font-weight: 600; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 0.5rem; box-shadow: var(--shadow-md);">
+                            <i class="fas fa-magic"></i>
+                            快速填充测试数据
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 测评问卷容器 -->
+            <div class="assessment-container" id="assessmentContainer">
+                <!-- 进度条 -->
+                <section class="progress-section">
+                    <div class="progress-header">
+                        <div class="progress-title">测评进度</div>
+                        <div class="progress-text" id="progressText">0 / 30</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </section>
+
+                <!-- 测评表单 -->
+                <form class="questionnaire-form" id="assessmentForm">
+                    <div class="section-header">
+                        <h2 class="section-title" id="sectionTitle">触觉能力评估</h2>
+                        <p class="section-subtitle" id="sectionSubtitle">评估孩子对触觉刺激的反应和处理能力</p>
+                    </div>
+
+                    <!-- 问题容器 -->
+                    <div id="questionsContainer">
+                        <!-- 问题会通过JavaScript动态生成 -->
+                    </div>
+
+                    <!-- 导航按钮 -->
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" style="visibility: hidden;">
+                            <i class="fas fa-arrow-left"></i>
+                            上一题
+                        </button>
+                        <div class="nav-info" style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                            <div>
+                                <span id="currentQuestion">1</span> / <span id="totalQuestions">30</span>
+                            </div>
+                            <button type="button" class="btn-quick-test" onclick="quickFinishTest()" style="padding: 0.5rem 1rem; background: linear-gradient(135deg, #ff6b35, #f7931e); color: white; border: none; border-radius: var(--border-radius-md); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 0.3rem; box-shadow: var(--shadow-sm);">
+                                <i class="fas fa-bolt"></i>
+                                快速完成测试
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="nextBtn" disabled>
+                            下一题
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- 结果页面（初始隐藏） -->
+                <div class="results-container" id="resultsContainer" style="display: none;">
+                    <!-- 结果内容会通过JavaScript生成 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+
+
+        // 快速填充测试数据
+        function fillTestData() {
+            // 生成随机测试数据
+            const testNames = ['张小明', '李小红', '王小华', '陈小军', '刘小美', '赵小强', '孙小丽', '周小宇'];
+            const testDiagnoses = ['无', '注意力不集中', '语言发育迟缓', '感统失调', '自闭症谱系', '多动症'];
+            
+            const randomName = testNames[Math.floor(Math.random() * testNames.length)];
+            const randomAge = (Math.random() * 6 + 2).toFixed(1); // 2-8岁之间
+            const randomGender = Math.random() > 0.5 ? '男' : '女';
+            const randomDiagnosis = testDiagnoses[Math.floor(Math.random() * testDiagnoses.length)];
+            
+            // 填充表单字段
+            document.getElementById('childName').value = randomName;
+            document.getElementById('childAge').value = randomAge;
+            document.getElementById('childGender').value = randomGender;
+            document.getElementById('childDiagnosis').value = randomDiagnosis;
+            
+            // 显示填充成功的提示
+            showNotification('已成功填充测试数据！数据包含：' + randomName + '，' + randomAge + '岁，' + randomGender + '，诊断：' + randomDiagnosis, 'success');
+            
+            // 自动填充测评答案数据
+            fillRandomAnswers();
+        }
+        
+        // 填充随机测评答案
+        function fillRandomAnswers() {
+            // 预设一些有代表性的测试答案模式
+            const testPatterns = [
+                // 模式1：轻度困难
+                { name: '轻度感统困难', answers: generateAnswerPattern([1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2]) },
+                // 模式2：中度困难  
+                { name: '中度感统困难', answers: generateAnswerPattern([2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3]) },
+                // 模式3：重度困难
+                { name: '重度感统困难', answers: generateAnswerPattern([3,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2]) },
+                // 模式4：正常发展
+                { name: '发展正常', answers: generateAnswerPattern([0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1]) },
+                // 模式5：混合模式
+                { name: '部分困难', answers: generateAnswerPattern([1,0,2,1,0,2,1,0,2,1,0,2,1,0,2,1,0,2,1,0,2,1,0,2,1,0,2,1,0,2,1,0,2,1,0,2]) }
+            ];
+            
+            // 随机选择一个测试模式
+            const selectedPattern = testPatterns[Math.floor(Math.random() * testPatterns.length)];
+            
+            // 保存预设答案到全局变量，供后续测评使用
+            window.presetAnswers = selectedPattern.answers;
+            window.testPatternName = selectedPattern.name;
+            
+            console.log('已设置测试答案模式：', selectedPattern.name);
+            showNotification('已设置测试答案模式：' + selectedPattern.name + '，提交时将自动填充所有答案', 'info');
+        }
+        
+        // 生成答案模式
+        function generateAnswerPattern(basePattern) {
+            const answers = {};
+            for (let i = 0; i < 36; i++) {
+                // 使用基础模式，并添加一些随机变化
+                const baseScore = basePattern[i % basePattern.length];
+                const variation = Math.random() > 0.8 ? (Math.random() > 0.5 ? 1 : -1) : 0;
+                const finalScore = Math.max(0, Math.min(3, baseScore + variation));
+                answers[i + 1] = finalScore;
+            }
+            return answers;
+        }
+        
+        // 修改submitAssessment函数，在有预设答案时自动使用
+        function submitAssessmentWithTestData() {
+            if (window.presetAnswers) {
+                // 使用预设的测试答案
+                answers = window.presetAnswers;
+                console.log('使用预设测试答案：', answers);
+                showNotification('正在使用测试数据模式：' + window.testPatternName, 'info');
+            }
+            
+            // 调用原来的提交函数
+            submitAssessment();
+        }
+        
+        // 快速完成测试功能
+        function quickFinishTest() {
+            if (confirm('确定要使用测试数据快速完成测试吗？这将自动填充所有剩余答案并提交结果。')) {
+                // 如果没有预设答案，先生成一个
+                if (!window.presetAnswers) {
+                    fillRandomAnswers();
+                }
+                
+                // 使用预设答案填充所有剩余问题
+                answers = window.presetAnswers;
+                
+                // 显示提示
+                showNotification('已使用测试数据快速完成：' + window.testPatternName, 'success');
+                
+                // 直接跳转到结果页面
+                setTimeout(() => {
+                    finishAssessment();
+                }, 1000);
+            }
+        }
+
+        // 个人信息表单处理
+        function initPersonalInfoForm() {
+            const form = document.getElementById('personalInfoForm');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // 收集表单数据
+                    const formData = new FormData(form);
+                    personalInfo = {
+                        name: formData.get('childName'),
+                        age: parseFloat(formData.get('childAge')),
+                        gender: formData.get('childGender'),
+                        diagnosis: formData.get('childDiagnosis') || '无'
+                    };
+                    
+                    // 隐藏个人信息表单，开始测评
+                    document.getElementById('personalInfoSection').style.display = 'none';
+                    startAssessment();
+                });
+            }
+        }
+        
+        // 显示个人信息表单
+        function showPersonalInfoForm() {
+            document.getElementById('ageSelectionSection').style.display = 'none';
+            document.getElementById('personalInfoSection').style.display = 'block';
+            
+            // 添加动画效果
+            const infoSection = document.getElementById('personalInfoSection');
+            infoSection.style.opacity = '0';
+            infoSection.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                infoSection.style.transition = 'all 0.5s ease';
+                infoSection.style.opacity = '1';
+                infoSection.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // 滚动到表单区域
+            setTimeout(() => {
+                infoSection.scrollIntoView({ behavior: 'smooth' });
+            }, 200);
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化个人信息表单
+            initPersonalInfoForm();
+            
+            // 页面元素动画
+            const elements = document.querySelectorAll('.age-group, .feature-item');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.6s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // 测评数据结构
+        const assessmentData = {
+            '0-3': {
+                sections: [
+                    {
+                        name: '触觉能力',
+                        icon: 'fas fa-hand-paper',
+                        description: '评估婴幼儿对触觉刺激的反应和适应能力',
+                        questions: [
+                            { id: 1, text: '不喜欢被触摸，尤其是面部、手心和脚心', category: 'touch' },
+                            { id: 2, text: '抗拒接触新材质的玩具或物品', category: 'touch' },
+                            { id: 3, text: '穿衣时对衣物质地挑剔，如不喜欢粗糙的布料', category: 'touch' },
+                            { id: 4, text: '避免弄脏手，如抗拒玩泥巴、沙土等', category: 'touch' },
+                            { id: 5, text: '对轻微疼痛（如注射疫苗）反应过度，如大声哭闹、久久不能平静', category: 'touch' }
+                        ]
+                    },
+                    {
+                        name: '前庭觉能力',
+                        icon: 'fas fa-balance-scale',
+                        description: '评估平衡感和空间定向能力的发展',
+                        questions: [
+                            { id: 6, text: '害怕被抱起或改变体位', category: 'vestibular' },
+                            { id: 7, text: '抗拒荡秋千、坐摇椅等摇摆活动', category: 'vestibular' },
+                            { id: 8, text: '不愿意尝试爬高或下楼梯', category: 'vestibular' },
+                            { id: 9, text: '容易晕车、晕船', category: 'vestibular' },
+                            { id: 10, text: '行走时需他人扶持，不敢独自探索', category: 'vestibular' }
+                        ]
+                    },
+                    {
+                        name: '本体觉能力',
+                        icon: 'fas fa-running',
+                        description: '评估身体意识和动作协调能力',
+                        questions: [
+                            { id: 11, text: '穿衣、脱袜子等自理动作笨拙', category: 'proprioceptive' },
+                            { id: 12, text: '拿取小玩具时手指协调性差', category: 'proprioceptive' },
+                            { id: 13, text: '不会模仿简单动作，如拍手、挥手', category: 'proprioceptive' },
+                            { id: 14, text: '站立时身体摇晃不稳', category: 'proprioceptive' },
+                            { id: 15, text: '走路步伐大小不一，容易绊倒', category: 'proprioceptive' }
+                        ]
+                    },
+                    {
+                        name: '视觉能力',
+                        icon: 'fas fa-eye',
+                        description: '评估视觉处理和感知能力',
+                        questions: [
+                            { id: 16, text: '对强光敏感，经常眯眼或转头躲避', category: 'visual' },
+                            { id: 17, text: '注视物体时眼神游离，难以聚焦', category: 'visual' },
+                            { id: 18, text: '对色彩鲜艳的图片或玩具兴趣不足', category: 'visual' },
+                            { id: 19, text: '无法准确追踪移动物体，如抛接球', category: 'visual' },
+                            { id: 20, text: '对相似图形（如圆形和椭圆形）区分困难', category: 'visual' }
+                        ]
+                    },
+                    {
+                        name: '听觉能力',
+                        icon: 'fas fa-ear',
+                        description: '评估听觉处理和反应能力',
+                        questions: [
+                            { id: 21, text: '对突然的响声（如敲门声）惊吓过度', category: 'auditory' },
+                            { id: 22, text: '在嘈杂环境中哭闹不安，难以安抚', category: 'auditory' },
+                            { id: 23, text: '对声音方向判断困难，需多次提示', category: 'auditory' },
+                            { id: 24, text: '对柔和的音乐或声音反应迟钝', category: 'auditory' },
+                            { id: 25, text: '语言发育迟缓，词汇量少于同龄儿童', category: 'auditory' }
+                        ]
+                    },
+                    {
+                        name: '注意力与情绪',
+                        icon: 'fas fa-heart',
+                        description: '评估注意力集中和情绪调节能力',
+                        questions: [
+                            { id: 26, text: '注意力难以集中，对同一玩具关注时间短', category: 'attention' },
+                            { id: 27, text: '情绪波动大，容易无故哭闹或发脾气', category: 'attention' },
+                            { id: 28, text: '适应新环境困难，如新保姆、新游乐场', category: 'attention' },
+                            { id: 29, text: '与同龄伙伴互动时易发生冲突，不会分享', category: 'attention' },
+                            { id: 30, text: '睡眠质量差，经常夜醒或做噩梦', category: 'attention' }
+                        ]
+                    }
+                ]
+            },
+            '3-6': {
+                sections: [
+                    {
+                        name: '触觉能力',
+                        icon: 'fas fa-hand-paper',
+                        description: '评估学前儿童触觉辨别和适应能力',
+                        questions: [
+                            { id: 1, text: '抗拒剪发、洗脸、洗头、刷牙', category: 'touch' },
+                            { id: 2, text: '不喜欢穿有标签的衣物，对袜子接缝敏感', category: 'touch' },
+                            { id: 3, text: '害怕陌生人碰触，如医生检查、亲戚逗弄', category: 'touch' },
+                            { id: 4, text: '对食物口感挑剔，拒绝尝试新食物', category: 'touch' },
+                            { id: 5, text: '喜欢反复触摸粗糙或光滑的物品，如墙面、地板', category: 'touch' }
+                        ]
+                    },
+                    {
+                        name: '前庭觉能力',
+                        icon: 'fas fa-balance-scale',
+                        description: '评估平衡感和运动协调发展',
+                        questions: [
+                            { id: 6, text: '晕车、晕船，玩旋转类游戏后不适', category: 'vestibular' },
+                            { id: 7, text: '不敢走平衡木、单脚站立困难', category: 'vestibular' },
+                            { id: 8, text: '从滑梯滑下时紧张害怕，需他人陪伴', category: 'vestibular' },
+                            { id: 9, text: '行走时容易碰撞周围物体，空间感知差', category: 'vestibular' },
+                            { id: 10, text: '运动后方向感混乱，分不清左右前后', category: 'vestibular' }
+                        ]
+                    },
+                    {
+                        name: '本体觉能力',
+                        icon: 'fas fa-running',
+                        description: '评估精细动作和身体协调能力',
+                        questions: [
+                            { id: 11, text: '拿笔、使用剪刀等工具不灵活', category: 'proprioceptive' },
+                            { id: 12, text: '扣纽扣、系鞋带等精细动作困难', category: 'proprioceptive' },
+                            { id: 13, text: '拍球、跳绳等运动协调性差', category: 'proprioceptive' },
+                            { id: 14, text: '模仿动物走路或简单舞蹈动作不准确', category: 'proprioceptive' },
+                            { id: 15, text: '用力过猛或过轻，如写字轻重不一', category: 'proprioceptive' }
+                        ]
+                    },
+                    {
+                        name: '视觉能力',
+                        icon: 'fas fa-eye',
+                        description: '评估视觉认知和处理能力',
+                        questions: [
+                            { id: 16, text: '看图识字困难，容易跳字漏行', category: 'visual' },
+                            { id: 17, text: '对颜色、形状、大小等图形特征分辨不清', category: 'visual' },
+                            { id: 18, text: '拼图游戏时难以准确拼合', category: 'visual' },
+                            { id: 19, text: '迷宫游戏无法找到正确路径', category: 'visual' },
+                            { id: 20, text: '对远距离物体视觉定位困难，如找风筝', category: 'visual' }
+                        ]
+                    },
+                    {
+                        name: '听觉能力',
+                        icon: 'fas fa-ear',
+                        description: '评估听觉辨别和理解能力',
+                        questions: [
+                            { id: 21, text: '对声音大小、高低变化不敏感，如音乐节奏', category: 'auditory' },
+                            { id: 22, text: '无法理解简单指令或问题，需重复说明', category: 'auditory' },
+                            { id: 23, text: '对同时说话或背景噪音干扰明显', category: 'auditory' },
+                            { id: 24, text: '语音发音不清晰，吐字含糊', category: 'auditory' },
+                            { id: 25, text: '对故事内容记忆困难，无法复述主要情节', category: 'auditory' }
+                        ]
+                    },
+                    {
+                        name: '注意力与情绪',
+                        icon: 'fas fa-heart',
+                        description: '评估专注力和情绪管理能力',
+                        questions: [
+                            { id: 26, text: '上课或做作业时注意力不集中，小动作多', category: 'attention' },
+                            { id: 27, text: '情绪易受外界影响，如天气、他人情绪', category: 'attention' },
+                            { id: 28, text: '过渡环节焦虑，如从游戏到学习', category: 'attention' },
+                            { id: 29, text: '与同伴相处时合作性差，易争抢玩具', category: 'attention' },
+                            { id: 30, text: '对失败或批评耐受性低，容易沮丧', category: 'attention' }
+                        ]
+                    }
+                ]
+            },
+            '6+': {
+                sections: [
+                    {
+                        name: '触觉能力',
+                        icon: 'fas fa-hand-paper',
+                        description: '评估学龄儿童触觉辨别和适应能力',
+                        questions: [
+                            { id: 1, text: '不喜欢他人触碰手臂或背部，即使是很轻的触碰', category: 'touch' },
+                            { id: 2, text: '对衣物材质有特殊要求，如必须穿纯棉', category: 'touch' },
+                            { id: 3, text: '在公共场所避免与他人身体接触，如排队时', category: 'touch' },
+                            { id: 4, text: '对食物温度敏感，如拒绝吃热汤、冷饮', category: 'touch' },
+                            { id: 5, text: '喜欢用力按压皮肤或肌肉，寻求强烈触觉刺激', category: 'touch' }
+                        ]
+                    },
+                    {
+                        name: '前庭觉能力',
+                        icon: 'fas fa-balance-scale',
+                        description: '评估复杂运动和平衡协调能力',
+                        questions: [
+                            { id: 6, text: '乘坐电梯或缆车时头晕、恶心', category: 'vestibular' },
+                            { id: 7, text: '在不平整地面行走困难，如鹅卵石路', category: 'vestibular' },
+                            { id: 8, text: '运动后容易失去平衡，如跑步后急停', category: 'vestibular' },
+                            { id: 9, text: '对快速旋转的活动（如旋转木马）感到不适', category: 'vestibular' },
+                            { id: 10, text: '在无扶手或栏杆的情况下不敢走高处', category: 'vestibular' }
+                        ]
+                    },
+                    {
+                        name: '本体觉能力',
+                        icon: 'fas fa-running',
+                        description: '评估复杂动作计划和身体协调能力',
+                        questions: [
+                            { id: 11, text: '写字、绘画时手指控制不精准', category: 'proprioceptive' },
+                            { id: 12, text: '使用工具（如螺丝刀、锤子）笨拙', category: 'proprioceptive' },
+                            { id: 13, text: '双侧协调性差，如跳绳时双手配合不好', category: 'proprioceptive' },
+                            { id: 14, text: '动作计划困难，如难以完成翻跟头', category: 'proprioceptive' },
+                            { id: 15, text: '对自身身体尺寸感知不准确，容易碰坏物品', category: 'proprioceptive' }
+                        ]
+                    },
+                    {
+                        name: '视觉能力',
+                        icon: 'fas fa-eye',
+                        description: '评估学习相关的视觉处理能力',
+                        questions: [
+                            { id: 16, text: '阅读时常混淆相似字词，如"买卖""来米"', category: 'visual' },
+                            { id: 17, text: '对三维空间的理解困难，如几何图形', category: 'visual' },
+                            { id: 18, text: '视觉记忆差，难以记住见过的面孔或场景', category: 'visual' },
+                            { id: 19, text: '在复杂视觉背景下难以集中注意力，如找茬游戏', category: 'visual' },
+                            { id: 20, text: '眼睛容易疲劳，阅读时需要频繁休息', category: 'visual' }
+                        ]
+                    },
+                    {
+                        name: '听觉能力',
+                        icon: 'fas fa-ear',
+                        description: '评估复杂听觉处理和理解能力',
+                        questions: [
+                            { id: 21, text: '对语言中的细微差别不敏感，如谐音梗', category: 'auditory' },
+                            { id: 22, text: '在多人交谈的场合难以跟上对话', category: 'auditory' },
+                            { id: 23, text: '对音乐的旋律和节奏感知迟钝', category: 'auditory' },
+                            { id: 24, text: '对声音的情感色彩不敏感，如听不出语调中的愤怒', category: 'auditory' },
+                            { id: 25, text: '对长时间的听觉任务（如听讲座）容易分心', category: 'auditory' }
+                        ]
+                    },
+                    {
+                        name: '注意力与情绪',
+                        icon: 'fas fa-heart',
+                        description: '评估学习相关的注意力和情绪调节能力',
+                        questions: [
+                            { id: 26, text: '做作业时需要频繁提醒才能保持专注', category: 'attention' },
+                            { id: 27, text: '情绪调节困难，如考试前焦虑过度', category: 'attention' },
+                            { id: 28, text: '对社交场合的转换适应慢，如新班级', category: 'attention' },
+                            { id: 29, text: '与同伴发生冲突时缺乏解决技巧，易升级矛盾', category: 'attention' },
+                            { id: 30, text: '对长期任务的动力不足，难以坚持完成', category: 'attention' }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // 评分选项
+        const scoreOptions = [
+            { score: 1, text: '从不', description: '几乎不出现此情况' },
+            { score: 2, text: '偶尔', description: '偶尔出现此情况' },
+            { score: 3, text: '经常', description: '经常出现此情况' },
+            { score: 4, text: '总是', description: '几乎总是如此' }
+        ];
+
+        // 全局变量
+        let selectedAge = null;
+        let currentData = null;
+        let currentSectionIndex = 0;
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let totalQuestions = 30;
+        let personalInfo = {};
+
+        // DOM元素
+        const ageGroups = document.querySelectorAll('.age-group');
+        const assessmentContainer = document.getElementById('assessmentContainer');
+        const questionsContainer = document.getElementById('questionsContainer');
+        const sectionTitle = document.getElementById('sectionTitle');
+        const sectionSubtitle = document.getElementById('sectionSubtitle');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const currentQuestionSpan = document.getElementById('currentQuestion');
+        const totalQuestionsSpan = document.getElementById('totalQuestions');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // 年龄选择逻辑
+        ageGroups.forEach(group => {
+            group.addEventListener('click', () => {
+                ageGroups.forEach(g => g.classList.remove('selected'));
+                group.classList.add('selected');
+                selectedAge = group.dataset.age;
+                
+                group.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    group.style.transform = 'translateY(-2px)';
+                    // 延迟显示个人信息表单，给用户视觉反馈
+                    setTimeout(() => {
+                        if (selectedAge) {
+                            sessionStorage.setItem('selectedAge', selectedAge);
+                            showPersonalInfoForm();
+                        }
+                    }, 300);
+                }, 100);
+            });
+        });
+
+        // 开始测评功能
+        function startAssessment() {
+            // 隐藏选择页面和个人信息页面，显示测评页面
+            document.querySelector('.page-header').style.display = 'none';
+            document.querySelector('.age-selection').style.display = 'none';
+            document.getElementById('personalInfoSection').style.display = 'none';
+            assessmentContainer.style.display = 'block';
+            
+            // 初始化测评数据
+            currentData = assessmentData[selectedAge];
+            answers = {};
+            currentSectionIndex = 0;
+            currentQuestionIndex = 0;
+            
+            // 显示第一个问题
+            showCurrentQuestion();
+        }
+
+        // 显示当前问题
+        function showCurrentQuestion() {
+            const section = currentData.sections[currentSectionIndex];
+            const question = section.questions[currentQuestionIndex];
+            const globalQuestionIndex = getGlobalQuestionIndex();
+            
+            // 更新标题
+            sectionTitle.innerHTML = `<i class="${section.icon}"></i> ${section.name}`;
+            sectionSubtitle.textContent = section.description;
+            
+            // 更新进度
+            const progress = (globalQuestionIndex / totalQuestions) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${globalQuestionIndex} / ${totalQuestions}`;
+            currentQuestionSpan.textContent = globalQuestionIndex;
+            totalQuestionsSpan.textContent = totalQuestions;
+            
+            // 生成问题HTML
+            questionsContainer.innerHTML = `
+                <div class="question-item">
+                    <div class="question-text">${globalQuestionIndex}. ${question.text}</div>
+                    <div class="answer-options">
+                        ${scoreOptions.map(option => `
+                            <label class="option-label" data-score="${option.score}">
+                                <div class="option-score">${option.score}</div>
+                                <div class="option-text">${option.text}</div>
+                                <div class="option-description">${option.description}</div>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // 添加选项点击事件
+            const optionLabels = questionsContainer.querySelectorAll('.option-label');
+            optionLabels.forEach(label => {
+                label.addEventListener('click', () => {
+                    optionLabels.forEach(l => l.classList.remove('selected'));
+                    label.classList.add('selected');
+                    
+                    const score = parseInt(label.dataset.score);
+                    answers[question.id] = score;
+                    
+                    nextBtn.disabled = false;
+                    
+                    // 添加选择动画
+                    label.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        label.style.transform = 'translateY(-2px)';
+                        
+                        // 自动跳转到下一题
+                        setTimeout(() => {
+                            if (getGlobalQuestionIndex() === totalQuestions) {
+                                showResults();
+                            } else {
+                                nextQuestion();
+                            }
+                        }, 500); // 500ms延迟，让用户看到选择结果
+                    }, 100);
+                });
+            });
+            
+            // 如果已有答案，显示选择
+            if (answers[question.id]) {
+                const selectedLabel = questionsContainer.querySelector(`[data-score="${answers[question.id]}"]`);
+                if (selectedLabel) {
+                    selectedLabel.classList.add('selected');
+                    nextBtn.disabled = false;
+                }
+            } else {
+                nextBtn.disabled = true;
+            }
+            
+            // 更新导航按钮
+            prevBtn.style.visibility = globalQuestionIndex > 1 ? 'visible' : 'hidden';
+            
+            if (globalQuestionIndex === totalQuestions) {
+                nextBtn.innerHTML = '<i class="fas fa-chart-line"></i> 查看结果';
+            } else {
+                nextBtn.innerHTML = '下一题 <i class="fas fa-arrow-right"></i>';
+            }
+        }
+
+        // 获取全局问题索引
+        function getGlobalQuestionIndex() {
+            let index = 1;
+            for (let i = 0; i < currentSectionIndex; i++) {
+                index += currentData.sections[i].questions.length;
+            }
+            return index + currentQuestionIndex;
+        }
+
+        // 导航按钮事件
+        nextBtn.addEventListener('click', () => {
+            if (getGlobalQuestionIndex() === totalQuestions) {
+                showResults();
+            } else {
+                nextQuestion();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            prevQuestion();
+        });
+
+        // 下一题
+        function nextQuestion() {
+            if (currentQuestionIndex < currentData.sections[currentSectionIndex].questions.length - 1) {
+                currentQuestionIndex++;
+            } else {
+                currentSectionIndex++;
+                currentQuestionIndex = 0;
+            }
+            showCurrentQuestion();
+        }
+
+        // 上一题
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+            } else {
+                currentSectionIndex--;
+                currentQuestionIndex = currentData.sections[currentSectionIndex].questions.length - 1;
+            }
+            showCurrentQuestion();
+        }
+
+        // 显示结果
+        function showResults() {
+            // 隐藏问卷，显示结果
+            document.getElementById('assessmentForm').style.display = 'none';
+            
+            // 计算分数
+            const scores = calculateScores();
+            const totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
+            
+            // 提交数据到后端
+            submitAssessmentData(scores, totalScore);
+            
+            // 生成结果HTML
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.style.display = 'block';
+            resultsContainer.innerHTML = generateResultsHTML(scores, totalScore);
+            
+            // 滚动到结果页面顶部
+            setTimeout(() => {
+                resultsContainer.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }, 100);
+        }
+
+        // 保存评估数据到本地存储（纯前端展示版本）
+        async function submitAssessmentData(scores, totalScore) {
+            try {
+                // 如果有预设测试答案，使用预设答案
+                if (window.presetAnswers) {
+                    answers = window.presetAnswers;
+                    console.log('使用预设测试答案:', window.testPatternName);
+                    showNotification('正在使用测试数据：' + window.testPatternName, 'info');
+                    
+                    // 重新计算分数（基于预设答案）
+                    scores = calculateScores();
+                    totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
+                }
+                
+                console.log('开始保存评估数据到本地...');
+                console.log('个人信息:', personalInfo);
+                console.log('年龄组:', selectedAge);
+                console.log('答案数据:', answers);
+                console.log('计算得分:', scores);
+                
+                const assessmentData = {
+                    childName: personalInfo.name || '',
+                    childAge: parseFloat(personalInfo.age) || 0,
+                    childGender: personalInfo.gender || '',
+                    childDiagnosis: personalInfo.diagnosis || '无',
+                    parentName: personalInfo.parentName || '',
+                    parentPhone: personalInfo.parentPhone || '',
+                    parentEmail: personalInfo.parentEmail || '',
+                    ageGroup: selectedAge,
+                    answers: answers,
+                    scores: scores,
+                    totalScore: totalScore,
+                    timestamp: new Date().toISOString()
+                };
+
+                console.log('准备保存的数据:', assessmentData);
+
+                // 生成唯一的评估ID
+                const assessmentId = 'assessment_' + Date.now();
+                assessmentData.id = assessmentId;
+                
+                // 保存到localStorage
+                localStorage.setItem('lastAssessment', JSON.stringify(assessmentData));
+                window.lastAssessmentId = assessmentId;
+                
+                // 保存到历史记录
+                let history = JSON.parse(localStorage.getItem('assessmentHistory') || '[]');
+                history.unshift(assessmentData);
+                // 只保留最近10条记录
+                if (history.length > 10) {
+                    history = history.slice(0, 10);
+                }
+                localStorage.setItem('assessmentHistory', JSON.stringify(history));
+                
+                console.log('✓ 评估数据已成功保存到本地存储, ID:', assessmentId);
+                
+                // 显示成功提示
+                showNotification('评估数据已保存（展示版本，数据仅存储在浏览器本地）', 'success');
+                
+            } catch (error) {
+                console.error('✗ 保存评估数据时出错:', error);
+                showNotification('数据保存失败: ' + error.message, 'error');
+            }
+        }
+
+        // 显示通知消息
+        function showNotification(message, type = 'info') {
+            // 创建通知元素
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4caf50' : type === 'error' ? '#f44336' : '#2196f3'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                font-size: 14px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+                max-width: 300px;
+                word-wrap: break-word;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // 3秒后自动移除
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+
+        // 计算各维度分数
+        function calculateScores() {
+            const scores = {
+                touch: 0, vestibular: 0, proprioceptive: 0,
+                visual: 0, auditory: 0, attention: 0
+            };
+            
+            // 题目到维度的映射（基于后端API的逻辑）
+            const categoryMapping = {
+                1: 'touch', 7: 'touch', 13: 'touch', 19: 'touch', 25: 'touch', 31: 'touch',
+                2: 'vestibular', 8: 'vestibular', 14: 'vestibular', 20: 'vestibular', 26: 'vestibular', 32: 'vestibular',
+                3: 'proprioceptive', 9: 'proprioceptive', 15: 'proprioceptive', 21: 'proprioceptive', 27: 'proprioceptive', 33: 'proprioceptive',
+                4: 'visual', 10: 'visual', 16: 'visual', 22: 'visual', 28: 'visual', 34: 'visual',
+                5: 'auditory', 11: 'auditory', 17: 'auditory', 23: 'auditory', 29: 'auditory', 35: 'auditory',
+                6: 'attention', 12: 'attention', 18: 'attention', 24: 'attention', 30: 'attention', 36: 'attention'
+            };
+            
+            // 根据答案计算各维度得分
+            Object.keys(answers).forEach(questionId => {
+                const category = categoryMapping[parseInt(questionId)];
+                if (category && answers[questionId]) {
+                    scores[category] += parseInt(answers[questionId]);
+                }
+            });
+            
+            return scores;
+        }
+
+        // 生成结果HTML
+        function generateResultsHTML(scores, totalScore) {
+            const interpretation = getScoreInterpretation(totalScore);
+            const recommendations = getRecommendations(scores);
+            
+            return `
+                <div class="results-section" style="background: var(--bg-gradient); border-radius: var(--border-radius-xl); padding: 3rem; box-shadow: var(--shadow-lg); text-align: center;">
+                    <div class="results-header" style="margin-bottom: 3rem;">
+                        <div class="results-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(78, 208, 232, 0.1); color: var(--success-color); border-radius: var(--border-radius-lg); font-weight: 600; font-size: 0.875rem; margin-bottom: 1rem;">
+                            <i class="fas fa-chart-line"></i>
+                            测评完成
+                        </div>
+                        <h2 class="results-title" style="font-size: 2.5rem; font-weight: 800; color: var(--primary-color); margin-bottom: 1rem;">感觉统合能力评估报告</h2>
+                        <div class="personal-info-display" style="background: var(--bg-accent); border-radius: var(--border-radius-lg); padding: 1.5rem; margin-bottom: 2rem; box-shadow: var(--shadow-sm);">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
+                                <div><strong>姓名：</strong><span style="color: var(--text-secondary);">${personalInfo.name || '未填写'}</span></div>
+                                <div><strong>年龄：</strong><span style="color: var(--text-secondary);">${personalInfo.age ? personalInfo.age + '岁' : '未填写'}</span></div>
+                                <div><strong>性别：</strong><span style="color: var(--text-secondary);">${personalInfo.gender || '未填写'}</span></div>
+                                <div><strong>诊断情况：</strong><span style="color: var(--text-secondary);">${personalInfo.diagnosis || '未填写'}</span></div>
+                            </div>
+                            
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-light); display: flex; gap: 2rem; flex-wrap: wrap; font-size: 0.9rem; color: var(--text-light);">
+                                <div><i class="fas fa-calendar"></i> 评估日期：${new Date().toLocaleDateString()}</div>
+                                <div><i class="fas fa-users"></i> 年龄段：${selectedAge === '0-3' ? '0-3岁' : selectedAge === '3-6' ? '3-6岁' : '6岁以上'}</div>
+                            </div>
+                        </div>
+                        <div class="results-summary" style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap;">
+                            <div class="total-score" style="text-align: center;">
+                                <div class="score-number" style="font-size: 4rem; font-weight: 800; color: var(--secondary-color); line-height: 1;">${totalScore}</div>
+                                <div class="score-label" style="font-size: 1.2rem; color: var(--text-secondary); font-weight: 600;">总分 (满分120分)</div>
+                            </div>
+                            <div class="score-interpretation">
+                                <div class="interpretation-level ${interpretation.level}" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: ${getInterpretationColor(interpretation.level)};">${interpretation.title}</div>
+                                <div class="interpretation-text" style="color: var(--text-secondary); max-width: 400px;">${interpretation.description}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detailed-scores" style="margin-bottom: 3rem;">
+                        <h3 style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin-bottom: 2rem;">各维度详细评估</h3>
+                        <div class="scores-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                            ${Object.entries(scores).map(([category, score]) => {
+                                const categoryInfo = getCategoryInfo(category);
+                                const level = getCategoryLevel(score);
+                                return `
+                                    <div class="score-card" onclick="scrollToRecommendation('${category}')" style="background: var(--bg-primary); border-radius: var(--border-radius-lg); padding: 2rem; text-align: center; border: 2px solid ${level.color}; transition: var(--transition); cursor: pointer;">
+                                        <div class="score-card-header" style="margin-bottom: 1rem;">
+                                            <i class="${categoryInfo.icon}" style="font-size: 2rem; color: ${level.color}; margin-bottom: 0.5rem;"></i>
+                                            <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary);">${categoryInfo.name}</h4>
+                                        </div>
+                                        <div class="score-value" style="font-size: 2rem; font-weight: 800; color: ${level.color}; margin-bottom: 0.5rem;">${score}/20</div>
+                                        <div class="score-level" style="padding: 0.5rem 1rem; border-radius: var(--border-radius-md); background: ${level.bgColor}; color: ${level.color}; font-weight: 600; margin-bottom: 1rem;">${level.text}</div>
+                                        <div class="score-description" style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">${categoryInfo.description}</div>
+                                        ${score > 7 ? '<div style="color: var(--primary-color); font-size: 0.9rem; font-weight: 600;"><i class="fas fa-arrow-down"></i> 点击查看训练建议</div>' : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="recommendations-section" style="text-align: left;">
+                        <h3 style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin-bottom: 2rem; text-align: center;">个性化训练建议</h3>
+                        ${recommendations}
+                    </div>
+                    
+                    <div class="action-buttons" style="display: flex; justify-content: center; gap: 1rem; margin-top: 3rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="downloadReport()" style="padding: 1rem 2rem; border-radius: var(--border-radius-lg); font-weight: 600; text-decoration: none; border: none; cursor: pointer; font-size: 1rem; transition: var(--transition); display: flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); color: white; box-shadow: var(--shadow-md);">
+                            <i class="fas fa-download"></i>
+                            下载评估报告
+                        </button>
+                        <button class="btn btn-secondary" onclick="restartAssessment()" style="padding: 1rem 2rem; border-radius: var(--border-radius-lg); font-weight: 600; text-decoration: none; border: none; cursor: pointer; font-size: 1rem; transition: var(--transition); display: flex; align-items: center; gap: 0.5rem; background: var(--bg-secondary); color: var(--text-secondary); border: 2px solid var(--border-color);">
+                            <i class="fas fa-redo"></i>
+                            重新测评
+                        </button>
+                        <a href="training.html" class="btn btn-primary" style="padding: 1rem 2rem; border-radius: var(--border-radius-lg); font-weight: 600; text-decoration: none; border: none; cursor: pointer; font-size: 1rem; transition: var(--transition); display: flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--success-color), var(--accent-color)); color: white; box-shadow: var(--shadow-md);">
+                            <i class="fas fa-dumbbell"></i>
+                            开始训练
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 获取分数解释
+        function getScoreInterpretation(totalScore) {
+            if (totalScore <= 42) {
+                return {
+                    level: 'normal',
+                    title: '感觉统合发展良好',
+                    description: '孩子的感觉统合能力发展正常，各个感觉系统协调工作良好，能够顺利适应日常活动和学习环境。'
+                };
+            } else if (totalScore <= 54) {
+                return {
+                    level: 'mild',
+                    title: '轻度感觉统合困难',
+                    description: '孩子在某些感觉处理方面存在轻微困难，建议通过日常感觉统合训练活动进行改善。'
+                };
+            } else if (totalScore <= 66) {
+                return {
+                    level: 'moderate',
+                    title: '中度感觉统合失调',
+                    description: '孩子的感觉统合能力需要专业指导和系统训练来改善，建议寻求专业治疗师帮助。'
+                };
+            } else {
+                return {
+                    level: 'severe',
+                    title: '重度感觉统合失调',
+                    description: '建议尽快寻求专业感觉统合治疗师的帮助，制定个性化的干预方案。'
+                };
+            }
+        }
+
+        // 获取解释颜色
+        function getInterpretationColor(level) {
+            const colors = {
+                normal: 'var(--success-color)',
+                mild: 'var(--warning-color)',
+                moderate: 'var(--error-color)',
+                severe: '#d63384'
+            };
+            return colors[level];
+        }
+
+        // 获取类别信息
+        function getCategoryInfo(category) {
+            const categoryMap = {
+                touch: { name: '触觉能力', icon: 'fas fa-hand-paper', description: '触觉处理和适应能力' },
+                vestibular: { name: '前庭觉能力', icon: 'fas fa-balance-scale', description: '平衡和空间定向能力' },
+                proprioceptive: { name: '本体觉能力', icon: 'fas fa-running', description: '身体意识和动作协调' },
+                visual: { name: '视觉能力', icon: 'fas fa-eye', description: '视觉处理和感知能力' },
+                auditory: { name: '听觉能力', icon: 'fas fa-ear', description: '听觉处理和理解能力' },
+                attention: { name: '注意力调节', icon: 'fas fa-heart', description: '专注力和情绪管理能力' }
+            };
+            return categoryMap[category];
+        }
+
+        // 获取类别评级
+        function getCategoryLevel(score) {
+            if (score <= 7) {
+                return { 
+                    class: 'normal', 
+                    text: '正常', 
+                    color: 'var(--success-color)', 
+                    bgColor: 'rgba(78, 208, 232, 0.1)' 
+                };
+            } else if (score <= 10) {
+                return { 
+                    class: 'mild', 
+                    text: '轻度困难', 
+                    color: 'var(--warning-color)', 
+                    bgColor: 'rgba(255, 190, 80, 0.1)' 
+                };
+            } else {
+                return { 
+                    class: 'severe', 
+                    text: '中重度困难', 
+                    color: 'var(--error-color)', 
+                    bgColor: 'rgba(219, 95, 124, 0.1)' 
+                };
+            }
+        }
+
+        // 获取训练建议
+        function getRecommendations(scores) {
+            const recommendations = [];
+            
+            Object.entries(scores).forEach(([category, score]) => {
+                if (score > 7) {
+                    const categoryInfo = getCategoryInfo(category);
+                    const training = getTrainingRecommendations(category, selectedAge);
+                    const urgencyLevel = score > 10 ? 'high' : 'medium';
+                    const urgencyText = score > 10 ? '重点关注' : '适度训练';
+                    const urgencyColor = score > 10 ? 'var(--error-color)' : 'var(--warning-color)';
+                    
+                    recommendations.push(`
+                        <div id="recommendation-${category}" class="recommendation-card" style="background: var(--bg-primary); border-radius: var(--border-radius-lg); padding: 2rem; margin-bottom: 1.5rem; border-left: 4px solid ${urgencyColor};">
+                            <div class="recommendation-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <i class="${categoryInfo.icon}" style="color: ${urgencyColor}; font-size: 1.5rem;"></i>
+                                    <h4 style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">${categoryInfo.name}训练建议</h4>
+                                </div>
+                                <span class="urgency" style="padding: 0.5rem 1rem; border-radius: var(--border-radius-md); background: ${urgencyColor}20; color: ${urgencyColor}; font-weight: 600; font-size: 0.9rem;">
+                                    ${urgencyText}
+                                </span>
+                            </div>
+                            <div class="training-methods">
+                                ${training.map(method => `
+                                    <div class="training-method" style="background: var(--bg-accent); border-radius: var(--border-radius-md); padding: 1.5rem; margin-bottom: 1rem;">
+                                        <h5 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem;">${method.title}</h5>
+                                        <p style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6;">${method.description}</p>
+                                        <div class="method-details" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                                            <span style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-light); font-size: 0.9rem;"><i class="fas fa-clock"></i> ${method.frequency}</span>
+                                            <span style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-light); font-size: 0.9rem;"><i class="fas fa-tools"></i> ${method.materials}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="more-training-section" style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light);">
+                                <a href="training.html" class="more-training-btn" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, var(--accent-color), var(--accent-light)); color: var(--text-primary); text-decoration: none; border-radius: var(--border-radius-lg); font-weight: 600; transition: var(--transition); box-shadow: var(--shadow-sm);">
+                                    <i class="fas fa-plus-circle"></i>
+                                    更多训练方案
+                                    <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `);
+                }
+            });
+            
+            if (recommendations.length === 0) {
+                return `<div class="no-recommendations" style="text-align: center; padding: 3rem; background: var(--bg-primary); border-radius: var(--border-radius-lg); border: 2px solid var(--success-color);">
+                    <i class="fas fa-star" style="font-size: 3rem; color: var(--success-color); margin-bottom: 1rem;"></i>
+                    <h4 style="font-size: 1.5rem; font-weight: 700; color: var(--success-color); margin-bottom: 1rem;">表现优秀！</h4>
+                    <p style="color: var(--text-secondary);">恭喜！孩子的感觉统合发展良好，继续保持现有的活动和游戏即可。建议定期进行户外运动和多样化的感官体验活动。</p>
+                </div>`;
+            }
+            
+            return recommendations.join('');
+        }
+
+        // 获取训练建议
+        function getTrainingRecommendations(category, age) {
+            const trainingMethods = {
+                touch: [
+                    {
+                        title: '触觉脱敏训练',
+                        description: '使用不同材质的物品进行触觉体验，从粗糙到光滑，循序渐进地提高触觉适应能力。包括触觉刷、不同质地的布料、豆子抓握等活动。',
+                        frequency: '每日2次，每次10-15分钟',
+                        materials: '触觉刷、丝绸、砂纸、各种质地布料'
+                    },
+                    {
+                        title: '触觉探索游戏',
+                        description: '通过"神秘盒"游戏、手指画、泥巴游戏等活动，增强孩子对不同触觉刺激的接受度和辨别能力。',
+                        frequency: '每周3-4次，每次20分钟',
+                        materials: '神秘盒、手指颜料、橡皮泥、沙子'
+                    }
+                ],
+                vestibular: [
+                    {
+                        title: '平衡协调训练',
+                        description: '通过平衡木行走、单脚站立、旋转游戏等活动提升前庭觉功能，改善平衡能力和空间定向感。',
+                        frequency: '每日1次，每次15-20分钟',
+                        materials: '平衡木、平衡垫、旋转椅'
+                    },
+                    {
+                        title: '摇摆刺激训练',
+                        description: '利用秋千、吊床、大龙球等器材进行有节奏的摇摆运动，刺激前庭系统发育。',
+                        frequency: '每日1-2次，每次10-15分钟',
+                        materials: '秋千、吊床、治疗球'
+                    }
+                ],
+                proprioceptive: [
+                    {
+                        title: '本体觉强化训练',
+                        description: '通过推拉重物、关节挤压、阻力运动等活动增强身体意识和肌肉力量感知能力。',
+                        frequency: '每日1-2次，每次10-15分钟',
+                        materials: '重物、阻力带、墙面推压'
+                    },
+                    {
+                        title: '精细动作训练',
+                        description: '进行串珠、拼图、剪纸、书写等精细动作练习，提高手眼协调和动作计划能力。',
+                        frequency: '每日2次，每次15-20分钟',
+                        materials: '串珠、拼图、剪刀、铅笔'
+                    }
+                ],
+                visual: [
+                    {
+                        title: '视觉追踪训练',
+                        description: '使用追踪球、连线游戏、迷宫等提升视觉追踪和空间感知能力。',
+                        frequency: '每日1次，每次15-20分钟',
+                        materials: '追踪球、连线册、迷宫书'
+                    },
+                    {
+                        title: '视觉辨别训练',
+                        description: '通过找不同、配对游戏、图形分类等活动提高视觉辨别和记忆能力。',
+                        frequency: '每日1次，每次10-15分钟',
+                        materials: '找茬书、配对卡片、图形卡'
+                    }
+                ],
+                auditory: [
+                    {
+                        title: '听觉训练',
+                        description: '通过音乐游戏、声音辨别、节奏模仿等活动提升听觉处理和辨别能力。',
+                        frequency: '每日1次，每次15-20分钟',
+                        materials: '音乐播放器、各种乐器、声音卡片'
+                    },
+                    {
+                        title: '语言听觉训练',
+                        description: '进行故事复述、指令执行、听觉记忆等训练，提高听觉理解和处理能力。',
+                        frequency: '每日2次，每次10-15分钟',
+                        materials: '故事书、指令卡片、录音设备'
+                    }
+                ],
+                attention: [
+                    {
+                        title: '专注力训练',
+                        description: '通过静态游戏、拼图、积木搭建等活动提升注意力集中时间和质量。',
+                        frequency: '每日1-2次，每次10-15分钟',
+                        materials: '拼图、积木、专注力游戏'
+                    },
+                    {
+                        title: '情绪调节训练',
+                        description: '教孩子深呼吸、放松技巧、情绪识别等方法，提高情绪管理和自我调节能力。',
+                        frequency: '每日1次，每次10-15分钟',
+                        materials: '情绪卡片、放松音乐、正念指导'
+                    }
+                ]
+            };
+            
+            return trainingMethods[category] || [];
+        }
+
+        // 下载报告（纯前端版本）
+        async function downloadReport() {
+            if (!window.lastAssessmentId) {
+                alert('评估数据未找到，请重新进行测评');
+                return;
+            }
+
+            try {
+                console.log('开始生成客户端报告...');
+                // 直接使用客户端生成报告
+                downloadReportFallback();
+                showNotification('报告已生成并下载', 'success');
+            } catch (error) {
+                console.error('生成报告时出错:', error);
+                showNotification('生成报告失败: ' + error.message, 'error');
+            }
+        }
+
+        // 降级方案：客户端生成报告
+        function downloadReportFallback() {
+            // 生成报告内容
+            const reportContent = generateReportContent();
+            
+            // 创建Blob对象
+            const blob = new Blob([reportContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            // 创建下载链接
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `感觉统合评估报告_${new Date().toISOString().split('T')[0]}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // 生成报告内容
+        function generateReportContent() {
+            const scores = calculateScores();
+            const totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
+            const interpretation = getScoreInterpretation(totalScore);
+            
+            return `
+                <!DOCTYPE html>
+                <html lang="zh-CN">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>感觉统合评估报告</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+                        .header { text-align: center; margin-bottom: 30px; }
+                        .score-summary { background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+                        .category-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+                        .category-card { background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff; }
+                        .recommendations { margin-top: 30px; }
+                        .recommendation { background: #f8f9fa; padding: 15px; margin-bottom: 15px; border-radius: 8px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>感觉统合能力评估报告</h1>
+                        <div class="personal-info">
+                            <p><strong>姓名：</strong>${personalInfo.name || '未填写'}</p>
+                            <p><strong>年龄：</strong>${personalInfo.age ? personalInfo.age + '岁' : '未填写'}</p>
+                            <p><strong>性别：</strong>${personalInfo.gender || '未填写'}</p>
+                            <p><strong>诊断情况：</strong>${personalInfo.diagnosis || '未填写'}</p>
+
+                        </div>
+                        <p>评估日期：${new Date().toLocaleDateString()}</p>
+                        <p>年龄段：${selectedAge === '0-3' ? '0-3岁' : selectedAge === '3-6' ? '3-6岁' : '6岁以上'}</p>
+                    </div>
+                    
+                    <div class="score-summary">
+                        <h2>评估结果总结</h2>
+                        <p><strong>总分：</strong>${totalScore}/120分</p>
+                        <p><strong>评估结果：</strong>${interpretation.title}</p>
+                        <p><strong>说明：</strong>${interpretation.description}</p>
+                    </div>
+                    
+                    <h2>各维度详细分数</h2>
+                    <div class="category-scores">
+                        ${Object.entries(scores).map(([category, score]) => {
+                            const categoryInfo = getCategoryInfo(category);
+                            const level = getCategoryLevel(score);
+                            return `
+                                <div class="category-card">
+                                    <h3>${categoryInfo.name}</h3>
+                                    <p><strong>得分：</strong>${score}/20分</p>
+                                    <p><strong>水平：</strong>${level.text}</p>
+                                    <p>${categoryInfo.description}</p>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    
+                    <div class="recommendations">
+                        <h2>训练建议</h2>
+                        ${getRecommendations(scores)}
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #666;">
+                        <p>本报告由感觉统合训练中心专业评估系统生成</p>
+                        <p>如需专业指导，请联系我们的治疗师团队</p>
+                    </div>
+                </body>
+                </html>
+            `;
+        }
+
+        // 重新开始测评
+        function restartAssessment() {
+            location.reload();
+        }
+
+        // 滚动到相应的训练建议
+        function scrollToRecommendation(category) {
+            const recommendationElement = document.getElementById(`recommendation-${category}`);
+            if (recommendationElement) {
+                // 平滑滚动到训练建议
+                recommendationElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // 添加高亮动画效果
+                recommendationElement.style.transition = 'all 0.6s ease';
+                recommendationElement.style.transform = 'scale(1.02)';
+                recommendationElement.style.boxShadow = 'var(--shadow-xl)';
+                recommendationElement.style.borderLeft = '6px solid var(--primary-color)';
+                
+                // 恢复原状
+                setTimeout(() => {
+                    recommendationElement.style.transform = 'scale(1)';
+                    recommendationElement.style.boxShadow = 'var(--shadow-lg)';
+                    recommendationElement.style.borderLeft = '4px solid var(--primary-color)';
+                }, 800);
+            } else {
+                // 如果没有对应的训练建议，滚动到训练建议区域
+                const recommendationsSection = document.querySelector('.recommendations-section');
+                if (recommendationsSection) {
+                    recommendationsSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            }
+        }
+
+        // 移动端导航菜单
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (mobileMenuToggle && navLinks) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    console.log('移动菜单按钮被点击');
+                    navLinks.classList.toggle('mobile-active');
+                    
+                    // 切换图标
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (navLinks.classList.contains('mobile-active')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+
+                // 点击导航链接时关闭菜单
+                navLinks.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('nav-link')) {
+                        navLinks.classList.remove('mobile-active');
+                        const icon = mobileMenuToggle.querySelector('i');
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+
+                // 窗口大小变化时关闭移动菜单
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navLinks.classList.remove('mobile-active');
+                        const icon = mobileMenuToggle.querySelector('i');
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
